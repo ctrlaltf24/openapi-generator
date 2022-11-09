@@ -4,6 +4,11 @@
 {{#description}}
 /// {{{classname}}} : {{{description}}}
 {{/description}}
+{{^discriminator}}
+{{#oneOf}}
+use super::{{{.}}};
+{{/oneOf}}
+{{/discriminator}}
 
 {{!-- for enum schemas --}}
 {{#isEnum}}
@@ -64,6 +69,7 @@ pub enum {{{classname}}} {
 {{!-- for non-enum schemas --}}
 {{^isEnum}}
 {{^discriminator}}
+{{#oneOf.isEmpty}}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct {{{classname}}} {
 {{#vars}}
@@ -87,6 +93,22 @@ impl {{{classname}}} {
         }
     }
 }
+{{/oneOf.isEmpty}}
+{{^oneOf.isEmpty}}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+pub enum {{classname}} {
+    {{#oneOf}}
+    {{#description}}
+    /// {{{.}}}
+    {{/description}}
+    {{{.}}} {
+        #[serde(flatten)]
+        inner: Box<{{{.}}}>,
+        {{! TODO: add other vars that are not part of the oneOf}}
+    },
+    {{/oneOf}}
+}
+{{/oneOf.isEmpty}}
 {{/discriminator}}
 {{/isEnum}}
 
