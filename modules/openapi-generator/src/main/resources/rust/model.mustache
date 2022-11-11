@@ -95,17 +95,14 @@ impl {{{classname}}} {
 }
 {{/oneOf.isEmpty}}
 {{^oneOf.isEmpty}}
+{{! TODO: add other vars that are not part of the oneOf}}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub enum {{classname}} {
     {{#oneOf}}
     {{#description}}
     /// {{{.}}}
     {{/description}}
-    {{{.}}} {
-        #[serde(flatten)]
-        inner: Box<{{{.}}}>,
-        {{! TODO: add other vars that are not part of the oneOf}}
-    },
+    {{{.}}}(Box<{{{.}}}>),
     {{/oneOf}}
 }
 {{/oneOf.isEmpty}}
