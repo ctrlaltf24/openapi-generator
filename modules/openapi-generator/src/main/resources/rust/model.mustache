@@ -105,6 +105,12 @@ pub enum {{classname}} {
     {{{.}}}(Box<{{{.}}}>),
     {{/oneOf}}
 }
+
+impl Default for {{classname}} {
+    fn default() -> Self {
+        {{#oneOf}}{{#-first}}Self::{{{.}}}(Box::new({{{.}}}::default())){{/-first}}{{/oneOf}}
+    }
+}
 {{/oneOf.isEmpty}}
 {{/discriminator}}
 {{/isEnum}}
