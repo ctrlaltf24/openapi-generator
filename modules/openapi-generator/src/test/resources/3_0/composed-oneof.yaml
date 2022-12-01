@@ -23,7 +23,7 @@ paths:
                   mapping:
                     a-type: '#/components/schemas/ObjA'
                     b-type: '#/components/schemas/ObjB'
-                    dg-type: '#/components/schemas/ObjD'
+                    d-type: '#/components/schemas/ObjD'
     post:
       operationId: createState
       requestBody:

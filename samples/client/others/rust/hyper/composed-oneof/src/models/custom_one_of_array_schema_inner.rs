@@ -32,6 +32,14 @@ pub enum CustomOneOfArraySchemaInner {
     },
 }
 
+impl Default for CustomOneOfArraySchemaInner {
+    fn default() -> Self {
+        Self::ObjA {
+            message: Default::default(),
+        }
+    }
+}
+
 
 
 

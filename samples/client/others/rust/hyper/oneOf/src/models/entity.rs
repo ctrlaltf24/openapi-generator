@@ -126,6 +126,20 @@ pub enum Entity {
     },
 }
 
+impl Default for Entity {
+    fn default() -> Self {
+        Self::Bar {
+            id: Default::default(),
+            bar_prop_a: Default::default(),
+            foo_prop_b: Default::default(),
+            foo: Default::default(),
+            href: Default::default(),
+            at_schema_location: Default::default(),
+            at_base_type: Default::default(),
+        }
+    }
+}
+
 
 
 

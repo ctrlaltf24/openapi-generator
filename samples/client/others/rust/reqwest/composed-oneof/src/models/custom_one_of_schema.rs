@@ -27,6 +27,14 @@ pub enum CustomOneOfSchema {
     },
 }
 
+impl Default for CustomOneOfSchema {
+    fn default() -> Self {
+        Self::ObjA {
+            message: Default::default(),
+        }
+    }
+}
+
 
 
 
