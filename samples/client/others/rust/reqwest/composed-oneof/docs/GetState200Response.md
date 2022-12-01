@@ -1,13 +1,28 @@
 # GetState200Response
 
-## Properties
+## Enum Variants
+
+| Name | Value |
+|---- | -----|
+| ObjA | a-type |
+| ObjB | b-type |
+| ObjD | d-type |
+
+## ObjA
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**realtype** | Option<**String**> |  | [optional]
 **message** | Option<**String**> |  | [optional]
+## ObjB
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
 **description** | Option<**String**> |  | [optional]
 **code** | Option<**i32**> |  | [optional]
+## ObjD
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
 **color** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
