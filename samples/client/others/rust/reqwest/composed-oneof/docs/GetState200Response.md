@@ -13,12 +13,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | Option<**String**> |  | [optional]
+
 ## ObjB
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | Option<**String**> |  | [optional]
 **code** | Option<**i32**> |  | [optional]
+
 ## ObjD
 
 Name | Type | Description | Notes

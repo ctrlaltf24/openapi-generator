@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | unique identifier | [optional]
 **at_schema_location** | Option<**String**> | A URI to a JSON-Schema file that defines additional attributes and relationships | [optional]
 **at_base_type** | Option<**String**> | When sub-classing, this defines the super-class | [optional]
+
 ## FooRef
 
 Name | Type | Description | Notes
