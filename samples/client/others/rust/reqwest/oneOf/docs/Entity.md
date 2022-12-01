@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **href** | Option<**String**> | Hyperlink reference | [optional]
 **at_schema_location** | Option<**String**> | A URI to a JSON-Schema file that defines additional attributes and relationships | [optional]
 **at_base_type** | Option<**String**> | When sub-classing, this defines the super-class | [optional]
+
 ## BarCreate
 
 Name | Type | Description | Notes
@@ -33,6 +34,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | unique identifier | [optional]
 **at_schema_location** | Option<**String**> | A URI to a JSON-Schema file that defines additional attributes and relationships | [optional]
 **at_base_type** | Option<**String**> | When sub-classing, this defines the super-class | [optional]
+
 ## Foo
 
 Name | Type | Description | Notes
@@ -43,6 +45,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | unique identifier | [optional]
 **at_schema_location** | Option<**String**> | A URI to a JSON-Schema file that defines additional attributes and relationships | [optional]
 **at_base_type** | Option<**String**> | When sub-classing, this defines the super-class | [optional]
+
 ## Pasta
 
 Name | Type | Description | Notes
@@ -52,6 +55,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | unique identifier | [optional]
 **at_schema_location** | Option<**String**> | A URI to a JSON-Schema file that defines additional attributes and relationships | [optional]
 **at_base_type** | Option<**String**> | When sub-classing, this defines the super-class | [optional]
+
 ## Pizza
 
 Name | Type | Description | Notes
@@ -61,6 +65,7 @@ Name | Type | Description | Notes
 **id** | Option<**String**> | unique identifier | [optional]
 **at_schema_location** | Option<**String**> | A URI to a JSON-Schema file that defines additional attributes and relationships | [optional]
 **at_base_type** | Option<**String**> | When sub-classing, this defines the super-class | [optional]
+
 ## PizzaSpeziale
 
 Name | Type | Description | Notes

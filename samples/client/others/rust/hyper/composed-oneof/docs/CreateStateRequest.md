@@ -12,6 +12,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **message** | Option<**String**> |  | [optional]
+
 ## ObjB
 
 Name | Type | Description | Notes
