@@ -14,6 +14,7 @@ use super::BarRef;
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum BarRefOrValue {
     Bar(Box<Bar>),
     BarRef(Box<BarRef>),
