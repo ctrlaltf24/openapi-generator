@@ -97,6 +97,7 @@ impl {{{classname}}} {
 {{^oneOf.isEmpty}}
 {{! TODO: add other vars that are not part of the oneOf}}
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
 pub enum {{classname}} {
     {{#oneOf}}
     {{#description}}
