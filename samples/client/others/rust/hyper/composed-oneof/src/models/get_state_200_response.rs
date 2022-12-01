@@ -25,11 +25,19 @@ pub enum GetState200Response {
         #[serde(rename = "code", skip_serializing_if = "Option::is_none")]
         code: Option<i32>,
     },
-    #[serde(rename="dg-type")]
+    #[serde(rename="d-type")]
     ObjD {
         #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
         color: Option<String>,
     },
+}
+
+impl Default for GetState200Response {
+    fn default() -> Self {
+        Self::ObjA {
+            message: Default::default(),
+        }
+    }
 }
 
 

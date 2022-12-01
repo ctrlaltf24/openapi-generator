@@ -48,6 +48,17 @@ pub enum EntityRef {
     },
 }
 
+impl Default for EntityRef {
+    fn default() -> Self {
+        Self::BarRef {
+            href: Default::default(),
+            id: Default::default(),
+            at_schema_location: Default::default(),
+            at_base_type: Default::default(),
+        }
+    }
+}
+
 
 
 

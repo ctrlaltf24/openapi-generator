@@ -27,6 +27,14 @@ pub enum CreateStateRequest {
     },
 }
 
+impl Default for CreateStateRequest {
+    fn default() -> Self {
+        Self::ObjA {
+            message: Default::default(),
+        }
+    }
+}
+
 
 
 
