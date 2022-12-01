@@ -1,11 +1,21 @@
 # CustomOneOfSchema
 
-## Properties
+## Enum Variants
+
+| Name | Value |
+|---- | -----|
+| ObjA | a-type |
+| ObjB | b-type |
+
+## ObjA
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**realtype** | Option<**String**> |  | [optional]
 **message** | Option<**String**> |  | [optional]
+## ObjB
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
 **description** | Option<**String**> |  | [optional]
 **code** | Option<**i32**> |  | [optional]
 
