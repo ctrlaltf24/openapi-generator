@@ -19,22 +19,25 @@
  * Please update the test case below to test the model.
  */
 
-namespace {{modelPackage}};
+namespace {{modelTestsPackage}};
 
+use {{modelPackage}}\{{classname}};
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * {{classname}}Test Class Doc Comment
  *
- * @category    Class */
-// * @description {{description}}{{^description}}{{classname}}{{/description}}
-/**
+ * @category    Class
+ * @description {{description}}{{^description}}{{classname}}{{/description}}
  * @package     {{modelTestsPackage}}
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
+ * @coversDefaultClass \{{modelPackage}}\{{classname}}
  */
 class {{classname}}Test extends TestCase
 {
+    protected {{classname}}|MockObject $object;
 
     /**
      * Setup before running any test case
@@ -48,6 +51,9 @@ class {{classname}}Test extends TestCase
      */
     public function setUp(): void
     {
+        {{^isEnum}}
+        $this->object = $this->getMockBuilder({{classname}}::class)->getMockForAbstractClass();
+        {{/isEnum}}
     }
 
     /**
@@ -65,19 +71,30 @@ class {{classname}}Test extends TestCase
     }
 
     /**
-     * Test "{{classname}}"
+     * @group integration
+     * @small
      */
-    public function test{{classname}}()
+    public function testTestClassExists(): void
     {
-        $test{{classname}} = new {{classname}}();
+        {{#isEnum}}
+        $this->assertTrue(enum_exists({{classname}}::class));
+        {{/isEnum}}
+        {{^isEnum}}
+        $this->assertTrue(class_exists({{classname}}::class));
+        $this->assertInstanceOf({{classname}}::class, $this->object);
+        {{/isEnum}}
     }
 {{#vars}}
 
     /**
      * Test attribute "{{name}}"
+     *
+     * @group unit
+     * @small
      */
-    public function testProperty{{nameInCamelCase}}()
+    public function testProperty{{nameInCamelCase}}(): void
     {
+        $this->markTestSkipped('Test for property {{name}} not implemented');
     }
 {{/vars}}
 }

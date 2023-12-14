@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * A category for a pet
@@ -20,7 +21,6 @@ public class Category   {
   private Long id;
 
   private String name;
-
 
   /**
    **/
@@ -50,7 +50,7 @@ public class Category   {
   
   @ApiModelProperty(value = "")
   @JsonProperty("name")
-  public String getName() {
+ @Pattern(regexp="^[a-zA-Z0-9]+[a-zA-Z0-9\\.\\-_]*[a-zA-Z0-9]+$")  public String getName() {
     return name;
   }
   public void setName(String name) {

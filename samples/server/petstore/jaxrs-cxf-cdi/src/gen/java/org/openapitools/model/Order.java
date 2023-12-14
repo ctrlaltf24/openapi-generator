@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * An order for a pets from the pet store
@@ -28,7 +29,7 @@ public class Order   {
 
 public enum StatusEnum {
 
-    PLACED(String.valueOf("placed")), APPROVED(String.valueOf("approved")), DELIVERED(String.valueOf("delivered"));
+    @JsonProperty("placed") PLACED(String.valueOf("placed")), @JsonProperty("approved") APPROVED(String.valueOf("approved")), @JsonProperty("delivered") DELIVERED(String.valueOf("delivered"));
 
 
     private String value;
@@ -59,7 +60,6 @@ public enum StatusEnum {
   private StatusEnum status;
 
   private Boolean complete = false;
-
 
   /**
    **/

@@ -14,26 +14,28 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  Category,
+  FindPetsByStatusResponse,
+  FindPetsByUserResponse,
+  ModelApiResponse,
+  Pet,
+  PetRegionsResponse,
+} from '../models/index';
 import {
-    Category,
     CategoryFromJSON,
     CategoryToJSON,
-    FindPetsByStatusResponse,
     FindPetsByStatusResponseFromJSON,
     FindPetsByStatusResponseToJSON,
-    FindPetsByUserResponse,
     FindPetsByUserResponseFromJSON,
     FindPetsByUserResponseToJSON,
-    ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
-    Pet,
     PetFromJSON,
     PetToJSON,
-    PetRegionsResponse,
     PetRegionsResponseFromJSON,
     PetRegionsResponseToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AddPetRequest {
     dummyCat: Category;
@@ -172,6 +174,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple ids can be provided with comma separated strings.
      * Finds Pets by ids
+     * @deprecated
      */
     async findPetsByIdsRaw(requestParameters: FindPetsByIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Pet>>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -204,6 +207,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple ids can be provided with comma separated strings.
      * Finds Pets by ids
+     * @deprecated
      */
     async findPetsByIds(ids: Array<number>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Pet>> {
         const response = await this.findPetsByIdsRaw({ ids: ids }, initOverrides);
@@ -254,6 +258,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
      * Finds Pets by tags
+     * @deprecated
      */
     async findPetsByTagsRaw(requestParameters: FindPetsByTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Pet>>> {
         if (requestParameters.tags === null || requestParameters.tags === undefined) {
@@ -286,6 +291,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
      * Finds Pets by tags
+     * @deprecated
      */
     async findPetsByTags(tags: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Pet>> {
         const response = await this.findPetsByTagsRaw({ tags: tags }, initOverrides);
@@ -295,6 +301,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple ids can be provided with comma separated strings.
      * Finds Pets by user ids
+     * @deprecated
      */
     async findPetsByUserIdsRaw(requestParameters: FindPetsByUserIdsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FindPetsByUserResponse>> {
         if (requestParameters.ids === null || requestParameters.ids === undefined) {
@@ -327,6 +334,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple ids can be provided with comma separated strings.
      * Finds Pets by user ids
+     * @deprecated
      */
     async findPetsByUserIds(ids: Array<number>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FindPetsByUserResponse> {
         const response = await this.findPetsByUserIdsRaw({ ids: ids }, initOverrides);

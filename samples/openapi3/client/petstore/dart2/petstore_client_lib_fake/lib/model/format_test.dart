@@ -149,22 +149,22 @@ class FormatTest {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is FormatTest &&
-     other.integer == integer &&
-     other.int32 == int32 &&
-     other.int64 == int64 &&
-     other.number == number &&
-     other.float == float &&
-     other.double_ == double_ &&
-     other.decimal == decimal &&
-     other.string == string &&
-     other.byte == byte &&
-     other.binary == binary &&
-     other.date == date &&
-     other.dateTime == dateTime &&
-     other.uuid == uuid &&
-     other.password == password &&
-     other.patternWithDigits == patternWithDigits &&
-     other.patternWithDigitsAndDelimiter == patternWithDigitsAndDelimiter;
+    other.integer == integer &&
+    other.int32 == int32 &&
+    other.int64 == int64 &&
+    other.number == number &&
+    other.float == float &&
+    other.double_ == double_ &&
+    other.decimal == decimal &&
+    other.string == string &&
+    other.byte == byte &&
+    other.binary == binary &&
+    other.date == date &&
+    other.dateTime == dateTime &&
+    other.uuid == uuid &&
+    other.password == password &&
+    other.patternWithDigits == patternWithDigits &&
+    other.patternWithDigitsAndDelimiter == patternWithDigitsAndDelimiter;
 
   @override
   int get hashCode =>
@@ -190,48 +190,72 @@ class FormatTest {
   String toString() => 'FormatTest[integer=$integer, int32=$int32, int64=$int64, number=$number, float=$float, double_=$double_, decimal=$decimal, string=$string, byte=$byte, binary=$binary, date=$date, dateTime=$dateTime, uuid=$uuid, password=$password, patternWithDigits=$patternWithDigits, patternWithDigitsAndDelimiter=$patternWithDigitsAndDelimiter]';
 
   Map<String, dynamic> toJson() {
-    final _json = <String, dynamic>{};
-    if (integer != null) {
-      _json[r'integer'] = integer;
+    final json = <String, dynamic>{};
+    if (this.integer != null) {
+      json[r'integer'] = this.integer;
+    } else {
+      json[r'integer'] = null;
     }
-    if (int32 != null) {
-      _json[r'int32'] = int32;
+    if (this.int32 != null) {
+      json[r'int32'] = this.int32;
+    } else {
+      json[r'int32'] = null;
     }
-    if (int64 != null) {
-      _json[r'int64'] = int64;
+    if (this.int64 != null) {
+      json[r'int64'] = this.int64;
+    } else {
+      json[r'int64'] = null;
     }
-      _json[r'number'] = number;
-    if (float != null) {
-      _json[r'float'] = float;
+      json[r'number'] = this.number;
+    if (this.float != null) {
+      json[r'float'] = this.float;
+    } else {
+      json[r'float'] = null;
     }
-    if (double_ != null) {
-      _json[r'double'] = double_;
+    if (this.double_ != null) {
+      json[r'double'] = this.double_;
+    } else {
+      json[r'double'] = null;
     }
-    if (decimal != null) {
-      _json[r'decimal'] = decimal;
+    if (this.decimal != null) {
+      json[r'decimal'] = this.decimal;
+    } else {
+      json[r'decimal'] = null;
     }
-    if (string != null) {
-      _json[r'string'] = string;
+    if (this.string != null) {
+      json[r'string'] = this.string;
+    } else {
+      json[r'string'] = null;
     }
-      _json[r'byte'] = byte;
-    if (binary != null) {
-      _json[r'binary'] = binary;
+      json[r'byte'] = this.byte;
+    if (this.binary != null) {
+      json[r'binary'] = this.binary;
+    } else {
+      json[r'binary'] = null;
     }
-      _json[r'date'] = _dateFormatter.format(date.toUtc());
-    if (dateTime != null) {
-      _json[r'dateTime'] = dateTime!.toUtc().toIso8601String();
+      json[r'date'] = _dateFormatter.format(this.date.toUtc());
+    if (this.dateTime != null) {
+      json[r'dateTime'] = this.dateTime!.toUtc().toIso8601String();
+    } else {
+      json[r'dateTime'] = null;
     }
-    if (uuid != null) {
-      _json[r'uuid'] = uuid;
+    if (this.uuid != null) {
+      json[r'uuid'] = this.uuid;
+    } else {
+      json[r'uuid'] = null;
     }
-      _json[r'password'] = password;
-    if (patternWithDigits != null) {
-      _json[r'pattern_with_digits'] = patternWithDigits;
+      json[r'password'] = this.password;
+    if (this.patternWithDigits != null) {
+      json[r'pattern_with_digits'] = this.patternWithDigits;
+    } else {
+      json[r'pattern_with_digits'] = null;
     }
-    if (patternWithDigitsAndDelimiter != null) {
-      _json[r'pattern_with_digits_and_delimiter'] = patternWithDigitsAndDelimiter;
+    if (this.patternWithDigitsAndDelimiter != null) {
+      json[r'pattern_with_digits_and_delimiter'] = this.patternWithDigitsAndDelimiter;
+    } else {
+      json[r'pattern_with_digits_and_delimiter'] = null;
     }
-    return _json;
+    return json;
   }
 
   /// Returns a new [FormatTest] instance and imports its values from
@@ -256,17 +280,15 @@ class FormatTest {
         integer: mapValueOfType<int>(json, r'integer'),
         int32: mapValueOfType<int>(json, r'int32'),
         int64: mapValueOfType<int>(json, r'int64'),
-        number: json[r'number'] == null
-            ? null
-            : num.parse(json[r'number'].toString()),
+        number: num.parse('${json[r'number']}'),
         float: mapValueOfType<double>(json, r'float'),
         double_: mapValueOfType<double>(json, r'double'),
         decimal: mapValueOfType<double>(json, r'decimal'),
         string: mapValueOfType<String>(json, r'string'),
         byte: mapValueOfType<String>(json, r'byte')!,
         binary: null, // No support for decoding binary content from JSON
-        date: mapDateTime(json, r'date', '')!,
-        dateTime: mapDateTime(json, r'dateTime', ''),
+        date: mapDateTime(json, r'date', r'')!,
+        dateTime: mapDateTime(json, r'dateTime', r''),
         uuid: mapValueOfType<String>(json, r'uuid'),
         password: mapValueOfType<String>(json, r'password')!,
         patternWithDigits: mapValueOfType<String>(json, r'pattern_with_digits'),
@@ -276,7 +298,7 @@ class FormatTest {
     return null;
   }
 
-  static List<FormatTest>? listFromJson(dynamic json, {bool growable = false,}) {
+  static List<FormatTest> listFromJson(dynamic json, {bool growable = false,}) {
     final result = <FormatTest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -307,12 +329,10 @@ class FormatTest {
   static Map<String, List<FormatTest>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<FormatTest>>{};
     if (json is Map && json.isNotEmpty) {
-      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
+      // ignore: parameter_assignments
+      json = json.cast<String, dynamic>();
       for (final entry in json.entries) {
-        final value = FormatTest.listFromJson(entry.value, growable: growable,);
-        if (value != null) {
-          map[entry.key] = value;
-        }
+        map[entry.key] = FormatTest.listFromJson(entry.value, growable: growable,);
       }
     }
     return map;

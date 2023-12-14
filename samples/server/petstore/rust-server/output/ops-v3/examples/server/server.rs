@@ -32,6 +32,7 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
+    #[allow(unused_mut)]
     let mut service =
         ops_v3::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -142,7 +143,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op10GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op10_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -151,7 +151,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op11GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op11_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -160,7 +159,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op12GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op12_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -169,7 +167,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op13GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op13_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -178,7 +175,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op14GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op14_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -187,7 +183,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op15GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op15_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -196,7 +191,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op16GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op16_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -205,7 +199,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op17GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op17_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -214,7 +207,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op18GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op18_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -223,7 +215,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op19GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op19_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -232,7 +223,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op1GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op1_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -241,7 +231,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op20GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op20_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -250,7 +239,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op21GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op21_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -259,7 +247,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op22GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op22_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -268,7 +255,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op23GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op23_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -277,7 +263,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op24GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op24_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -286,7 +271,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op25GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op25_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -295,7 +279,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op26GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op26_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -304,7 +287,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op27GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op27_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -313,7 +295,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op28GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op28_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -322,7 +303,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op29GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op29_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -331,7 +311,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op2GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op2_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -340,7 +319,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op30GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op30_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -349,7 +327,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op31GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op31_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -358,7 +335,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op32GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op32_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -367,7 +343,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op33GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op33_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -376,7 +351,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op34GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op34_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -385,7 +359,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op35GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op35_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -394,7 +367,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op36GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op36_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -403,7 +375,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op37GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op37_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -412,7 +383,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op3GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op3_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -421,7 +391,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op4GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op4_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -430,7 +399,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op5GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op5_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -439,7 +407,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op6GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op6_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -448,7 +415,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op7GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op7_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -457,7 +423,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op8GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op8_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -466,7 +431,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Op9GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("op9_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }

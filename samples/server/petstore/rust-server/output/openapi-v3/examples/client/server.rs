@@ -32,6 +32,7 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
+    #[allow(unused_mut)]
     let mut service =
         openapi_v3::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -106,7 +107,6 @@ impl<C> CallbackApi<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         information: Option<String>,
         context: &C) -> Result<CallbackCallbackWithHeaderPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("callback_callback_with_header_post({:?}) - X-Span-ID: {:?}", information, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -116,7 +116,6 @@ impl<C> CallbackApi<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         callback_request_query_url: String,
         context: &C) -> Result<CallbackCallbackPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("callback_callback_post() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }

@@ -14,14 +14,16 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ModelApiResponse,
+  Pet,
+} from '../models/index';
 import {
-    ModelApiResponse,
     ModelApiResponseFromJSON,
     ModelApiResponseToJSON,
-    Pet,
     PetFromJSON,
     PetToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface AddPetRequest {
     body: Pet;
@@ -184,6 +186,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
      * Finds Pets by tags
+     * @deprecated
      */
     async findPetsByTagsRaw(requestParameters: FindPetsByTagsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Pet>>> {
         if (requestParameters.tags === null || requestParameters.tags === undefined) {
@@ -216,6 +219,7 @@ export class PetApi extends runtime.BaseAPI {
     /**
      * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
      * Finds Pets by tags
+     * @deprecated
      */
     async findPetsByTags(tags: Array<string>, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Pet>> {
         const response = await this.findPetsByTagsRaw({ tags: tags }, initOverrides);

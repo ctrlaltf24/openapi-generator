@@ -3,7 +3,6 @@ package org.openapitools.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.io.Serializable;
 import javax.validation.constraints.*;
@@ -21,10 +20,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("MapTest")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
 public class MapTest  implements Serializable {
-  
   private @Valid Map<String, Map<String, String>> mapMapOfString = new HashMap<>();
-
-public enum InnerEnum {
+  public enum InnerEnum {
 
     UPPER(String.valueOf("UPPER")), LOWER(String.valueOf("lower"));
 
@@ -49,7 +46,7 @@ public enum InnerEnum {
      * Convert a String into String, as specified in the
      * <a href="https://download.oracle.com/otndocs/jcp/jaxrs-2_0-fr-eval-spec/index.html">See JAX RS 2.0 Specification, section 3.2, p. 12</a>
      */
-	public static InnerEnum fromString(String s) {
+    public static InnerEnum fromString(String s) {
         for (InnerEnum b : InnerEnum.values()) {
             // using Objects.toString() to be safe if value type non-object type
             // because types like 'int' etc. will be auto-boxed
@@ -58,8 +55,8 @@ public enum InnerEnum {
             }
         }
         throw new IllegalArgumentException("Unexpected string value '" + s + "'");
-	}
-	
+    }
+
     @JsonCreator
     public static InnerEnum fromValue(String value) {
         for (InnerEnum b : InnerEnum.values()) {
@@ -76,10 +73,14 @@ public enum InnerEnum {
   private @Valid Map<String, Boolean> indirectMap = new HashMap<>();
 
   protected MapTest(MapTestBuilder<?, ?> b) {
-  this.mapMapOfString = b.mapMapOfString;this.mapOfEnumString = b.mapOfEnumString;this.directMap = b.directMap;this.indirectMap = b.indirectMap;
+    this.mapMapOfString = b.mapMapOfString;
+    this.mapOfEnumString = b.mapOfEnumString;
+    this.directMap = b.directMap;
+    this.indirectMap = b.indirectMap;
   }
 
-  public MapTest() { }
+  public MapTest() {
+  }
 
   /**
    **/
@@ -116,7 +117,7 @@ public enum InnerEnum {
 
     return this;
   }
-/**
+  /**
    **/
   public MapTest mapOfEnumString(Map<String, InnerEnum> mapOfEnumString) {
     this.mapOfEnumString = mapOfEnumString;
@@ -151,7 +152,7 @@ public enum InnerEnum {
 
     return this;
   }
-/**
+  /**
    **/
   public MapTest directMap(Map<String, Boolean> directMap) {
     this.directMap = directMap;
@@ -186,7 +187,7 @@ public enum InnerEnum {
 
     return this;
   }
-/**
+  /**
    **/
   public MapTest indirectMap(Map<String, Boolean> indirectMap) {
     this.indirectMap = indirectMap;

@@ -32,6 +32,7 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
+    #[allow(unused_mut)]
     let mut service =
         rust_server_test::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -114,7 +115,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<AllOfGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("all_of_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -124,7 +124,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<DummyGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("dummy_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -134,7 +133,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         nested_response: models::DummyPutRequest,
         context: &C) -> Result<DummyPutResponse, ApiError>
     {
-        let context = context.clone();
         info!("dummy_put({:?}) - X-Span-ID: {:?}", nested_response, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -144,7 +142,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<FileResponseGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("file_response_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -153,7 +150,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<GetStructuredYamlResponse, ApiError>
     {
-        let context = context.clone();
         info!("get_structured_yaml() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -164,7 +160,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         body: String,
         context: &C) -> Result<HtmlPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("html_post(\"{}\") - X-Span-ID: {:?}", body, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -174,7 +169,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         value: String,
         context: &C) -> Result<PostYamlResponse, ApiError>
     {
-        let context = context.clone();
         info!("post_yaml(\"{}\") - X-Span-ID: {:?}", value, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -184,7 +178,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<RawJsonGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("raw_json_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -195,7 +188,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         value: serde_json::Value,
         context: &C) -> Result<SoloObjectPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("solo_object_post({:?}) - X-Span-ID: {:?}", value, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }

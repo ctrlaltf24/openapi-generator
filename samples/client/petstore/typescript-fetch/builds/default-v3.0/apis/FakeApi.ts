@@ -14,32 +14,43 @@
 
 
 import * as runtime from '../runtime';
+import type {
+  ChildWithNullable,
+  Client,
+  EnumClass,
+  FakeBigDecimalMap200Response,
+  FileSchemaTestClass,
+  HealthCheckResult,
+  OuterComposite,
+  OuterObjectWithEnumProperty,
+  Pet,
+  TestInlineFreeformAdditionalPropertiesRequest,
+  User,
+} from '../models/index';
 import {
-    Client,
+    ChildWithNullableFromJSON,
+    ChildWithNullableToJSON,
     ClientFromJSON,
     ClientToJSON,
-    EnumClass,
     EnumClassFromJSON,
     EnumClassToJSON,
-    FileSchemaTestClass,
+    FakeBigDecimalMap200ResponseFromJSON,
+    FakeBigDecimalMap200ResponseToJSON,
     FileSchemaTestClassFromJSON,
     FileSchemaTestClassToJSON,
-    HealthCheckResult,
     HealthCheckResultFromJSON,
     HealthCheckResultToJSON,
-    OuterComposite,
     OuterCompositeFromJSON,
     OuterCompositeToJSON,
-    OuterObjectWithEnumProperty,
     OuterObjectWithEnumPropertyFromJSON,
     OuterObjectWithEnumPropertyToJSON,
-    Pet,
     PetFromJSON,
     PetToJSON,
-    User,
+    TestInlineFreeformAdditionalPropertiesRequestFromJSON,
+    TestInlineFreeformAdditionalPropertiesRequestToJSON,
     UserFromJSON,
     UserToJSON,
-} from '../models';
+} from '../models/index';
 
 export interface FakeHttpSignatureTestRequest {
     pet: Pet;
@@ -126,9 +137,17 @@ export interface TestInlineAdditionalPropertiesRequest {
     requestBody: { [key: string]: string; };
 }
 
+export interface TestInlineFreeformAdditionalPropertiesOperationRequest {
+    testInlineFreeformAdditionalPropertiesRequest: TestInlineFreeformAdditionalPropertiesRequest;
+}
+
 export interface TestJsonFormDataRequest {
     param: string;
     param2: string;
+}
+
+export interface TestNullableRequest {
+    childWithNullable: ChildWithNullable;
 }
 
 export interface TestQueryParameterCollectionFormatRequest {
@@ -145,6 +164,32 @@ export interface TestQueryParameterCollectionFormatRequest {
  * 
  */
 export class FakeApi extends runtime.BaseAPI {
+
+    /**
+     * for Java apache and Java native, test toUrlQueryString for maps with BegDecimal keys
+     */
+    async fakeBigDecimalMapRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<FakeBigDecimalMap200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/fake/BigDecimalMap`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => FakeBigDecimalMap200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * for Java apache and Java native, test toUrlQueryString for maps with BegDecimal keys
+     */
+    async fakeBigDecimalMap(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<FakeBigDecimalMap200Response> {
+        const response = await this.fakeBigDecimalMapRaw(initOverrides);
+        return await response.value();
+    }
 
     /**
      * Health check endpoint
@@ -230,7 +275,11 @@ export class FakeApi extends runtime.BaseAPI {
             body: requestParameters.body as any,
         }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<boolean>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
@@ -288,7 +337,11 @@ export class FakeApi extends runtime.BaseAPI {
             body: requestParameters.body as any,
         }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
@@ -317,7 +370,11 @@ export class FakeApi extends runtime.BaseAPI {
             body: requestParameters.body as any,
         }, initOverrides);
 
-        return new runtime.TextApiResponse(response) as any;
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<string>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
@@ -802,6 +859,40 @@ export class FakeApi extends runtime.BaseAPI {
 
     /**
      * 
+     * test inline free-form additionalProperties
+     */
+    async testInlineFreeformAdditionalPropertiesRaw(requestParameters: TestInlineFreeformAdditionalPropertiesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.testInlineFreeformAdditionalPropertiesRequest === null || requestParameters.testInlineFreeformAdditionalPropertiesRequest === undefined) {
+            throw new runtime.RequiredError('testInlineFreeformAdditionalPropertiesRequest','Required parameter requestParameters.testInlineFreeformAdditionalPropertiesRequest was null or undefined when calling testInlineFreeformAdditionalProperties.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/fake/inline-freeform-additionalProperties`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TestInlineFreeformAdditionalPropertiesRequestToJSON(requestParameters.testInlineFreeformAdditionalPropertiesRequest),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 
+     * test inline free-form additionalProperties
+     */
+    async testInlineFreeformAdditionalProperties(requestParameters: TestInlineFreeformAdditionalPropertiesOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.testInlineFreeformAdditionalPropertiesRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 
      * test json serialization of form data
      */
     async testJsonFormDataRaw(requestParameters: TestJsonFormDataRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
@@ -856,6 +947,40 @@ export class FakeApi extends runtime.BaseAPI {
      */
     async testJsonFormData(requestParameters: TestJsonFormDataRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.testJsonFormDataRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     * 
+     * test nullable parent property
+     */
+    async testNullableRaw(requestParameters: TestNullableRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.childWithNullable === null || requestParameters.childWithNullable === undefined) {
+            throw new runtime.RequiredError('childWithNullable','Required parameter requestParameters.childWithNullable was null or undefined when calling testNullable.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/fake/nullable`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ChildWithNullableToJSON(requestParameters.childWithNullable),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * 
+     * test nullable parent property
+     */
+    async testNullable(requestParameters: TestNullableRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.testNullableRaw(requestParameters, initOverrides);
     }
 
     /**

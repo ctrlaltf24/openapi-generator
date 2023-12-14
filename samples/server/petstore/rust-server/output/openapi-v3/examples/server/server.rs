@@ -32,6 +32,7 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
+    #[allow(unused_mut)]
     let mut service =
         openapi_v3::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -132,7 +133,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         any_of: Option<&Vec<models::AnyOfObject>>,
         context: &C) -> Result<AnyOfGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("any_of_get({:?}) - X-Span-ID: {:?}", any_of, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -142,7 +142,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         url: String,
         context: &C) -> Result<CallbackWithHeaderPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("callback_with_header_post(\"{}\") - X-Span-ID: {:?}", url, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -152,7 +151,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         list_of_strings: Option<&Vec<models::StringObject>>,
         context: &C) -> Result<ComplexQueryParamGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("complex_query_param_get({:?}) - X-Span-ID: {:?}", list_of_strings, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -162,7 +160,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         path_param: models::StringEnum,
         context: &C) -> Result<EnumInPathPathParamGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("enum_in_path_path_param_get({:?}) - X-Span-ID: {:?}", path_param, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -172,7 +169,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         list_of_strings: Option<&Vec<models::StringObject>>,
         context: &C) -> Result<JsonComplexQueryParamGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("json_complex_query_param_get({:?}) - X-Span-ID: {:?}", list_of_strings, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -182,7 +178,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         x_header: String,
         context: &C) -> Result<MandatoryRequestHeaderGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("mandatory_request_header_get(\"{}\") - X-Span-ID: {:?}", x_header, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -191,7 +186,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<MergePatchJsonGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("merge_patch_json_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -201,7 +195,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<MultigetGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("multiget_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -210,7 +203,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<MultipleAuthSchemeGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("multiple_auth_scheme_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -219,7 +211,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<OneOfGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("one_of_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -228,7 +219,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<OverrideServerGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("override_server_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -241,7 +231,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         some_list: Option<models::MyIdList>,
         context: &C) -> Result<ParamgetGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("paramget_get({:?}, {:?}, {:?}) - X-Span-ID: {:?}", uuid, some_object, some_list, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -250,7 +239,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<ReadonlyAuthSchemeGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("readonly_auth_scheme_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -260,7 +248,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         url: String,
         context: &C) -> Result<RegisterCallbackPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("register_callback_post(\"{}\") - X-Span-ID: {:?}", url, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -270,7 +257,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         body: swagger::ByteArray,
         context: &C) -> Result<RequiredOctetStreamPutResponse, ApiError>
     {
-        let context = context.clone();
         info!("required_octet_stream_put({:?}) - X-Span-ID: {:?}", body, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -279,7 +265,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<ResponsesWithHeadersGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("responses_with_headers_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -288,7 +273,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<Rfc7807GetResponse, ApiError>
     {
-        let context = context.clone();
         info!("rfc7807_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -298,7 +282,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         object_untyped_props: Option<models::ObjectUntypedProps>,
         context: &C) -> Result<UntypedPropertyGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("untyped_property_get({:?}) - X-Span-ID: {:?}", object_untyped_props, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -307,7 +290,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<UuidGetResponse, ApiError>
     {
-        let context = context.clone();
         info!("uuid_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -317,7 +299,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         duplicate_xml_object: Option<models::DuplicateXmlObject>,
         context: &C) -> Result<XmlExtraPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("xml_extra_post({:?}) - X-Span-ID: {:?}", duplicate_xml_object, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -327,7 +308,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         another_xml_object: Option<models::AnotherXmlObject>,
         context: &C) -> Result<XmlOtherPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("xml_other_post({:?}) - X-Span-ID: {:?}", another_xml_object, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -337,7 +317,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         another_xml_array: Option<models::AnotherXmlArray>,
         context: &C) -> Result<XmlOtherPutResponse, ApiError>
     {
-        let context = context.clone();
         info!("xml_other_put({:?}) - X-Span-ID: {:?}", another_xml_array, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -348,7 +327,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         xml_array: Option<models::XmlArray>,
         context: &C) -> Result<XmlPostResponse, ApiError>
     {
-        let context = context.clone();
         info!("xml_post({:?}) - X-Span-ID: {:?}", xml_array, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -358,7 +336,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         xml_object: Option<models::XmlObject>,
         context: &C) -> Result<XmlPutResponse, ApiError>
     {
-        let context = context.clone();
         info!("xml_put({:?}) - X-Span-ID: {:?}", xml_object, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -368,7 +345,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         object_param: models::ObjectParam,
         context: &C) -> Result<CreateRepoResponse, ApiError>
     {
-        let context = context.clone();
         info!("create_repo({:?}) - X-Span-ID: {:?}", object_param, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }
@@ -378,7 +354,6 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         repo_id: String,
         context: &C) -> Result<GetRepoInfoResponse, ApiError>
     {
-        let context = context.clone();
         info!("get_repo_info(\"{}\") - X-Span-ID: {:?}", repo_id, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }

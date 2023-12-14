@@ -1,16 +1,16 @@
-export * from './ApiResponse';
-export * from './Category';
-export * from './Order';
-export * from './Pet';
-export * from './Tag';
-export * from './User';
+export * from '../models/ApiResponse';
+export * from '../models/Category';
+export * from '../models/Order';
+export * from '../models/Pet';
+export * from '../models/Tag';
+export * from '../models/User';
 
-import { ApiResponse } from './ApiResponse';
-import { Category } from './Category';
-import { Order    , OrderStatusEnum    } from './Order';
-import { Pet     , PetStatusEnum   } from './Pet';
-import { Tag } from './Tag';
-import { User } from './User';
+import { ApiResponse } from '../models/ApiResponse';
+import { Category } from '../models/Category';
+import { Order    , OrderStatusEnum    } from '../models/Order';
+import { Pet     , PetStatusEnum   } from '../models/Pet';
+import { Tag } from '../models/Tag';
+import { User } from '../models/User';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -26,6 +26,9 @@ let primitives = [
 
 const supportedMediaTypes: { [mediaType: string]: number } = {
   "application/json": Infinity,
+  "application/json-patch+json": 1,
+  "application/merge-patch+json": 1,
+  "application/strategic-merge-patch+json": 1,
   "application/octet-stream": 0,
   "application/x-www-form-urlencoded": 0
 }
@@ -90,8 +93,7 @@ export class ObjectSerializer {
             let subType: string = type.replace("Array<", ""); // Array<Type> => Type>
             subType = subType.substring(0, subType.length - 1); // Type> => Type
             let transformedData: any[] = [];
-            for (let index in data) {
-                let date = data[index];
+            for (let date of data) {
                 transformedData.push(ObjectSerializer.serialize(date, subType, format));
             }
             return transformedData;
@@ -120,8 +122,7 @@ export class ObjectSerializer {
             // get the map for the correct type.
             let attributeTypes = typeMap[type].getAttributeTypeMap();
             let instance: {[index: string]: any} = {};
-            for (let index in attributeTypes) {
-                let attributeType = attributeTypes[index];
+            for (let attributeType of attributeTypes) {
                 instance[attributeType.baseName] = ObjectSerializer.serialize(data[attributeType.name], attributeType.type, attributeType.format);
             }
             return instance;
@@ -139,8 +140,7 @@ export class ObjectSerializer {
             let subType: string = type.replace("Array<", ""); // Array<Type> => Type>
             subType = subType.substring(0, subType.length - 1); // Type> => Type
             let transformedData: any[] = [];
-            for (let index in data) {
-                let date = data[index];
+            for (let date of data) {
                 transformedData.push(ObjectSerializer.deserialize(date, subType, format));
             }
             return transformedData;
@@ -156,8 +156,7 @@ export class ObjectSerializer {
             }
             let instance = new typeMap[type]();
             let attributeTypes = typeMap[type].getAttributeTypeMap();
-            for (let index in attributeTypes) {
-                let attributeType = attributeTypes[index];
+            for (let attributeType of attributeTypes) {
                 let value = ObjectSerializer.deserialize(data[attributeType.baseName], attributeType.type, attributeType.format);
                 if (value !== undefined) {
                     instance[attributeType.name] = value;
@@ -189,7 +188,7 @@ export class ObjectSerializer {
      */
     public static getPreferredMediaType(mediaTypes: Array<string>): string {
         /** According to OAS 3 we should default to json */
-        if (!mediaTypes) {
+        if (mediaTypes.length === 0) {
             return "application/json";
         }
 
@@ -214,7 +213,11 @@ export class ObjectSerializer {
      * Convert data to a string according the given media type
      */
     public static stringify(data: any, mediaType: string): string {
-        if (mediaType === "application/json") {
+        if (mediaType === "text/plain") {
+            return String(data);
+        }
+
+        if (mediaType === "application/json" || mediaType === "application/json-patch+json" || mediaType === "application/merge-patch+json" || mediaType === "application/strategic-merge-patch+json") {
             return JSON.stringify(data);
         }
 
@@ -229,7 +232,11 @@ export class ObjectSerializer {
             throw new Error("Cannot parse content. No Content-Type defined.");
         }
 
-        if (mediaType === "application/json") {
+        if (mediaType === "text/plain") {
+            return rawData;
+        }
+
+        if (mediaType === "application/json" || mediaType === "application/json-patch+json" || mediaType === "application/merge-patch+json" || mediaType === "application/strategic-merge-patch+json") {
             return JSON.parse(rawData);
         }
 

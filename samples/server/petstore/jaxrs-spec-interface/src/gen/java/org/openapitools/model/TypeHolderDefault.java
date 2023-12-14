@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.io.Serializable;
 import javax.validation.constraints.*;
@@ -21,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("TypeHolderDefault")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
 public class TypeHolderDefault  implements Serializable {
-  
   private @Valid String stringItem = "what";
   private @Valid BigDecimal numberItem;
   private @Valid Integer integerItem;
@@ -48,7 +48,7 @@ public class TypeHolderDefault  implements Serializable {
     this.stringItem = stringItem;
   }
 
-/**
+  /**
    **/
   public TypeHolderDefault numberItem(BigDecimal numberItem) {
     this.numberItem = numberItem;
@@ -68,7 +68,7 @@ public class TypeHolderDefault  implements Serializable {
     this.numberItem = numberItem;
   }
 
-/**
+  /**
    **/
   public TypeHolderDefault integerItem(Integer integerItem) {
     this.integerItem = integerItem;
@@ -88,7 +88,7 @@ public class TypeHolderDefault  implements Serializable {
     this.integerItem = integerItem;
   }
 
-/**
+  /**
    **/
   public TypeHolderDefault boolItem(Boolean boolItem) {
     this.boolItem = boolItem;
@@ -108,7 +108,7 @@ public class TypeHolderDefault  implements Serializable {
     this.boolItem = boolItem;
   }
 
-/**
+  /**
    **/
   public TypeHolderDefault arrayItem(List<Integer> arrayItem) {
     this.arrayItem = arrayItem;

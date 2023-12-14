@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -33,7 +35,7 @@ public class Pet  {
 
   @ApiModelProperty(value = "")
   @Valid
-  private List<Tag> tags = null;
+  private List<@Valid Tag> tags;
 
 public enum StatusEnum {
 
@@ -157,15 +159,15 @@ AVAILABLE(String.valueOf("available")), PENDING(String.valueOf("pending")), SOLD
    * @return tags
   **/
   @JsonProperty("tags")
-  public List<Tag> getTags() {
+  public List<@Valid Tag> getTags() {
     return tags;
   }
 
-  public void setTags(List<Tag> tags) {
+  public void setTags(List<@Valid Tag> tags) {
     this.tags = tags;
   }
 
-  public Pet tags(List<Tag> tags) {
+  public Pet tags(List<@Valid Tag> tags) {
     this.tags = tags;
     return this;
   }
@@ -196,28 +198,27 @@ AVAILABLE(String.valueOf("available")), PENDING(String.valueOf("pending")), SOLD
     return this;
   }
 
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-      Pet pet = (Pet) o;
-      return Objects.equals(id, pet.id) &&
-          Objects.equals(category, pet.category) &&
-          Objects.equals(name, pet.name) &&
-          Objects.equals(photoUrls, pet.photoUrls) &&
-          Objects.equals(tags, pet.tags) &&
-          Objects.equals(status, pet.status);
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(id, category, name, photoUrls, tags, status);
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    Pet pet = (Pet) o;
+    return Objects.equals(id, pet.id) &&
+        Objects.equals(category, pet.category) &&
+        Objects.equals(name, pet.name) &&
+        Objects.equals(photoUrls, pet.photoUrls) &&
+        Objects.equals(tags, pet.tags) &&
+        Objects.equals(status, pet.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, category, name, photoUrls, tags, status);
+  }
 
   @Override
   public String toString() {

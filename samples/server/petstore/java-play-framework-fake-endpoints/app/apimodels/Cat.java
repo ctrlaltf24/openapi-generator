@@ -1,12 +1,12 @@
 package apimodels;
 
 import apimodels.Animal;
-import apimodels.CatAllOf;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Set;
 import javax.validation.*;
 import java.util.Objects;
 import javax.validation.constraints.*;
+import javax.validation.Valid;
 /**
  * Cat
  */

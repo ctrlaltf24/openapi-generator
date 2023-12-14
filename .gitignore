@@ -32,6 +32,11 @@ packages/
 **/.vs
 .factorypath
 .metals/*
+nbproject/
+nbactions.xml
+nb-configuration.xml
+.direnv/
+**/:w
 
 .settings
 
@@ -84,7 +89,7 @@ samples/client/petstore/cpp-restsdk/cmake_install.cmake
 **/.gradle
 samples/client/petstore/java/hello.txt
 samples/client/petstore/java/okhttp-gson/hello.txt
-samples/client/petstore/java/jersey1/hello.txt
+samples/client/petstore/java/okhttp-gson-3.1/hello.txt
 samples/client/petstore/java/jersey2-java8/hello.txt
 samples/client/petstore/java/jersey2/hello.txt
 samples/client/petstore/android/default/hello.txt
@@ -168,17 +173,17 @@ samples/client/petstore/csharp-refactor/OpenAPIClient/nuget.exe
 # Python
 *.pyc
 __pycache__
+.venv/
 samples/client/petstore/python/dev-requirements.txt.log
 samples/client/petstore/python/swagger_client.egg-info/SOURCES.txt
 samples/client/petstore/python/.coverage
 samples/client/petstore/python/.projectile
-samples/client/petstore/python/.venv/
-samples/client/petstore/python-asyncio/.venv/
 samples/client/petstore/python-asyncio/.pytest_cache/
-samples/client/petstore/python-tornado/.venv/
+
 
 # PHP
 samples/client/petstore/php/OpenAPIClient-php/composer.lock
+samples/client/petstore/php-nextgen/OpenAPIClient-php/composer.lock
 samples/client/petstore/php-dt/composer.lock
 samples/client/petstore/php-dt-modern/composer.lock
 samples/openapi3/server/petstore/php-symfony/SymfonyBundle-php/composer.lock
@@ -206,6 +211,7 @@ samples/server/petstore/kotlin-server/ktor/build
 samples/server/petstore/kotlin-springboot/build
 samples/client/petstore/kotlin*/src/main/kotlin/test/
 samples/client/petstore/kotlin*/build/
+samples/server/others/kotlin-server/jaxrs-spec/build/
 
 # haskell
 .stack-work
@@ -222,6 +228,10 @@ samples/server/petstore/haskell-yesod/stack.yaml.lock
 .Rproj.user
 samples/client/petstore/R/**/petstore.Rcheck/
 samples/client/petstore/R/**/*.tar.gz
+samples/client/petstore/R/R.Rproj
+samples/client/petstore/R/man/
+samples/client/petstore/R-httr2-wrapper/man/
+samples/client/petstore/R-httr2/man/
 
 # elixir
 samples/client/petstore/elixir/_build/
@@ -249,6 +259,7 @@ samples/server/petstore/erlang-server/rebar.lock
 # JS
 samples/client/petstore/javascript-es6/package-lock.json
 samples/client/petstore/javascript-promise-es6/package-lock.json
+samples/client/petstore/javascript-apollo/package-lock.json
 
 # elm
 samples/client/petstore/elm/index.html
@@ -260,6 +271,7 @@ samples/client/petstore/c/*.so
 # Ruby
 samples/openapi3/client/petstore/ruby/Gemfile.lock
 samples/openapi3/client/petstore/ruby-faraday/Gemfile.lock
+samples/openapi3/client/petstore/ruby-httpx/Gemfile.lock
 
 # Crystal
 samples/client/petstore/crystal/lib

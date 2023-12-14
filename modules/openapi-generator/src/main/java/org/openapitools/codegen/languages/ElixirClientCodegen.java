@@ -44,8 +44,10 @@ import java.util.regex.Pattern;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
-public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig {
+public class ElixirClientCodegen extends DefaultCodegen {
     private final Logger LOGGER = LoggerFactory.getLogger(ElixirClientCodegen.class);
+
+    private final Pattern simpleAtomPattern = Pattern.compile("\\A(?:(?:[_@\\p{Alpha}][_@\\p{Alnum}]*[?!]?)|-)\\z");
 
     protected String apiVersion = "1.0.0";
     protected String moduleName;
@@ -54,11 +56,13 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
     // This is the name of elixir project name;
     protected static final String defaultPackageName = "openapi_client";
 
-    String supportedElixirVersion = "1.6";
+    String supportedElixirVersion = "1.10";
     List<String> extraApplications = Arrays.asList(":logger");
     List<String> deps = Arrays.asList(
-            "{:tesla, \"~> 1.2\"}",
-            "{:poison, \"~> 3.0\"}"
+            "{:tesla, \"~> 1.7\"}",
+            "{:jason, \"~> 1.4\"}",
+            "{:ex_doc, \"~> 0.30\", only: :dev, runtime: false}",
+            "{:dialyxir, \"~> 1.3\", only: [:dev, :test], runtime: false}"
     );
 
     public ElixirClientCodegen() {
@@ -84,6 +88,9 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
                 )
                 .includeClientModificationFeatures(
                         ClientModificationFeature.BasePath
+                )
+                .includeDataTypeFeatures(
+                        DataTypeFeature.AnyType
                 )
         );
 
@@ -150,9 +157,17 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
                 "config",
                 "config.exs")
         );
+        supportingFiles.add(new SupportingFile("runtime.exs.mustache",
+                "config",
+                "runtime.exs")
+        );
         supportingFiles.add(new SupportingFile("mix.exs.mustache",
                 "",
                 "mix.exs")
+        );
+        supportingFiles.add(new SupportingFile("formatter.exs",
+                "",
+                ".formatter.exs")
         );
         supportingFiles.add(new SupportingFile("test_helper.exs.mustache",
                 "test",
@@ -177,10 +192,11 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
                         "List",
                         "Atom",
                         "Map",
+                        "AnyType",
                         "Tuple",
                         "PID",
-                        "DateTime",
-                        "map()" // This is a workaround, since the DefaultCodeGen uses our elixir TypeSpec datetype to evaluate the primitive
+                        "map()", // This is a workaround, since the DefaultCodeGen uses our elixir TypeSpec datetype to evaluate the primitive
+                        "any()"
                 )
         );
 
@@ -194,7 +210,7 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
         typeMapping.put("string", "String");
         typeMapping.put("byte", "Integer");
         typeMapping.put("boolean", "Boolean");
-        typeMapping.put("Date", "DateTime");
+        typeMapping.put("Date", "Date");
         typeMapping.put("DateTime", "DateTime");
         typeMapping.put("file", "String");
         typeMapping.put("map", "Map");
@@ -260,6 +276,19 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
             @Override
             public void execute(Template.Fragment fragment, Writer writer) throws IOException {
                 writer.write(modulized(fragment.execute()));
+            }
+        });
+        additionalProperties.put("atom", new Mustache.Lambda() {
+            @Override
+            public void execute(Template.Fragment fragment, Writer writer) throws IOException {
+                writer.write(atomized(fragment.execute()));
+            }
+        });
+        additionalProperties.put("env_var", new Mustache.Lambda() {
+            @Override
+            public void execute(Template.Fragment fragment, Writer writer) throws IOException {
+                String text = underscored(fragment.execute());
+                writer.write(text.toUpperCase(Locale.ROOT));
             }
         });
 
@@ -377,6 +406,26 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
         return join("", modulizedWords);
     }
 
+    private String atomized(String text) {
+      StringBuilder atom = new StringBuilder();
+      Matcher m = simpleAtomPattern.matcher(text);
+
+      atom.append(":");
+
+      if (!m.matches()) {
+        atom.append("\"");
+      }
+
+      atom.append(text);
+
+      if (!m.matches()) {
+        atom.append("\"");
+      }
+
+      return atom.toString();
+    }
+
+
     /**
      * Escapes a reserved word as defined in the `reservedWords` array. Handle escaping
      * those terms here.  This logic is only called if a variable matches the reserved words
@@ -433,6 +482,11 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
 
     @Override
     public String toModelName(String name) {
+        // obtain the name from modelNameMapping directly if provided
+        if (modelNameMapping.containsKey(name)) {
+            return modelNameMapping.get(name);
+        }
+
         // camelize the model name
         // phone_number => PhoneNumber
         return camelize(toModelFilename(name));
@@ -440,6 +494,12 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
 
     @Override
     public String toModelFilename(String name) {
+        // obtain the name from modelNameMapping directly if provided
+        // and convert it to snake case
+        if (modelNameMapping.containsKey(name)) {
+            return underscore(modelNameMapping.get(name));
+        }
+
         if (!StringUtils.isEmpty(modelNamePrefix)) {
             name = modelNamePrefix + "_" + name;
         }
@@ -501,7 +561,7 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
             Schema inner = ap.getItems();
             return "[" + getTypeDeclaration(inner) + "]";
         } else if (ModelUtils.isMapSchema(p)) {
-            Schema inner = getAdditionalProperties(p);
+            Schema inner = ModelUtils.getAdditionalProperties(p);
             return "%{optional(String.t) => " + getTypeDeclaration(inner) + "}";
         } else if (ModelUtils.isPasswordSchema(p)) {
             return "String.t";
@@ -526,11 +586,18 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
         } else if (ModelUtils.isBooleanSchema(p)) {
             return "boolean()";
         } else if (!StringUtils.isEmpty(p.get$ref())) {
-            return this.moduleName + ".Model." + super.getTypeDeclaration(p) + ".t";
+            switch (super.getTypeDeclaration(p)) {
+                case "String":
+                    return "String.t";
+                default:
+                    return this.moduleName + ".Model." + super.getTypeDeclaration(p) + ".t";
+            }
         } else if (ModelUtils.isFileSchema(p)) {
             return "String.t";
         } else if (ModelUtils.isStringSchema(p)) {
             return "String.t";
+        } else if (p.getType() == null) {
+            return "any()";
         }
         return super.getTypeDeclaration(p);
     }
@@ -611,28 +678,23 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
         }
 
         public String decodedStruct() {
-            // Let Poison decode the entire response into a generic blob
+            // Let Jason decode the entire response into a generic blob
             if (isMap) {
                 return "%{}";
             }
+
             // Primitive return type, don't even try to decode
             if (baseType == null || (containerType == null && primitiveType)) {
                 return "false";
             } else if (isArray && languageSpecificPrimitives().contains(baseType)) {
                 return "[]";
             }
+
             StringBuilder sb = new StringBuilder();
-            if (isArray) {
-                sb.append("[");
-            }
-            sb.append("%");
             sb.append(moduleName);
             sb.append(".Model.");
             sb.append(baseType);
-            sb.append("{}");
-            if (isArray) {
-                sb.append("]");
-            }
+
             return sb.toString();
         }
 
@@ -717,6 +779,24 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
             this.replacedPathName = replacedPathName;
         }
 
+        private void translateBaseType(StringBuilder returnEntry, String baseType) {
+            switch (baseType) {
+                case "AnyType":
+                    returnEntry.append("any()");
+                    break;
+                case "Boolean":
+                    returnEntry.append("boolean()");
+                    break;
+                case "Float":
+                    returnEntry.append("float()");
+                    break;
+                default:
+                    returnEntry.append(baseType);
+                    returnEntry.append(".t");
+                    break;
+            }
+        }
+
         public String typespec() {
             StringBuilder sb = new StringBuilder("@spec ");
             sb.append(underscore(operationId));
@@ -741,8 +821,8 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
                         returnEntry.append(moduleName);
                         returnEntry.append(".Model.");
                     }
-                    returnEntry.append(exResponse.baseType);
-                    returnEntry.append(".t");
+
+                    translateBaseType(returnEntry, exResponse.baseType);
                 } else {
                     if (exResponse.containerType.equals("array") ||
                             exResponse.containerType.equals("set")) {
@@ -751,8 +831,9 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
                             returnEntry.append(moduleName);
                             returnEntry.append(".Model.");
                         }
-                        returnEntry.append(exResponse.baseType);
-                        returnEntry.append(".t)");
+
+                        translateBaseType(returnEntry, exResponse.baseType);
+                        returnEntry.append(")");
                     } else if (exResponse.containerType.equals("map")) {
                         returnEntry.append("map()");
                     }
@@ -921,4 +1002,5 @@ public class ElixirClientCodegen extends DefaultCodegen implements CodegenConfig
 
     @Override
     public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.ELIXIR; }
+
 }

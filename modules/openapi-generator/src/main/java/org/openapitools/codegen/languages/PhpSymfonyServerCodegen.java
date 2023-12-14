@@ -89,7 +89,10 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         modifyFeatureSet(features -> features
                 .includeDocumentationFeatures(DocumentationFeature.Readme)
                 .wireFormatFeatures(EnumSet.of(WireFormatFeature.JSON, WireFormatFeature.XML))
-                .securityFeatures(EnumSet.noneOf(SecurityFeature.class))
+                .securityFeatures(EnumSet.of(
+                        SecurityFeature.BasicAuth,
+                        SecurityFeature.ApiKey,
+                        SecurityFeature.OAuth2_Implicit))
                 .excludeGlobalFeatures(
                         GlobalFeature.XMLStructureDefinitions,
                         GlobalFeature.Callbacks,
@@ -106,12 +109,12 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         importMapping.clear();
 
         supportsInheritance = true;
-        srcBasePath = ".";
+        srcBasePath = "";
         setInvokerPackage("OpenAPI\\Server");
         setBundleName("OpenAPIServer");
         setBundleAlias("open_api_server");
         modelDirName = "Model";
-        docsBasePath = "Resources" + "/" + "docs";
+        docsBasePath = "docs";
         apiDocPath = docsBasePath + "/" + apiDirName;
         modelDocPath = docsBasePath + "/" + modelDirName;
         outputFolder = "generated-code" + File.separator + "php";
@@ -147,7 +150,6 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
                 Arrays.asList(
                         "bool",
                         "int",
-                        "double",
                         "float",
                         "string",
                         "object",
@@ -183,7 +185,7 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         typeMapping.put("decimal", "float");
         typeMapping.put("number", "float");
         typeMapping.put("float", "float");
-        typeMapping.put("double", "double");
+        typeMapping.put("double", "float");
         typeMapping.put("string", "string");
         typeMapping.put("byte", "int");
         typeMapping.put("boolean", "bool");
@@ -317,6 +319,9 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         additionalProperties.put("bundleExtensionName", bundleExtensionName);
         additionalProperties.put("bundleAlias", bundleAlias);
 
+        // add trailing slash for mustache templates
+        additionalProperties.put("relativeSrcBasePath", srcBasePath.isEmpty() ? "" : srcBasePath + "/");
+
         // make api and model src path available in mustache template
         additionalProperties.put("apiSrcPath", "." + "/" + toSrcPath(apiPackage, srcBasePath));
         additionalProperties.put("modelSrcPath", "." + "/" + toSrcPath(modelPackage, srcBasePath));
@@ -337,11 +342,12 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
 
         final String configDir = "Resources" + File.separator + "config";
         final String dependencyInjectionDir = "DependencyInjection";
+        final String compilerDir = dependencyInjectionDir + File.separator + "Compiler";
 
         supportingFiles.add(new SupportingFile("Controller.mustache", toSrcPath(controllerPackage, srcBasePath), "Controller.php"));
-        supportingFiles.add(new SupportingFile("Bundle.mustache", "", bundleClassName + ".php"));
-        supportingFiles.add(new SupportingFile("Extension.mustache", dependencyInjectionDir, bundleExtensionName + ".php"));
-        supportingFiles.add(new SupportingFile("ApiPass.mustache", dependencyInjectionDir + File.separator + "Compiler", bundleName + "ApiPass.php"));
+        supportingFiles.add(new SupportingFile("Bundle.mustache", toSrcPath("", srcBasePath), bundleClassName + ".php"));
+        supportingFiles.add(new SupportingFile("Extension.mustache", toSrcPath(dependencyInjectionDir, srcBasePath), bundleExtensionName + ".php"));
+        supportingFiles.add(new SupportingFile("ApiPass.mustache", toSrcPath(compilerDir, srcBasePath), bundleName + "ApiPass.php"));
         supportingFiles.add(new SupportingFile("ApiServer.mustache", toSrcPath(apiPackage, srcBasePath), "ApiServer.php"));
 
         // Serialization components
@@ -358,10 +364,10 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         supportingFiles.add(new SupportingFile("testing/phpunit.xml.mustache", "", "phpunit.xml.dist"));
         supportingFiles.add(new SupportingFile("testing/AppKernel.mustache", toSrcPath(testsPackage, srcBasePath), "AppKernel.php"));
         supportingFiles.add(new SupportingFile("testing/ControllerTest.mustache", toSrcPath(controllerTestsPackage, srcBasePath), "ControllerTest.php"));
-        supportingFiles.add(new SupportingFile("testing/test_config.yml", toSrcPath(testsPackage, srcBasePath), "test_config.yml"));
+        supportingFiles.add(new SupportingFile("testing/test_config.yml", toSrcPath(testsPackage, srcBasePath), "test_config.yaml"));
 
-        supportingFiles.add(new SupportingFile("routing.mustache", configDir, "routing.yml"));
-        supportingFiles.add(new SupportingFile("services.mustache", configDir, "services.yml"));
+        supportingFiles.add(new SupportingFile("routing.mustache", toSrcPath(configDir, srcBasePath), "routing.yaml"));
+        supportingFiles.add(new SupportingFile("services.mustache", toSrcPath(configDir, srcBasePath), "services.yaml"));
         supportingFiles.add(new SupportingFile("composer.mustache", "", "composer.json"));
         supportingFiles.add(new SupportingFile("autoload.mustache", "", "autoload.php"));
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
@@ -373,23 +379,15 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
 
         // Type-hintable primitive types
         // ref: http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration
-        if (phpLegacySupport) {
-            typeHintable = new HashSet<>(
-                    Arrays.asList(
-                            "array"
-                    )
-            );
-        } else {
-            typeHintable = new HashSet<>(
-                    Arrays.asList(
-                            "array",
-                            "bool",
-                            "float",
-                            "int",
-                            "string"
-                    )
-            );
-        }
+        typeHintable = new HashSet<>(
+                Arrays.asList(
+                        "array",
+                        "bool",
+                        "float",
+                        "int",
+                        "string"
+                )
+        );
     }
 
     @Override
@@ -409,42 +407,34 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
             for (CodegenParameter param : op.allParams) {
                 // Determine if the parameter type is supported as a type hint and make it available
                 // to the templating engine
-                String typeHint = getTypeHint(param.dataType);
+                String typeHint = getTypeHint(param.dataType, false);
                 if (!typeHint.isEmpty()) {
                     param.vendorExtensions.put("x-parameter-type", typeHint);
                 }
 
                 if (param.isContainer) {
-                    param.vendorExtensions.put("x-parameter-type", getTypeHint(param.dataType + "[]"));
+                    param.vendorExtensions.put("x-parameter-type", getTypeHint(param.dataType + "[]", false));
                 }
 
                 // Create a variable to display the correct data type in comments for interfaces
-                param.vendorExtensions.put("x-comment-type", "\\" + param.dataType);
+                param.vendorExtensions.put("x-comment-type", prependSlashToDataTypeOnlyIfNecessary(param.dataType));
                 if (param.isContainer) {
-                    param.vendorExtensions.put("x-comment-type", "\\" + param.dataType + "[]");
+                    param.vendorExtensions.put("x-comment-type", prependSlashToDataTypeOnlyIfNecessary(param.dataType) + "[]");
                 }
             }
 
             // Create a variable to display the correct return type in comments for interfaces
             if (op.returnType != null) {
-                op.vendorExtensions.put("x-comment-type", "\\" + op.returnType);
+                op.vendorExtensions.put("x-comment-type", prependSlashToDataTypeOnlyIfNecessary(op.returnType));
                 if ("array".equals(op.returnContainer)) {
-                    op.vendorExtensions.put("x-comment-type", "\\" + op.returnType + "[]");
+                    op.vendorExtensions.put("x-comment-type", prependSlashToDataTypeOnlyIfNecessary(op.returnType) + "[]");
                 }
             } else {
                 op.vendorExtensions.put("x-comment-type", "void");
             }
             // Create a variable to add typing for return value of interface
             if (op.returnType != null) {
-                if ("array".equals(op.returnContainer)) {
-                    op.vendorExtensions.put("x-return-type", "iterable");
-                } else {
-                    if (defaultIncludes.contains(op.returnType)) {
-                        op.vendorExtensions.put("x-return-type", "array|" + op.returnType);
-                    } else {
-                        op.vendorExtensions.put("x-return-type", "array|\\" + op.returnType);
-                    }
-                }
+                op.vendorExtensions.put("x-return-type", "array|object|null");
             } else {
                 op.vendorExtensions.put("x-return-type", "void");
             }
@@ -476,24 +466,24 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
             if (var.dataType != null) {
                 // Determine if the parameter type is supported as a type hint and make it available
                 // to the templating engine
-                String typeHint = getTypeHint(var.dataType);
-                if (!typeHint.isEmpty()) {
-                    var.vendorExtensions.put("x-parameter-type", typeHint);
-                }
-
+                var.vendorExtensions.put("x-parameter-type", getTypeHintNullable(var.dataType));
+                var.vendorExtensions.put("x-comment-type", getTypeHintNullableForComments(var.dataType));
                 if (var.isContainer) {
-                    var.vendorExtensions.put("x-parameter-type", getTypeHint(var.dataType + "[]"));
-                }
-
-                // Create a variable to display the correct data type in comments for models
-                var.vendorExtensions.put("x-comment-type", var.dataType);
-                if (var.isContainer) {
-                    var.vendorExtensions.put("x-comment-type", var.dataType + "[]");
+                    var.vendorExtensions.put("x-parameter-type", getTypeHintNullable(var.dataType + "[]"));
+                    var.vendorExtensions.put("x-comment-type", getTypeHintNullableForComments(var.dataType + "[]"));
                 }
             }
         }
 
         return objs;
+    }
+
+    public String prependSlashToDataTypeOnlyIfNecessary(String dataType) {
+        if (dataType.equals("array") || dataType.equals("bool") || dataType.equals("float") || dataType.equals("int") || dataType.equals("string") || dataType.equals("object") || dataType.equals("iterable") || dataType.equals("mixed")) {
+            return dataType;
+        }
+
+        return "\\" + dataType;
     }
 
     /**
@@ -554,7 +544,7 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         }
 
         if (ModelUtils.isMapSchema(p)) {
-            Schema inner = getAdditionalProperties(p);
+            Schema inner = ModelUtils.getAdditionalProperties(p);
             return getTypeDeclaration(inner);
         }
 
@@ -604,7 +594,7 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
 
     @Override
     public String toEnumValue(String value, String datatype) {
-        if ("int".equals(datatype) || "double".equals(datatype) || "float".equals(datatype)) {
+        if ("int".equals(datatype) || "float".equals(datatype)) {
             return value;
         } else {
             return "\"" + escapeText(value) + "\"";
@@ -626,14 +616,14 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         if (name.isEmpty()) {
             return "DefaultApiInterface";
         }
-        return camelize(name, false) + "ApiInterface";
+        return camelize(name) + "ApiInterface";
     }
 
     protected String toControllerName(String name) {
         if (name.isEmpty()) {
             return "DefaultController";
         }
-        return camelize(name, false) + "Controller";
+        return camelize(name) + "Controller";
     }
 
     protected String toSymfonyService(String name) {
@@ -645,10 +635,34 @@ public class PhpSymfonyServerCodegen extends AbstractPhpCodegen implements Codeg
         return prefix + name;
     }
 
-    protected String getTypeHint(String type) {
+    protected String getTypeHintNullable(String type) {
+        String typeHint = getTypeHint(type, false);
+        if (!typeHint.equals("")) {
+            return "?" + typeHint;
+        }
+
+        return typeHint;
+    }
+
+    protected String getTypeHintNullableForComments(String type) {
+        String typeHint = getTypeHint(type, true);
+        if (!typeHint.equals("")) {
+            return typeHint + "|null";
+        }
+
+        return typeHint;
+    }
+
+    protected String getTypeHint(String type, Boolean forComments) {
         // Type hint array types
         if (type.endsWith("[]")) {
-            return "array";
+            if (forComments) {
+                //Make type hints for array in comments. Call getTypeHint recursive for extractSimpleName for models
+                String typeWithoutArray = type.substring(0, type.length() - 2);
+                return this.getTypeHint(typeWithoutArray, true) + "[]";
+            } else {
+                return "array";
+            }
         }
 
         // Check if the type is a native type that is type hintable in PHP

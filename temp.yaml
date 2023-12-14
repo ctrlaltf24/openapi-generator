@@ -1,0 +1,34 @@
+openapi: 3.0.1
+
+info:
+  version: "1"
+  title: rust one-of fix
+paths: {}
+components:
+  schemas:
+    Foo:
+      x-one-of-name: Foo
+      oneOf:
+        - type: object
+          required:
+            - field_one
+          properties:
+            field_one:
+              type: string
+            field_two:
+              type: string
+        - type: object
+          required:
+            - field_three
+          properties:
+            field_three:
+              type: number
+    Bar:
+      type: object
+      required:
+        - two
+      properties:
+        one:
+          type: string
+        two:
+          type: string

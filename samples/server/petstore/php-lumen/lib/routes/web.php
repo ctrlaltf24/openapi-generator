@@ -80,6 +80,13 @@ $router->get('/v2/fake', 'FakeApi@testEnumParameters');
 $router->delete('/v2/fake', 'FakeApi@testGroupParameters');
 
 /**
+ * get fakeBigDecimalMap
+ * Summary: 
+ * Notes: for Java apache and Java native, test toUrlQueryString for maps with BegDecimal keys
+ */
+$router->get('/v2/fake/BigDecimalMap', 'FakeApi@fakeBigDecimalMap');
+
+/**
  * put testBodyWithBinary
  * Summary: 
  * Notes: For this test, the body has to be a binary file.
@@ -122,11 +129,25 @@ $router->get('/v2/fake/http-signature-test', 'FakeApi@fakeHttpSignatureTest');
 $router->post('/v2/fake/inline-additionalProperties', 'FakeApi@testInlineAdditionalProperties');
 
 /**
+ * post testInlineFreeformAdditionalProperties
+ * Summary: test inline free-form additionalProperties
+ * Notes: 
+ */
+$router->post('/v2/fake/inline-freeform-additionalProperties', 'FakeApi@testInlineFreeformAdditionalProperties');
+
+/**
  * get testJsonFormData
  * Summary: test json serialization of form data
  * Notes: 
  */
 $router->get('/v2/fake/jsonFormData', 'FakeApi@testJsonFormData');
+
+/**
+ * post testNullable
+ * Summary: test nullable parent property
+ * Notes: 
+ */
+$router->post('/v2/fake/nullable', 'FakeApi@testNullable');
 
 /**
  * post fakeOuterBooleanSerialize
@@ -264,7 +285,7 @@ $router->delete('/v2/store/order/{order_id}', 'StoreApi@deleteOrder');
 /**
  * get getOrderById
  * Summary: Find purchase order by ID
- * Notes: For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
+ * Notes: For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
  */
 $router->get('/v2/store/order/{order_id}', 'StoreApi@getOrderById');
 
