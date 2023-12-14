@@ -34,6 +34,8 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [Addressable](docs/Addressable.md)
+ - [Apple](docs/Apple.md)
+ - [Banana](docs/Banana.md)
  - [Bar](docs/Bar.md)
  - [BarCreate](docs/BarCreate.md)
  - [BarRef](docs/BarRef.md)
@@ -44,6 +46,8 @@ Class | Method | HTTP request | Description
  - [Foo](docs/Foo.md)
  - [FooRef](docs/FooRef.md)
  - [FooRefOrValue](docs/FooRefOrValue.md)
+ - [Fruit](docs/Fruit.md)
+ - [FruitType](docs/FruitType.md)
  - [Pasta](docs/Pasta.md)
  - [Pizza](docs/Pizza.md)
  - [PizzaSpeziale](docs/PizzaSpeziale.md)

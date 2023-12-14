@@ -11,7 +11,7 @@
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "attype")]
+#[serde(tag = "")]
 pub enum FooRefOrValue {
 }
 
