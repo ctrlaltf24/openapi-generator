@@ -117,12 +117,12 @@ export const {{classname}}FetchParamCreator = function (configuration?: Configur
             }
             {{/isKeyInQuery}}
             {{/isApiKey}}
-            {{#isBasicBasic}}
+            {{#isBasic}}
             // http basic authentication required
             if (configuration && (configuration.username || configuration.password)) {
                 localVarHeaderParameter["Authorization"] = "Basic " + btoa(configuration.username + ":" + configuration.password);
             }
-            {{/isBasicBasic}}
+            {{/isBasic}}
             {{#isOAuth}}
             // oauth required
             if (configuration && configuration.accessToken) {
@@ -152,7 +152,7 @@ export const {{classname}}FetchParamCreator = function (configuration?: Configur
                 {{/isDateTime}}
                 {{^isDateTime}}
                 {{#isDate}}
-                localVarQueryParameter['{{baseName}}'] = (({{paramName}}:any):Date).toISOString().slice(0, 10);
+                localVarQueryParameter['{{baseName}}'] = (({{paramName}}:any):Date).toISOString();
                 {{/isDate}}
                 {{^isDate}}
                 localVarQueryParameter['{{baseName}}'] = (({{paramName}}:any):string);

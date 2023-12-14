@@ -10,14 +10,18 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import petstore_api
-from petstore_api.models.cat import Cat  # noqa: E501
-from petstore_api.rest import ApiException
+from petstore_api.model.address import Address
+from petstore_api.model.animal import Animal
+from petstore_api.model.cat_all_of import CatAllOf
+globals()['Address'] = Address
+globals()['Animal'] = Animal
+globals()['CatAllOf'] = CatAllOf
+from petstore_api.model.cat import Cat
+
 
 class TestCat(unittest.TestCase):
     """Cat unit test stubs"""
@@ -30,8 +34,10 @@ class TestCat(unittest.TestCase):
 
     def testCat(self):
         """Test Cat"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Cat()  # noqa: E501
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

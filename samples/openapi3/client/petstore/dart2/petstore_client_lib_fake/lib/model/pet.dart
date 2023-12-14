@@ -48,12 +48,12 @@ class Pet {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Pet &&
-    other.id == id &&
-    other.category == category &&
-    other.name == name &&
-    _deepEquality.equals(other.photoUrls, photoUrls) &&
-    _deepEquality.equals(other.tags, tags) &&
-    other.status == status;
+     other.id == id &&
+     other.category == category &&
+     other.name == name &&
+     other.photoUrls == photoUrls &&
+     other.tags == tags &&
+     other.status == status;
 
   @override
   int get hashCode =>
@@ -69,26 +69,20 @@ class Pet {
   String toString() => 'Pet[id=$id, category=$category, name=$name, photoUrls=$photoUrls, tags=$tags, status=$status]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.id != null) {
-      json[r'id'] = this.id;
-    } else {
-      json[r'id'] = null;
+    final _json = <String, dynamic>{};
+    if (id != null) {
+      _json[r'id'] = id;
     }
-    if (this.category != null) {
-      json[r'category'] = this.category;
-    } else {
-      json[r'category'] = null;
+    if (category != null) {
+      _json[r'category'] = category;
     }
-      json[r'name'] = this.name;
-      json[r'photoUrls'] = this.photoUrls.toList(growable: false);
-      json[r'tags'] = this.tags;
-    if (this.status != null) {
-      json[r'status'] = this.status;
-    } else {
-      json[r'status'] = null;
+      _json[r'name'] = name;
+      _json[r'photoUrls'] = photoUrls;
+      _json[r'tags'] = tags;
+    if (status != null) {
+      _json[r'status'] = status;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [Pet] instance and imports its values from
@@ -113,17 +107,17 @@ class Pet {
         id: mapValueOfType<int>(json, r'id'),
         category: Category.fromJson(json[r'category']),
         name: mapValueOfType<String>(json, r'name')!,
-        photoUrls: json[r'photoUrls'] is Iterable
-            ? (json[r'photoUrls'] as Iterable).cast<String>().toSet()
+        photoUrls: json[r'photoUrls'] is Set
+            ? (json[r'photoUrls'] as Set).cast<String>()
             : const {},
-        tags: Tag.listFromJson(json[r'tags']),
+        tags: Tag.listFromJson(json[r'tags']) ?? const [],
         status: PetStatusEnum.fromJson(json[r'status']),
       );
     }
     return null;
   }
 
-  static List<Pet> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Pet>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <Pet>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -154,10 +148,12 @@ class Pet {
   static Map<String, List<Pet>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<Pet>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = Pet.listFromJson(entry.value, growable: growable,);
+        final value = Pet.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;
@@ -196,7 +192,7 @@ class PetStatusEnum {
 
   static PetStatusEnum? fromJson(dynamic value) => PetStatusEnumTypeTransformer().decode(value);
 
-  static List<PetStatusEnum> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<PetStatusEnum>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <PetStatusEnum>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -229,7 +225,7 @@ class PetStatusEnumTypeTransformer {
   /// and users are still using an old app with the old code.
   PetStatusEnum? decode(dynamic data, {bool allowNull = true}) {
     if (data != null) {
-      switch (data) {
+      switch (data.toString()) {
         case r'available': return PetStatusEnum.available;
         case r'pending': return PetStatusEnum.pending;
         case r'sold': return PetStatusEnum.sold;

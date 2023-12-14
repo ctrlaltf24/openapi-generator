@@ -3,13 +3,11 @@ package org.openapitools.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -83,7 +81,7 @@ FISH(String.valueOf("fish")), CRAB(String.valueOf("crab"));
 }
 
   @ApiModelProperty(value = "")
-  private List<ArrayEnumEnum> arrayEnum;
+  private List<ArrayEnumEnum> arrayEnum = null;
  /**
    * Get justSymbol
    * @return justSymbol
@@ -128,23 +126,24 @@ FISH(String.valueOf("fish")), CRAB(String.valueOf("crab"));
     return this;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    EnumArrays enumArrays = (EnumArrays) o;
-    return Objects.equals(justSymbol, enumArrays.justSymbol) &&
-        Objects.equals(arrayEnum, enumArrays.arrayEnum);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(justSymbol, arrayEnum);
-  }
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      EnumArrays enumArrays = (EnumArrays) o;
+      return Objects.equals(justSymbol, enumArrays.justSymbol) &&
+          Objects.equals(arrayEnum, enumArrays.arrayEnum);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(justSymbol, arrayEnum);
+    }
 
   @Override
   public String toString() {

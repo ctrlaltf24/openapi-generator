@@ -9,12 +9,11 @@
 --
 --  Then, you can drop this edit note comment.
 --  ------------ EDIT NOTE ------------
-with {{openApiPackageName}}.Servers;
+{{#imports}}with {{import}};
+{{/imports}}
+with {{openApiPackageName}.Servers;
 with {{package}}.Models;
 with {{package}}.Skeletons;
-{{#adaImports}}with {{name}};
-{{/adaImports}}
-
 package {{package}}.Servers is
    pragma Warnings (Off, "*use clause for package*");
    use {{package}}.Models;
@@ -30,10 +29,10 @@ package {{package}}.Servers is
    overriding
    procedure {{operationId}}
       (Server : in out Server_Type{{#hasParams}};{{/hasParams}}
-       {{#allParams}}{{paramName}} : in {{#vendorExtensions.x-ada-type-name}}{{vendorExtensions.x-ada-type-name}}{{/vendorExtensions.x-ada-type-name}}{{^vendorExtensions.x-ada-type-name}}{{dataType}}{{/vendorExtensions.x-ada-type-name}}{{^-last}};
-       {{/-last}}{{/allParams}}{{#returnProperty}};
-       Result  : out {{vendorExtensions.x-ada-type-name}}{{/returnProperty}};
-       Context : in out {{openApiPackageName}}.Servers.Context_Type);
+       {{#allParams}}{{paramName}} : in {{dataType}}{{^-last}};
+       {{/-last}}{{/allParams}}{{#returnType}};
+       Result  : out {{.}}{{/returnType}};
+       Context : in out {{openApiPackageName}.Servers.Context_Type);
 {{/operation}}
 {{/operations}}
 {{/apis}}

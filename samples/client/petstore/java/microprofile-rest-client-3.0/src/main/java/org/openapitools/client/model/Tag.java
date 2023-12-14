@@ -12,6 +12,7 @@
 
 package org.openapitools.client.model;
 
+
 import java.lang.reflect.Type;
 import jakarta.json.bind.annotation.JsonbTypeDeserializer;
 import jakarta.json.bind.annotation.JsonbTypeSerializer;
@@ -101,3 +102,4 @@ public class Tag  {
     return o.toString().replace("\n", "\n    ");
   }
 }
+

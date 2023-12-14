@@ -94,15 +94,6 @@ export interface NullableClass {
     objectItemsNullable?: { [key: string]: object; };
 }
 
-/**
- * Check if a given object implements the NullableClass interface.
- */
-export function instanceOfNullableClass(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
-}
-
 export function NullableClassFromJSON(json: any): NullableClass {
     return NullableClassFromJSONTyped(json, false);
 }
@@ -143,7 +134,7 @@ export function NullableClassToJSON(value?: NullableClass | null): any {
         'number_prop': value.numberProp,
         'boolean_prop': value.booleanProp,
         'string_prop': value.stringProp,
-        'date_prop': value.dateProp === undefined ? undefined : (value.dateProp === null ? null : value.dateProp.toISOString().substring(0,10)),
+        'date_prop': value.dateProp === undefined ? undefined : (value.dateProp === null ? null : value.dateProp.toISOString().substr(0,10)),
         'datetime_prop': value.datetimeProp === undefined ? undefined : (value.datetimeProp === null ? null : value.datetimeProp.toISOString()),
         'array_nullable_prop': value.arrayNullableProp,
         'array_and_items_nullable_prop': value.arrayAndItemsNullableProp,

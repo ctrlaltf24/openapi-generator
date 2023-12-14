@@ -13,17 +13,19 @@ import (
 	"log"
 
 	// WARNING!
-	// Pass --git-repo-id and --git-user-id properties when generating the code
+	// Change this to a fully-qualified import path
+	// once you place this file into your project.
+	// For example,
 	//
-	sw "github.com/GIT_USER_ID/GIT_REPO_ID/go"
+	//sw "github.com/GIT_USER_ID/GIT_REPO_ID/go"
+	//
+	sw "./go"
 )
 
 func main() {
-	routes := sw.ApiHandleFunctions{}
-
 	log.Printf("Server started")
 
-	router := sw.NewRouter(routes)
+	router := sw.NewRouter()
 
 	log.Fatal(router.Run(":8080"))
 }

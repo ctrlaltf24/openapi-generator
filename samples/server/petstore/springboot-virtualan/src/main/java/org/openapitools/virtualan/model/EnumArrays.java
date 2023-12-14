@@ -5,14 +5,14 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
@@ -60,6 +60,7 @@ public class EnumArrays {
     }
   }
 
+  @JsonProperty("just_symbol")
   private JustSymbolEnum justSymbol;
 
   /**
@@ -97,8 +98,9 @@ public class EnumArrays {
     }
   }
 
+  @JsonProperty("array_enum")
   @Valid
-  private List<ArrayEnumEnum> arrayEnum;
+  private List<ArrayEnumEnum> arrayEnum = null;
 
   public EnumArrays justSymbol(JustSymbolEnum justSymbol) {
     this.justSymbol = justSymbol;
@@ -110,8 +112,7 @@ public class EnumArrays {
    * @return justSymbol
   */
   
-  @Schema(name = "just_symbol", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("just_symbol")
+  @ApiModelProperty(value = "")
   public JustSymbolEnum getJustSymbol() {
     return justSymbol;
   }
@@ -138,8 +139,7 @@ public class EnumArrays {
    * @return arrayEnum
   */
   
-  @Schema(name = "array_enum", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("array_enum")
+  @ApiModelProperty(value = "")
   public List<ArrayEnumEnum> getArrayEnum() {
     return arrayEnum;
   }

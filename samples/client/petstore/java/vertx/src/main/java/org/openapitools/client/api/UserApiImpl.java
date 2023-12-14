@@ -44,26 +44,26 @@ public class UserApiImpl implements UserApi {
     /**
     * Create user
     * This can only be done by the logged in user.
-        * @param user Created user object (required)
+        * @param body Created user object (required)
     * @param resultHandler Asynchronous result handler
     */
-    public void createUser(User user, Handler<AsyncResult<Void>> resultHandler) {
-        createUser(user, null, resultHandler);
+    public void createUser(User body, Handler<AsyncResult<Void>> resultHandler) {
+        createUser(body, null, resultHandler);
     }
 
     /**
     * Create user
     * This can only be done by the logged in user.
-    * @param user Created user object (required)
+    * @param body Created user object (required)
     * @param authInfo per call authentication override.
     * @param resultHandler Asynchronous result handler
     */
-    public void createUser(User user, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
-        Object localVarBody = user;
+    public void createUser(User body, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
+        Object localVarBody = body;
         
-        // verify the required parameter 'user' is set
-        if (user == null) {
-            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'user' when calling createUser"));
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'body' when calling createUser"));
             return;
         }
         
@@ -84,7 +84,7 @@ public class UserApiImpl implements UserApi {
         Map<String, Object> localVarFormParams = new HashMap<>();
         
         String[] localVarAccepts = {  };
-        String[] localVarContentTypes = { "application/json" };
+        String[] localVarContentTypes = {  };
         String[] localVarAuthNames = new String[] {  };
 
         apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccepts, localVarContentTypes, localVarAuthNames, authInfo, null, resultHandler);
@@ -92,26 +92,26 @@ public class UserApiImpl implements UserApi {
     /**
     * Creates list of users with given input array
     * 
-        * @param user List of user object (required)
+        * @param body List of user object (required)
     * @param resultHandler Asynchronous result handler
     */
-    public void createUsersWithArrayInput(List<User> user, Handler<AsyncResult<Void>> resultHandler) {
-        createUsersWithArrayInput(user, null, resultHandler);
+    public void createUsersWithArrayInput(List<User> body, Handler<AsyncResult<Void>> resultHandler) {
+        createUsersWithArrayInput(body, null, resultHandler);
     }
 
     /**
     * Creates list of users with given input array
     * 
-    * @param user List of user object (required)
+    * @param body List of user object (required)
     * @param authInfo per call authentication override.
     * @param resultHandler Asynchronous result handler
     */
-    public void createUsersWithArrayInput(List<User> user, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
-        Object localVarBody = user;
+    public void createUsersWithArrayInput(List<User> body, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
+        Object localVarBody = body;
         
-        // verify the required parameter 'user' is set
-        if (user == null) {
-            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'user' when calling createUsersWithArrayInput"));
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'body' when calling createUsersWithArrayInput"));
             return;
         }
         
@@ -132,7 +132,7 @@ public class UserApiImpl implements UserApi {
         Map<String, Object> localVarFormParams = new HashMap<>();
         
         String[] localVarAccepts = {  };
-        String[] localVarContentTypes = { "application/json" };
+        String[] localVarContentTypes = {  };
         String[] localVarAuthNames = new String[] {  };
 
         apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccepts, localVarContentTypes, localVarAuthNames, authInfo, null, resultHandler);
@@ -140,26 +140,26 @@ public class UserApiImpl implements UserApi {
     /**
     * Creates list of users with given input array
     * 
-        * @param user List of user object (required)
+        * @param body List of user object (required)
     * @param resultHandler Asynchronous result handler
     */
-    public void createUsersWithListInput(List<User> user, Handler<AsyncResult<Void>> resultHandler) {
-        createUsersWithListInput(user, null, resultHandler);
+    public void createUsersWithListInput(List<User> body, Handler<AsyncResult<Void>> resultHandler) {
+        createUsersWithListInput(body, null, resultHandler);
     }
 
     /**
     * Creates list of users with given input array
     * 
-    * @param user List of user object (required)
+    * @param body List of user object (required)
     * @param authInfo per call authentication override.
     * @param resultHandler Asynchronous result handler
     */
-    public void createUsersWithListInput(List<User> user, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
-        Object localVarBody = user;
+    public void createUsersWithListInput(List<User> body, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
+        Object localVarBody = body;
         
-        // verify the required parameter 'user' is set
-        if (user == null) {
-            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'user' when calling createUsersWithListInput"));
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'body' when calling createUsersWithListInput"));
             return;
         }
         
@@ -180,7 +180,7 @@ public class UserApiImpl implements UserApi {
         Map<String, Object> localVarFormParams = new HashMap<>();
         
         String[] localVarAccepts = {  };
-        String[] localVarContentTypes = { "application/json" };
+        String[] localVarContentTypes = {  };
         String[] localVarAuthNames = new String[] {  };
 
         apiClient.invokeAPI(localVarPath, "POST", localVarQueryParams, localVarBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccepts, localVarContentTypes, localVarAuthNames, authInfo, null, resultHandler);
@@ -383,23 +383,23 @@ public class UserApiImpl implements UserApi {
     * Updated user
     * This can only be done by the logged in user.
         * @param username name that need to be deleted (required)
-        * @param user Updated user object (required)
+        * @param body Updated user object (required)
     * @param resultHandler Asynchronous result handler
     */
-    public void updateUser(String username, User user, Handler<AsyncResult<Void>> resultHandler) {
-        updateUser(username, user, null, resultHandler);
+    public void updateUser(String username, User body, Handler<AsyncResult<Void>> resultHandler) {
+        updateUser(username, body, null, resultHandler);
     }
 
     /**
     * Updated user
     * This can only be done by the logged in user.
     * @param username name that need to be deleted (required)
-    * @param user Updated user object (required)
+    * @param body Updated user object (required)
     * @param authInfo per call authentication override.
     * @param resultHandler Asynchronous result handler
     */
-    public void updateUser(String username, User user, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
-        Object localVarBody = user;
+    public void updateUser(String username, User body, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
+        Object localVarBody = body;
         
         // verify the required parameter 'username' is set
         if (username == null) {
@@ -407,9 +407,9 @@ public class UserApiImpl implements UserApi {
             return;
         }
         
-        // verify the required parameter 'user' is set
-        if (user == null) {
-            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'user' when calling updateUser"));
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            resultHandler.handle(ApiException.fail(400, "Missing the required parameter 'body' when calling updateUser"));
             return;
         }
         
@@ -430,7 +430,7 @@ public class UserApiImpl implements UserApi {
         Map<String, Object> localVarFormParams = new HashMap<>();
         
         String[] localVarAccepts = {  };
-        String[] localVarContentTypes = { "application/json" };
+        String[] localVarContentTypes = {  };
         String[] localVarAuthNames = new String[] {  };
 
         apiClient.invokeAPI(localVarPath, "PUT", localVarQueryParams, localVarBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAccepts, localVarContentTypes, localVarAuthNames, authInfo, null, resultHandler);

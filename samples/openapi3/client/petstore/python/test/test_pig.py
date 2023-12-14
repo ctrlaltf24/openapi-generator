@@ -10,14 +10,16 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import petstore_api
-from petstore_api.models.pig import Pig  # noqa: E501
-from petstore_api.rest import ApiException
+from petstore_api.model.basque_pig import BasquePig
+from petstore_api.model.danish_pig import DanishPig
+globals()['BasquePig'] = BasquePig
+globals()['DanishPig'] = DanishPig
+from petstore_api.model.pig import Pig
+
 
 class TestPig(unittest.TestCase):
     """Pig unit test stubs"""
@@ -30,8 +32,10 @@ class TestPig(unittest.TestCase):
 
     def testPig(self):
         """Test Pig"""
-        # inst_req_only = self.make_instance(include_optional=False)
-        # inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = Pig()  # noqa: E501
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -33,15 +33,6 @@ export interface HasOnlyReadOnly {
     readonly foo?: string;
 }
 
-/**
- * Check if a given object implements the HasOnlyReadOnly interface.
- */
-export function instanceOfHasOnlyReadOnly(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
-}
-
 export function HasOnlyReadOnlyFromJSON(json: any): HasOnlyReadOnly {
     return HasOnlyReadOnlyFromJSONTyped(json, false);
 }

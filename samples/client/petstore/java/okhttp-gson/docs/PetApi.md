@@ -15,7 +15,7 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**uploadFileWithRequiredFile**](PetApi.md#uploadFileWithRequiredFile) | **POST** /fake/{petId}/uploadImageWithRequiredFile | uploads an image (required) |
 
 
-<a id="addPet"></a>
+<a name="addPet"></a>
 # **addPet**
 > addPet(pet)
 
@@ -38,6 +38,7 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
     
+
     // Configure OAuth2 access token for authorization: petstore_auth
     OAuth petstore_auth = (OAuth) defaultClient.getAuthentication("petstore_auth");
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
@@ -69,7 +70,7 @@ null (empty response body)
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -81,7 +82,7 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **405** | Invalid input |  -  |
 
-<a id="deletePet"></a>
+<a name="deletePet"></a>
 # **deletePet**
 > deletePet(petId, apiKey)
 
@@ -149,7 +150,7 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **400** | Invalid pet value |  -  |
 
-<a id="findPetsByStatus"></a>
+<a name="findPetsByStatus"></a>
 # **findPetsByStatus**
 > List&lt;Pet&gt; findPetsByStatus(status)
 
@@ -172,6 +173,7 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
     
+
     // Configure OAuth2 access token for authorization: petstore_auth
     OAuth petstore_auth = (OAuth) defaultClient.getAuthentication("petstore_auth");
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
@@ -204,7 +206,7 @@ public class Example {
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -217,7 +219,7 @@ public class Example {
 | **200** | successful operation |  -  |
 | **400** | Invalid status value |  -  |
 
-<a id="findPetsByTags"></a>
+<a name="findPetsByTags"></a>
 # **findPetsByTags**
 > List&lt;Pet&gt; findPetsByTags(tags)
 
@@ -240,6 +242,7 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
     
+
     // Configure OAuth2 access token for authorization: petstore_auth
     OAuth petstore_auth = (OAuth) defaultClient.getAuthentication("petstore_auth");
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
@@ -272,7 +275,7 @@ public class Example {
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -285,7 +288,7 @@ public class Example {
 | **200** | successful operation |  -  |
 | **400** | Invalid tag value |  -  |
 
-<a id="getPetById"></a>
+<a name="getPetById"></a>
 # **getPetById**
 > Pet getPetById(petId)
 
@@ -356,7 +359,7 @@ public class Example {
 | **400** | Invalid ID supplied |  -  |
 | **404** | Pet not found |  -  |
 
-<a id="updatePet"></a>
+<a name="updatePet"></a>
 # **updatePet**
 > updatePet(pet)
 
@@ -379,6 +382,7 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
     
+
     // Configure OAuth2 access token for authorization: petstore_auth
     OAuth petstore_auth = (OAuth) defaultClient.getAuthentication("petstore_auth");
     petstore_auth.setAccessToken("YOUR ACCESS TOKEN");
@@ -410,7 +414,7 @@ null (empty response body)
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -424,7 +428,7 @@ null (empty response body)
 | **404** | Pet not found |  -  |
 | **405** | Validation exception |  -  |
 
-<a id="updatePetWithForm"></a>
+<a name="updatePetWithForm"></a>
 # **updatePetWithForm**
 > updatePetWithForm(petId, name, status)
 
@@ -494,7 +498,7 @@ null (empty response body)
 |-------------|-------------|------------------|
 | **405** | Invalid input |  -  |
 
-<a id="uploadFile"></a>
+<a name="uploadFile"></a>
 # **uploadFile**
 > ModelApiResponse uploadFile(petId, additionalMetadata, _file)
 
@@ -565,7 +569,7 @@ public class Example {
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="uploadFileWithRequiredFile"></a>
+<a name="uploadFileWithRequiredFile"></a>
 # **uploadFileWithRequiredFile**
 > ModelApiResponse uploadFileWithRequiredFile(petId, requiredFile, additionalMetadata)
 

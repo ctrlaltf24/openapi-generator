@@ -4,12 +4,13 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
@@ -22,10 +23,13 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class OuterComposite {
 
+  @JsonProperty("my_number")
   private BigDecimal myNumber;
 
+  @JsonProperty("my_string")
   private String myString;
 
+  @JsonProperty("my_boolean")
   private Boolean myBoolean;
 
   public OuterComposite myNumber(BigDecimal myNumber) {
@@ -38,8 +42,7 @@ public class OuterComposite {
    * @return myNumber
   */
   @Valid 
-  @Schema(name = "my_number", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("my_number")
+  @ApiModelProperty(value = "")
   public BigDecimal getMyNumber() {
     return myNumber;
   }
@@ -58,8 +61,7 @@ public class OuterComposite {
    * @return myString
   */
   
-  @Schema(name = "my_string", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("my_string")
+  @ApiModelProperty(value = "")
   public String getMyString() {
     return myString;
   }
@@ -78,8 +80,7 @@ public class OuterComposite {
    * @return myBoolean
   */
   
-  @Schema(name = "my_boolean", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("my_boolean")
+  @ApiModelProperty(value = "")
   public Boolean getMyBoolean() {
     return myBoolean;
   }

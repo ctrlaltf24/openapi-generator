@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**updatePetWithForm**](#updatePetWithForm) | **POST** /pet/{petId} | Updates a pet in the store with form data
 [**uploadFile**](#uploadFile) | **POST** /pet/{petId}/uploadImage | uploads an image
 
-<a id="addPet"></a>
+<a name="addPet"></a>
 # **addPet**
 ```java
 Mono<Pet> PetController.addPet(pet)
@@ -40,7 +40,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: `application/json`, `application/xml`
  - **Produces Content-Type**: `application/xml`, `application/json`
 
-<a id="deletePet"></a>
+<a name="deletePet"></a>
 # **deletePet**
 ```java
 Mono<Object> PetController.deletePet(petIdapiKey)
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: Not defined
 
-<a id="findPetsByStatus"></a>
+<a name="findPetsByStatus"></a>
 # **findPetsByStatus**
 ```java
 Mono<List<Pet>> PetController.findPetsByStatus(status)
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: `application/xml`, `application/json`
 
-<a id="findPetsByTags"></a>
+<a name="findPetsByTags"></a>
 # **findPetsByTags**
 ```java
 Mono<List<Pet>> PetController.findPetsByTags(tags)
@@ -114,7 +114,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: `application/xml`, `application/json`
 
-<a id="getPetById"></a>
+<a name="getPetById"></a>
 # **getPetById**
 ```java
 Mono<Pet> PetController.getPetById(petId)
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: `application/xml`, `application/json`
 
-<a id="updatePet"></a>
+<a name="updatePet"></a>
 # **updatePet**
 ```java
 Mono<Pet> PetController.updatePet(pet)
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: `application/json`, `application/xml`
  - **Produces Content-Type**: `application/xml`, `application/json`
 
-<a id="updatePetWithForm"></a>
+<a name="updatePetWithForm"></a>
 # **updatePetWithForm**
 ```java
 Mono<Object> PetController.updatePetWithForm(petIdnamestatus)
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: `application/x-www-form-urlencoded`
  - **Produces Content-Type**: Not defined
 
-<a id="uploadFile"></a>
+<a name="uploadFile"></a>
 # **uploadFile**
 ```java
 Mono<ModelApiResponse> PetController.uploadFile(petIdadditionalMetadata_file)

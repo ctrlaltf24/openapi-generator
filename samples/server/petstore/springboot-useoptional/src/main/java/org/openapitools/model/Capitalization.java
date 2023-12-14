@@ -22,20 +22,26 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Capitalization {
 
-  private Optional<String> smallCamel = Optional.empty();
+  @JsonProperty("smallCamel")
+  private String smallCamel;
 
-  private Optional<String> capitalCamel = Optional.empty();
+  @JsonProperty("CapitalCamel")
+  private String capitalCamel;
 
-  private Optional<String> smallSnake = Optional.empty();
+  @JsonProperty("small_Snake")
+  private String smallSnake;
 
-  private Optional<String> capitalSnake = Optional.empty();
+  @JsonProperty("Capital_Snake")
+  private String capitalSnake;
 
-  private Optional<String> scAETHFlowPoints = Optional.empty();
+  @JsonProperty("SCA_ETH_Flow_Points")
+  private String scAETHFlowPoints;
 
-  private Optional<String> ATT_NAME = Optional.empty();
+  @JsonProperty("ATT_NAME")
+  private String ATT_NAME;
 
   public Capitalization smallCamel(String smallCamel) {
-    this.smallCamel = Optional.of(smallCamel);
+    this.smallCamel = smallCamel;
     return this;
   }
 
@@ -45,17 +51,16 @@ public class Capitalization {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("smallCamel")
-  public Optional<String> getSmallCamel() {
+  public String getSmallCamel() {
     return smallCamel;
   }
 
-  public void setSmallCamel(Optional<String> smallCamel) {
+  public void setSmallCamel(String smallCamel) {
     this.smallCamel = smallCamel;
   }
 
   public Capitalization capitalCamel(String capitalCamel) {
-    this.capitalCamel = Optional.of(capitalCamel);
+    this.capitalCamel = capitalCamel;
     return this;
   }
 
@@ -65,17 +70,16 @@ public class Capitalization {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("CapitalCamel")
-  public Optional<String> getCapitalCamel() {
+  public String getCapitalCamel() {
     return capitalCamel;
   }
 
-  public void setCapitalCamel(Optional<String> capitalCamel) {
+  public void setCapitalCamel(String capitalCamel) {
     this.capitalCamel = capitalCamel;
   }
 
   public Capitalization smallSnake(String smallSnake) {
-    this.smallSnake = Optional.of(smallSnake);
+    this.smallSnake = smallSnake;
     return this;
   }
 
@@ -85,17 +89,16 @@ public class Capitalization {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("small_Snake")
-  public Optional<String> getSmallSnake() {
+  public String getSmallSnake() {
     return smallSnake;
   }
 
-  public void setSmallSnake(Optional<String> smallSnake) {
+  public void setSmallSnake(String smallSnake) {
     this.smallSnake = smallSnake;
   }
 
   public Capitalization capitalSnake(String capitalSnake) {
-    this.capitalSnake = Optional.of(capitalSnake);
+    this.capitalSnake = capitalSnake;
     return this;
   }
 
@@ -105,17 +108,16 @@ public class Capitalization {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("Capital_Snake")
-  public Optional<String> getCapitalSnake() {
+  public String getCapitalSnake() {
     return capitalSnake;
   }
 
-  public void setCapitalSnake(Optional<String> capitalSnake) {
+  public void setCapitalSnake(String capitalSnake) {
     this.capitalSnake = capitalSnake;
   }
 
   public Capitalization scAETHFlowPoints(String scAETHFlowPoints) {
-    this.scAETHFlowPoints = Optional.of(scAETHFlowPoints);
+    this.scAETHFlowPoints = scAETHFlowPoints;
     return this;
   }
 
@@ -125,17 +127,16 @@ public class Capitalization {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("SCA_ETH_Flow_Points")
-  public Optional<String> getScAETHFlowPoints() {
+  public String getScAETHFlowPoints() {
     return scAETHFlowPoints;
   }
 
-  public void setScAETHFlowPoints(Optional<String> scAETHFlowPoints) {
+  public void setScAETHFlowPoints(String scAETHFlowPoints) {
     this.scAETHFlowPoints = scAETHFlowPoints;
   }
 
   public Capitalization ATT_NAME(String ATT_NAME) {
-    this.ATT_NAME = Optional.of(ATT_NAME);
+    this.ATT_NAME = ATT_NAME;
     return this;
   }
 
@@ -145,12 +146,11 @@ public class Capitalization {
   */
   
   @ApiModelProperty(value = "Name of the pet ")
-  @JsonProperty("ATT_NAME")
-  public Optional<String> getATTNAME() {
+  public String getATTNAME() {
     return ATT_NAME;
   }
 
-  public void setATTNAME(Optional<String> ATT_NAME) {
+  public void setATTNAME(String ATT_NAME) {
     this.ATT_NAME = ATT_NAME;
   }
 

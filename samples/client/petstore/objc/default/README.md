@@ -123,14 +123,13 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-Authentication schemes defined for the API:
-### api_key
+## api_key
 
 - **Type**: API key
 - **API key parameter name**: api_key
 - **Location**: HTTP header
 
-### petstore_auth
+## petstore_auth
 
 - **Type**: OAuth
 - **Flow**: implicit

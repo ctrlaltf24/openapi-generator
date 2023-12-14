@@ -1,4 +1,4 @@
-# PSPetstore.PSPetstore\Api.PSFakeApi
+# PSPetstore.PSPetstore/Api.PSFakeApi
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
@@ -17,12 +17,11 @@ Method | HTTP request | Description
 [**Test-PSEnumParameters**](PSFakeApi.md#Test-PSEnumParameters) | **GET** /fake | To test enum parameters
 [**Test-PSGroupParameters**](PSFakeApi.md#Test-PSGroupParameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional)
 [**Test-PSInlineAdditionalProperties**](PSFakeApi.md#Test-PSInlineAdditionalProperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties
-[**Test-PSInlineFreeformAdditionalProperties**](PSFakeApi.md#Test-PSInlineFreeformAdditionalProperties) | **POST** /fake/inline-freeform-additionalProperties | test inline free-form additionalProperties
 [**Test-PSJsonFormData**](PSFakeApi.md#Test-PSJsonFormData) | **GET** /fake/jsonFormData | test json serialization of form data
 [**Test-PSQueryParameterCollectionFormat**](PSFakeApi.md#Test-PSQueryParameterCollectionFormat) | **PUT** /fake/test-query-parameters | 
 
 
-<a id="Invoke-PSFakeHealthGet"></a>
+<a name="Invoke-PSFakeHealthGet"></a>
 # **Invoke-PSFakeHealthGet**
 > HealthCheckResult Invoke-PSFakeHealthGet<br>
 
@@ -58,7 +57,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Invoke-PSFakeOuterBooleanSerialize"></a>
+<a name="Invoke-PSFakeOuterBooleanSerialize"></a>
 # **Invoke-PSFakeOuterBooleanSerialize**
 > Boolean Invoke-PSFakeOuterBooleanSerialize<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Body] <System.Nullable[Boolean]><br>
@@ -100,7 +99,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Invoke-PSFakeOuterCompositeSerialize"></a>
+<a name="Invoke-PSFakeOuterCompositeSerialize"></a>
 # **Invoke-PSFakeOuterCompositeSerialize**
 > OuterComposite Invoke-PSFakeOuterCompositeSerialize<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-OuterComposite] <PSCustomObject><br>
@@ -142,7 +141,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Invoke-PSFakeOuterNumberSerialize"></a>
+<a name="Invoke-PSFakeOuterNumberSerialize"></a>
 # **Invoke-PSFakeOuterNumberSerialize**
 > Decimal Invoke-PSFakeOuterNumberSerialize<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Body] <System.Nullable[Decimal]><br>
@@ -184,7 +183,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Invoke-PSFakeOuterStringSerialize"></a>
+<a name="Invoke-PSFakeOuterStringSerialize"></a>
 # **Invoke-PSFakeOuterStringSerialize**
 > String Invoke-PSFakeOuterStringSerialize<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Body] <String><br>
@@ -226,7 +225,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Get-PSArrayOfEnums"></a>
+<a name="Get-PSArrayOfEnums"></a>
 # **Get-PSArrayOfEnums**
 > OuterEnum[] Get-PSArrayOfEnums<br>
 
@@ -262,7 +261,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSBodyWithFileSchema"></a>
+<a name="Test-PSBodyWithFileSchema"></a>
 # **Test-PSBodyWithFileSchema**
 > void Test-PSBodyWithFileSchema<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-FileSchemaTestClass] <PSCustomObject><br>
@@ -305,7 +304,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSBodyWithQueryParams"></a>
+<a name="Test-PSBodyWithQueryParams"></a>
 # **Test-PSBodyWithQueryParams**
 > void Test-PSBodyWithQueryParams<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Query] <String><br>
@@ -348,7 +347,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSClientModel"></a>
+<a name="Test-PSClientModel"></a>
 # **Test-PSClientModel**
 > Client Test-PSClientModel<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Client] <PSCustomObject><br>
@@ -391,7 +390,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSEndpointParameters"></a>
+<a name="Test-PSEndpointParameters"></a>
 # **Test-PSEndpointParameters**
 > void Test-PSEndpointParameters<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Number] <Decimal><br>
@@ -479,7 +478,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSEnumParameters"></a>
+<a name="Test-PSEnumParameters"></a>
 # **Test-PSEnumParameters**
 > void Test-PSEnumParameters<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-EnumHeaderStringArray] <String[]><br>
@@ -543,7 +542,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSGroupParameters"></a>
+<a name="Test-PSGroupParameters"></a>
 # **Test-PSGroupParameters**
 > void Test-PSGroupParameters<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-RequiredStringGroup] <Int32><br>
@@ -561,6 +560,9 @@ Fake endpoint to test group parameters (optional)
 ```powershell
 # general setting of the PowerShell module, e.g. base URL, authentication, etc
 $Configuration = Get-Configuration
+# Configure HTTP basic authorization: bearer_test
+$Configuration.Username = "YOUR_USERNAME"
+$Configuration.Password = "YOUR_PASSWORD"
 
 $RequiredStringGroup = 56 # Int32 | Required String in group parameters
 $RequiredBooleanGroup = $true # Boolean | Required Boolean in group parameters
@@ -604,7 +606,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSInlineAdditionalProperties"></a>
+<a name="Test-PSInlineAdditionalProperties"></a>
 # **Test-PSInlineAdditionalProperties**
 > void Test-PSInlineAdditionalProperties<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-RequestBody] <System.Collections.Hashtable><br>
@@ -647,50 +649,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSInlineFreeformAdditionalProperties"></a>
-# **Test-PSInlineFreeformAdditionalProperties**
-> void Test-PSInlineFreeformAdditionalProperties<br>
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-TestInlineFreeformAdditionalPropertiesRequest] <PSCustomObject><br>
-
-test inline free-form additionalProperties
-
-
-
-### Example
-```powershell
-$TestInlineFreeformAdditionalPropertiesRequest = Initialize-TestInlineFreeformAdditionalPropertiesRequest -SomeProperty "MySomeProperty" # TestInlineFreeformAdditionalPropertiesRequest | request body
-
-# test inline free-form additionalProperties
-try {
-    $Result = Test-PSInlineFreeformAdditionalProperties -TestInlineFreeformAdditionalPropertiesRequest $TestInlineFreeformAdditionalPropertiesRequest
-} catch {
-    Write-Host ("Exception occurred when calling Test-PSInlineFreeformAdditionalProperties: {0}" -f ($_.ErrorDetails | ConvertFrom-Json))
-    Write-Host ("Response headers: {0}" -f ($_.Exception.Response.Headers | ConvertTo-Json))
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **TestInlineFreeformAdditionalPropertiesRequest** | [**TestInlineFreeformAdditionalPropertiesRequest**](TestInlineFreeformAdditionalPropertiesRequest.md)| request body | 
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-<a id="Test-PSJsonFormData"></a>
+<a name="Test-PSJsonFormData"></a>
 # **Test-PSJsonFormData**
 > void Test-PSJsonFormData<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Param] <String><br>
@@ -736,7 +695,7 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Test-PSQueryParameterCollectionFormat"></a>
+<a name="Test-PSQueryParameterCollectionFormat"></a>
 # **Test-PSQueryParameterCollectionFormat**
 > void Test-PSQueryParameterCollectionFormat<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Pipe] <String[]><br>

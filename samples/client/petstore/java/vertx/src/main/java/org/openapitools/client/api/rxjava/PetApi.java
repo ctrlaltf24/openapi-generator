@@ -28,46 +28,46 @@ public class PetApi {
     /**
     * Add a new pet to the store
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @param resultHandler Asynchronous result handler
     */
-    public void addPet(Pet pet, Handler<AsyncResult<Void>> resultHandler) {
-        delegate.addPet(pet, resultHandler);
+    public void addPet(Pet body, Handler<AsyncResult<Void>> resultHandler) {
+        delegate.addPet(body, resultHandler);
     }
 
     /**
     * Add a new pet to the store
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @param authInfo call specific auth overrides
     * @param resultHandler Asynchronous result handler
     */
-    public void addPet(Pet pet, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
-        delegate.addPet(pet, authInfo, resultHandler);
+    public void addPet(Pet body, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
+        delegate.addPet(body, authInfo, resultHandler);
     }
 
     /**
     * Add a new pet to the store
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @return Asynchronous result handler (RxJava Single)
     */
-    public Single<Void> rxAddPet(Pet pet) {
+    public Single<Void> rxAddPet(Pet body) {
         return Single.create(new io.vertx.rx.java.SingleOnSubscribeAdapter<>(fut ->
-            delegate.addPet(pet, fut)
+            delegate.addPet(body, fut)
         ));
     }
 
     /**
     * Add a new pet to the store
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @param authInfo call specific auth overrides
     * @return Asynchronous result handler (RxJava Single)
     */
-    public Single<Void> rxAddPet(Pet pet, ApiClient.AuthInfo authInfo) {
+    public Single<Void> rxAddPet(Pet body, ApiClient.AuthInfo authInfo) {
         return Single.create(new io.vertx.rx.java.SingleOnSubscribeAdapter<>(fut ->
-            delegate.addPet(pet, authInfo, fut)
+            delegate.addPet(body, authInfo, fut)
         ));
     }
     /**
@@ -257,46 +257,46 @@ public class PetApi {
     /**
     * Update an existing pet
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @param resultHandler Asynchronous result handler
     */
-    public void updatePet(Pet pet, Handler<AsyncResult<Void>> resultHandler) {
-        delegate.updatePet(pet, resultHandler);
+    public void updatePet(Pet body, Handler<AsyncResult<Void>> resultHandler) {
+        delegate.updatePet(body, resultHandler);
     }
 
     /**
     * Update an existing pet
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @param authInfo call specific auth overrides
     * @param resultHandler Asynchronous result handler
     */
-    public void updatePet(Pet pet, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
-        delegate.updatePet(pet, authInfo, resultHandler);
+    public void updatePet(Pet body, ApiClient.AuthInfo authInfo, Handler<AsyncResult<Void>> resultHandler) {
+        delegate.updatePet(body, authInfo, resultHandler);
     }
 
     /**
     * Update an existing pet
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @return Asynchronous result handler (RxJava Single)
     */
-    public Single<Void> rxUpdatePet(Pet pet) {
+    public Single<Void> rxUpdatePet(Pet body) {
         return Single.create(new io.vertx.rx.java.SingleOnSubscribeAdapter<>(fut ->
-            delegate.updatePet(pet, fut)
+            delegate.updatePet(body, fut)
         ));
     }
 
     /**
     * Update an existing pet
     * 
-    * @param pet Pet object that needs to be added to the store (required)
+    * @param body Pet object that needs to be added to the store (required)
     * @param authInfo call specific auth overrides
     * @return Asynchronous result handler (RxJava Single)
     */
-    public Single<Void> rxUpdatePet(Pet pet, ApiClient.AuthInfo authInfo) {
+    public Single<Void> rxUpdatePet(Pet body, ApiClient.AuthInfo authInfo) {
         return Single.create(new io.vertx.rx.java.SingleOnSubscribeAdapter<>(fut ->
-            delegate.updatePet(pet, authInfo, fut)
+            delegate.updatePet(body, authInfo, fut)
         ));
     }
     /**

@@ -4,7 +4,6 @@ import apimodels.Category;
 import apimodels.Tag;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,7 +12,6 @@ import java.util.Set;
 import javax.validation.*;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 /**
  * Pet
  */
@@ -42,7 +40,7 @@ public class Pet   {
   @JsonProperty("tags")
   @Valid
 
-  private List<@Valid Tag> tags = null;
+  private List<Tag> tags = null;
 
   /**
    * pet status in the store
@@ -138,10 +136,7 @@ public class Pet   {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new LinkedHashSet<>();
-    }
-    this.photoUrls.add(photoUrlsItem);
+    photoUrls.add(photoUrlsItem);
     return this;
   }
 
@@ -158,16 +153,16 @@ public class Pet   {
     this.photoUrls = photoUrls;
   }
 
-  public Pet tags(List<@Valid Tag> tags) {
+  public Pet tags(List<Tag> tags) {
     this.tags = tags;
     return this;
   }
 
   public Pet addTagsItem(Tag tagsItem) {
-    if (this.tags == null) {
-      this.tags = new ArrayList<>();
+    if (tags == null) {
+      tags = new ArrayList<>();
     }
-    this.tags.add(tagsItem);
+    tags.add(tagsItem);
     return this;
   }
 
@@ -175,11 +170,11 @@ public class Pet   {
    * Get tags
    * @return tags
   **/
-  public List<@Valid Tag> getTags() {
+  public List<Tag> getTags() {
     return tags;
   }
 
-  public void setTags(List<@Valid Tag> tags) {
+  public void setTags(List<Tag> tags) {
     this.tags = tags;
   }
 

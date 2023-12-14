@@ -18,7 +18,6 @@
 package org.openapitools.codegen.languages;
 
 import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.media.ComposedSchema;
 import io.swagger.v3.parser.util.SchemaTypeUtil;
 import org.openapitools.codegen.*;
 import org.openapitools.codegen.meta.features.DocumentationFeature;
@@ -117,7 +116,7 @@ public class TypeScriptRxjsClientCodegen extends AbstractTypeScriptClientCodegen
 
     @Override
     protected void addAdditionPropertiesToCodeGenModel(CodegenModel codegenModel, Schema schema) {
-        codegenModel.additionalPropertiesType = getTypeDeclaration(ModelUtils.getAdditionalProperties(schema));
+        codegenModel.additionalPropertiesType = getTypeDeclaration(getAdditionalProperties(schema));
         addImport(codegenModel, codegenModel.additionalPropertiesType);
     }
 
@@ -145,7 +144,7 @@ public class TypeScriptRxjsClientCodegen extends AbstractTypeScriptClientCodegen
             }
         }
 
-        return objs;
+         return objs;
     }
 
     @Override
@@ -264,10 +263,10 @@ public class TypeScriptRxjsClientCodegen extends AbstractTypeScriptClientCodegen
                 hasRequiredParams = true;
             }
 
-            for (CodegenParameter p : op.allParams) {
+            for (CodegenParameter p: op.allParams) {
                 String paramNameAlternative = null;
 
-                if (this.reservedParamNames.contains(p.paramName)) {
+                if(this.reservedParamNames.contains(p.paramName)){
                     paramNameAlternative = p.paramName + "Alias";
                     LOGGER.info("param: {} isReserved ––> {}", p.paramName, paramNameAlternative);
                 }
@@ -420,11 +419,5 @@ public class TypeScriptRxjsClientCodegen extends AbstractTypeScriptClientCodegen
             this.hasRequiredQueryParams = false; // will be updated within addConditionalImportInformation
             this.hasOptionalQueryParams = false; // will be updated within addConditionalImportInformation
         }
-    }
-
-    @Override
-    protected void addImport(Schema composed, Schema childSchema, CodegenModel model, String modelName) {
-        // import everything (including child schema of a composed schema)
-        addImport(model, modelName);
     }
 }

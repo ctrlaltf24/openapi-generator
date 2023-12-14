@@ -14,16 +14,10 @@ import (
 	"encoding/json"
 )
 
-// checks if the AdditionalPropertiesInteger type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AdditionalPropertiesInteger{}
-
 // AdditionalPropertiesInteger struct for AdditionalPropertiesInteger
 type AdditionalPropertiesInteger struct {
 	Name *string `json:"name,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _AdditionalPropertiesInteger AdditionalPropertiesInteger
 
 // NewAdditionalPropertiesInteger instantiates a new AdditionalPropertiesInteger object
 // This constructor will assign default values to properties that have it defined,
@@ -44,7 +38,7 @@ func NewAdditionalPropertiesIntegerWithDefaults() *AdditionalPropertiesInteger {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *AdditionalPropertiesInteger) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil || o.Name == nil {
 		var ret string
 		return ret
 	}
@@ -54,7 +48,7 @@ func (o *AdditionalPropertiesInteger) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AdditionalPropertiesInteger) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
 	return o.Name, true
@@ -62,7 +56,7 @@ func (o *AdditionalPropertiesInteger) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *AdditionalPropertiesInteger) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
+	if o != nil && o.Name != nil {
 		return true
 	}
 
@@ -75,45 +69,11 @@ func (o *AdditionalPropertiesInteger) SetName(v string) {
 }
 
 func (o AdditionalPropertiesInteger) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o AdditionalPropertiesInteger) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
-	return toSerialize, nil
-}
-
-func (o *AdditionalPropertiesInteger) UnmarshalJSON(bytes []byte) (err error) {
-	varAdditionalPropertiesInteger := _AdditionalPropertiesInteger{}
-
-	err = json.Unmarshal(bytes, &varAdditionalPropertiesInteger)
-
-	if err != nil {
-		return err
-	}
-
-	*o = AdditionalPropertiesInteger(varAdditionalPropertiesInteger)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "name")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
+	return json.Marshal(toSerialize)
 }
 
 type NullableAdditionalPropertiesInteger struct {

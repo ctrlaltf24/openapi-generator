@@ -1,6 +1,7 @@
 package org.openapitools.api;
 
 import java.util.Date;
+import java.util.List;
 import org.openapitools.model.User;
 
 import javax.ws.rs.*;
@@ -34,7 +35,7 @@ public class UserApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Void.class)
     })
-    public Response createUsersWithArrayInput(@Valid @NotNull List<@Valid User> body) {
+    public Response createUsersWithArrayInput(@Valid @NotNull List<User> body) {
         return Response.ok().entity("magic!").build();
     }
 
@@ -44,7 +45,7 @@ public class UserApi {
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Void.class)
     })
-    public Response createUsersWithListInput(@Valid @NotNull List<@Valid User> body) {
+    public Response createUsersWithListInput(@Valid @NotNull List<User> body) {
         return Response.ok().entity("magic!").build();
     }
 

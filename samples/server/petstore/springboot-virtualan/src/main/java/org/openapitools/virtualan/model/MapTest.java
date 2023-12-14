@@ -5,13 +5,15 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
@@ -24,8 +26,9 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class MapTest {
 
+  @JsonProperty("map_map_of_string")
   @Valid
-  private Map<String, Map<String, String>> mapMapOfString = new HashMap<>();
+  private Map<String, Map<String, String>> mapMapOfString = null;
 
   /**
    * Gets or Sets inner
@@ -62,14 +65,17 @@ public class MapTest {
     }
   }
 
+  @JsonProperty("map_of_enum_string")
   @Valid
-  private Map<String, InnerEnum> mapOfEnumString = new HashMap<>();
+  private Map<String, InnerEnum> mapOfEnumString = null;
 
+  @JsonProperty("direct_map")
   @Valid
-  private Map<String, Boolean> directMap = new HashMap<>();
+  private Map<String, Boolean> directMap = null;
 
+  @JsonProperty("indirect_map")
   @Valid
-  private Map<String, Boolean> indirectMap = new HashMap<>();
+  private Map<String, Boolean> indirectMap = null;
 
   public MapTest mapMapOfString(Map<String, Map<String, String>> mapMapOfString) {
     this.mapMapOfString = mapMapOfString;
@@ -89,8 +95,7 @@ public class MapTest {
    * @return mapMapOfString
   */
   @Valid 
-  @Schema(name = "map_map_of_string", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("map_map_of_string")
+  @ApiModelProperty(value = "")
   public Map<String, Map<String, String>> getMapMapOfString() {
     return mapMapOfString;
   }
@@ -117,8 +122,7 @@ public class MapTest {
    * @return mapOfEnumString
   */
   
-  @Schema(name = "map_of_enum_string", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("map_of_enum_string")
+  @ApiModelProperty(value = "")
   public Map<String, InnerEnum> getMapOfEnumString() {
     return mapOfEnumString;
   }
@@ -145,8 +149,7 @@ public class MapTest {
    * @return directMap
   */
   
-  @Schema(name = "direct_map", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("direct_map")
+  @ApiModelProperty(value = "")
   public Map<String, Boolean> getDirectMap() {
     return directMap;
   }
@@ -173,8 +176,7 @@ public class MapTest {
    * @return indirectMap
   */
   
-  @Schema(name = "indirect_map", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("indirect_map")
+  @ApiModelProperty(value = "")
   public Map<String, Boolean> getIndirectMap() {
     return indirectMap;
   }

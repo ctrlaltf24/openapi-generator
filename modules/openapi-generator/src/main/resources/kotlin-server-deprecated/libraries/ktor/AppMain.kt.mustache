@@ -86,7 +86,7 @@ fun Application.main() {
     {{#hasAuthMethods}}
     install(Authentication) {
     {{#authMethods}}
-        {{#isBasicBasic}}
+        {{#isBasic}}
         basic("{{{name}}}") {
         validate { credentials ->
             // TODO: "Apply your basic authentication functionality."
@@ -97,7 +97,7 @@ fun Application.main() {
                 null
             }
         }
-        {{/isBasicBasic}}
+        {{/isBasic}}
         {{#isApiKey}}
         // "Implement API key auth ({{{name}}}) for parameter name '{{{keyParamName}}}'."
         apiKeyAuth("{{{name}}}") {

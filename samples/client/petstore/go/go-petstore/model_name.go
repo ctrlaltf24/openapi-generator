@@ -12,11 +12,7 @@ package petstore
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the Name type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Name{}
 
 // Name Model for testing model name same as property name
 type Name struct {
@@ -25,8 +21,6 @@ type Name struct {
 	Property *string `json:"property,omitempty"`
 	Var123Number *int32 `json:"123Number,omitempty"`
 }
-
-type _Name Name
 
 // NewName instantiates a new Name object
 // This constructor will assign default values to properties that have it defined,
@@ -72,7 +66,7 @@ func (o *Name) SetName(v int32) {
 
 // GetSnakeCase returns the SnakeCase field value if set, zero value otherwise.
 func (o *Name) GetSnakeCase() int32 {
-	if o == nil || IsNil(o.SnakeCase) {
+	if o == nil || o.SnakeCase == nil {
 		var ret int32
 		return ret
 	}
@@ -82,7 +76,7 @@ func (o *Name) GetSnakeCase() int32 {
 // GetSnakeCaseOk returns a tuple with the SnakeCase field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Name) GetSnakeCaseOk() (*int32, bool) {
-	if o == nil || IsNil(o.SnakeCase) {
+	if o == nil || o.SnakeCase == nil {
 		return nil, false
 	}
 	return o.SnakeCase, true
@@ -90,7 +84,7 @@ func (o *Name) GetSnakeCaseOk() (*int32, bool) {
 
 // HasSnakeCase returns a boolean if a field has been set.
 func (o *Name) HasSnakeCase() bool {
-	if o != nil && !IsNil(o.SnakeCase) {
+	if o != nil && o.SnakeCase != nil {
 		return true
 	}
 
@@ -104,7 +98,7 @@ func (o *Name) SetSnakeCase(v int32) {
 
 // GetProperty returns the Property field value if set, zero value otherwise.
 func (o *Name) GetProperty() string {
-	if o == nil || IsNil(o.Property) {
+	if o == nil || o.Property == nil {
 		var ret string
 		return ret
 	}
@@ -114,7 +108,7 @@ func (o *Name) GetProperty() string {
 // GetPropertyOk returns a tuple with the Property field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Name) GetPropertyOk() (*string, bool) {
-	if o == nil || IsNil(o.Property) {
+	if o == nil || o.Property == nil {
 		return nil, false
 	}
 	return o.Property, true
@@ -122,7 +116,7 @@ func (o *Name) GetPropertyOk() (*string, bool) {
 
 // HasProperty returns a boolean if a field has been set.
 func (o *Name) HasProperty() bool {
-	if o != nil && !IsNil(o.Property) {
+	if o != nil && o.Property != nil {
 		return true
 	}
 
@@ -136,7 +130,7 @@ func (o *Name) SetProperty(v string) {
 
 // GetVar123Number returns the Var123Number field value if set, zero value otherwise.
 func (o *Name) GetVar123Number() int32 {
-	if o == nil || IsNil(o.Var123Number) {
+	if o == nil || o.Var123Number == nil {
 		var ret int32
 		return ret
 	}
@@ -146,7 +140,7 @@ func (o *Name) GetVar123Number() int32 {
 // GetVar123NumberOk returns a tuple with the Var123Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Name) GetVar123NumberOk() (*int32, bool) {
-	if o == nil || IsNil(o.Var123Number) {
+	if o == nil || o.Var123Number == nil {
 		return nil, false
 	}
 	return o.Var123Number, true
@@ -154,7 +148,7 @@ func (o *Name) GetVar123NumberOk() (*int32, bool) {
 
 // HasVar123Number returns a boolean if a field has been set.
 func (o *Name) HasVar123Number() bool {
-	if o != nil && !IsNil(o.Var123Number) {
+	if o != nil && o.Var123Number != nil {
 		return true
 	}
 
@@ -167,61 +161,20 @@ func (o *Name) SetVar123Number(v int32) {
 }
 
 func (o Name) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o Name) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["name"] = o.Name
-	if !IsNil(o.SnakeCase) {
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if o.SnakeCase != nil {
 		toSerialize["snake_case"] = o.SnakeCase
 	}
-	if !IsNil(o.Property) {
+	if o.Property != nil {
 		toSerialize["property"] = o.Property
 	}
-	if !IsNil(o.Var123Number) {
+	if o.Var123Number != nil {
 		toSerialize["123Number"] = o.Var123Number
 	}
-	return toSerialize, nil
-}
-
-func (o *Name) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varName := _Name{}
-
-	err = json.Unmarshal(bytes, &varName)
-
-	if err != nil {
-		return err
-	}
-
-	*o = Name(varName)
-
-	return err
+	return json.Marshal(toSerialize)
 }
 
 type NullableName struct {

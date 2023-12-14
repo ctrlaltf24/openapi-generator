@@ -14,14 +14,16 @@
 package org.openapitools.client.model;
 
 import java.util.Objects;
+import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.client.model.ArrayOfInlineAllOfArrayAllofDogPropertyInner;
 
@@ -35,16 +37,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.openapitools.client.JSON;
@@ -64,12 +62,13 @@ public class ArrayOfInlineAllOf {
 
   public static final String SERIALIZED_NAME_ARRAY_ALLOF_DOG_PROPERTY = "array_allof_dog_property";
   @SerializedName(SERIALIZED_NAME_ARRAY_ALLOF_DOG_PROPERTY)
-  private List<ArrayOfInlineAllOfArrayAllofDogPropertyInner> arrayAllofDogProperty;
+  private List<ArrayOfInlineAllOfArrayAllofDogPropertyInner> arrayAllofDogProperty = null;
 
-  public ArrayOfInlineAllOf() {
+  public ArrayOfInlineAllOf() { 
   }
 
   public ArrayOfInlineAllOf id(Long id) {
+    
     this.id = id;
     return this;
   }
@@ -79,9 +78,12 @@ public class ArrayOfInlineAllOf {
    * @return id
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
   public Long getId() {
     return id;
   }
+
 
   public void setId(Long id) {
     this.id = id;
@@ -89,6 +91,7 @@ public class ArrayOfInlineAllOf {
 
 
   public ArrayOfInlineAllOf name(String name) {
+    
     this.name = name;
     return this;
   }
@@ -98,9 +101,12 @@ public class ArrayOfInlineAllOf {
    * @return name
   **/
   @javax.annotation.Nonnull
+  @ApiModelProperty(example = "doggie", required = true, value = "")
+
   public String getName() {
     return name;
   }
+
 
   public void setName(String name) {
     this.name = name;
@@ -108,6 +114,7 @@ public class ArrayOfInlineAllOf {
 
 
   public ArrayOfInlineAllOf arrayAllofDogProperty(List<ArrayOfInlineAllOfArrayAllofDogPropertyInner> arrayAllofDogProperty) {
+    
     this.arrayAllofDogProperty = arrayAllofDogProperty;
     return this;
   }
@@ -125,9 +132,12 @@ public class ArrayOfInlineAllOf {
    * @return arrayAllofDogProperty
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
   public List<ArrayOfInlineAllOfArrayAllofDogPropertyInner> getArrayAllofDogProperty() {
     return arrayAllofDogProperty;
   }
+
 
   public void setArrayAllofDogProperty(List<ArrayOfInlineAllOfArrayAllofDogPropertyInner> arrayAllofDogProperty) {
     this.arrayAllofDogProperty = arrayAllofDogProperty;
@@ -143,10 +153,6 @@ public class ArrayOfInlineAllOf {
   /**
    * Set the additional (undeclared) property with the specified name and value.
    * If the property does not already exist, create it otherwise replace it.
-   *
-   * @param key name of the property
-   * @param value value of the property
-   * @return the ArrayOfInlineAllOf instance itself
    */
   public ArrayOfInlineAllOf putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
@@ -158,8 +164,6 @@ public class ArrayOfInlineAllOf {
 
   /**
    * Return the additional (undeclared) property.
-   *
-   * @return a map of objects
    */
   public Map<String, Object> getAdditionalProperties() {
     return additionalProperties;
@@ -167,9 +171,6 @@ public class ArrayOfInlineAllOf {
 
   /**
    * Return the additional (undeclared) property with the specified name.
-   *
-   * @param key name of the property
-   * @return an object
    */
   public Object getAdditionalProperty(String key) {
     if (this.additionalProperties == null) {
@@ -239,41 +240,40 @@ public class ArrayOfInlineAllOf {
   }
 
  /**
-  * Validates the JSON Element and throws an exception if issues found
+  * Validates the JSON Object and throws an exception if issues found
   *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ArrayOfInlineAllOf
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to ArrayOfInlineAllOf
   */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      if (jsonElement == null) {
-        if (!ArrayOfInlineAllOf.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (ArrayOfInlineAllOf.openapiRequiredFields.isEmpty()) {
+          return;
+        } else { // has required fields
           throw new IllegalArgumentException(String.format("The required field(s) %s in ArrayOfInlineAllOf is not found in the empty JSON string", ArrayOfInlineAllOf.openapiRequiredFields.toString()));
         }
       }
 
       // check to make sure all required properties/fields are present in the JSON string
       for (String requiredField : ArrayOfInlineAllOf.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        if (jsonObj.get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonObj.toString()));
         }
       }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("name").isJsonPrimitive()) {
+      if (jsonObj.get("name") != null && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
-      if (jsonObj.get("array_allof_dog_property") != null && !jsonObj.get("array_allof_dog_property").isJsonNull()) {
-        JsonArray jsonArrayarrayAllofDogProperty = jsonObj.getAsJsonArray("array_allof_dog_property");
-        if (jsonArrayarrayAllofDogProperty != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("array_allof_dog_property").isJsonArray()) {
-            throw new IllegalArgumentException(String.format("Expected the field `array_allof_dog_property` to be an array in the JSON string but got `%s`", jsonObj.get("array_allof_dog_property").toString()));
-          }
-
-          // validate the optional field `array_allof_dog_property` (array)
-          for (int i = 0; i < jsonArrayarrayAllofDogProperty.size(); i++) {
-            ArrayOfInlineAllOfArrayAllofDogPropertyInner.validateJsonElement(jsonArrayarrayAllofDogProperty.get(i));
-          };
+      JsonArray jsonArrayarrayAllofDogProperty = jsonObj.getAsJsonArray("array_allof_dog_property");
+      if (jsonArrayarrayAllofDogProperty != null) {
+        // ensure the json data is an array
+        if (!jsonObj.get("array_allof_dog_property").isJsonArray()) {
+          throw new IllegalArgumentException(String.format("Expected the field `array_allof_dog_property` to be an array in the JSON string but got `%s`", jsonObj.get("array_allof_dog_property").toString()));
         }
+
+        // validate the optional field `array_allof_dog_property` (array)
+        for (int i = 0; i < jsonArrayarrayAllofDogProperty.size(); i++) {
+          ArrayOfInlineAllOfArrayAllofDogPropertyInner.validateJsonObject(jsonArrayarrayAllofDogProperty.get(i).getAsJsonObject());
+        };
       }
   }
 
@@ -293,7 +293,7 @@ public class ArrayOfInlineAllOf {
            public void write(JsonWriter out, ArrayOfInlineAllOf value) throws IOException {
              JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
              obj.remove("additionalProperties");
-             // serialize additional properties
+             // serialize additonal properties
              if (value.getAdditionalProperties() != null) {
                for (Map.Entry<String, Object> entry : value.getAdditionalProperties().entrySet()) {
                  if (entry.getValue() instanceof String)
@@ -314,9 +314,8 @@ public class ArrayOfInlineAllOf {
 
            @Override
            public ArrayOfInlineAllOf read(JsonReader in) throws IOException {
-             JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
-             JsonObject jsonObj = jsonElement.getAsJsonObject();
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
              // store additional fields in the deserialized instance
              ArrayOfInlineAllOf instance = thisAdapter.fromJsonTree(jsonObj);
              for (Map.Entry<String, JsonElement> entry : jsonObj.entrySet()) {
@@ -330,10 +329,8 @@ public class ArrayOfInlineAllOf {
                      instance.putAdditionalProperty(entry.getKey(), entry.getValue().getAsBoolean());
                    else
                      throw new IllegalArgumentException(String.format("The field `%s` has unknown primitive type. Value: %s", entry.getKey(), entry.getValue().toString()));
-                 } else if (entry.getValue().isJsonArray()) {
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), List.class));
-                 } else { // JSON object
-                     instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
+                 } else { // non-primitive type
+                   instance.putAdditionalProperty(entry.getKey(), gson.fromJson(entry.getValue(), HashMap.class));
                  }
                }
              }

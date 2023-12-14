@@ -2,10 +2,10 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import {Api} from './index{{importFileExtension}}';
+import {Api} from './';
 import {List} from 'immutable';
 import {all, fork, put, takeLatest} from "redux-saga/effects";
-import {apiCall, createSagaAction as originalCreateSagaAction, BaseEntitySupportPayloadApiAction, BasePayloadApiAction, NormalizedRecordEntities, normalizedEntities} from "../runtimeSagasAndRecords{{importFileExtension}}";
+import {apiCall, createSagaAction as originalCreateSagaAction, BaseEntitySupportPayloadApiAction, BasePayloadApiAction, NormalizedRecordEntities, normalizedEntities} from "../runtimeSagasAndRecords";
 import {Action} from "redux-ts-simple";
 
 {{#imports.0}}
@@ -18,7 +18,7 @@ import {
     {{#passthroughImports}}
     {{.}},
     {{/passthroughImports}}
-} from '../models/index{{importFileExtension}}';
+} from '../models';
 {{/imports.0}}
 {{#hasEnums}}
 {{#operations}}
@@ -28,7 +28,7 @@ import {
 
 import {
     {{operationIdCamelCase}}{{enumName}},
-} from './{{classname}}{{importFileExtension}}';
+} from './{{classname}}';
 {{/isEnum}}
 {{/allParams}}
 {{/operation}}

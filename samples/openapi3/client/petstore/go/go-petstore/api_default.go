@@ -13,13 +13,13 @@ package petstore
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
 
 
-type DefaultAPI interface {
+type DefaultApi interface {
 
 	/*
 	FooGet Method for FooGet
@@ -34,12 +34,12 @@ type DefaultAPI interface {
 	FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultResponse, *http.Response, error)
 }
 
-// DefaultAPIService DefaultAPI service
-type DefaultAPIService service
+// DefaultApiService DefaultApi service
+type DefaultApiService service
 
 type ApiFooGetRequest struct {
 	ctx context.Context
-	ApiService DefaultAPI
+	ApiService DefaultApi
 }
 
 func (r ApiFooGetRequest) Execute() (*FooGetDefaultResponse, *http.Response, error) {
@@ -52,7 +52,7 @@ FooGet Method for FooGet
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiFooGetRequest
 */
-func (a *DefaultAPIService) FooGet(ctx context.Context) ApiFooGetRequest {
+func (a *DefaultApiService) FooGet(ctx context.Context) ApiFooGetRequest {
 	return ApiFooGetRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -61,7 +61,7 @@ func (a *DefaultAPIService) FooGet(ctx context.Context) ApiFooGetRequest {
 
 // Execute executes the request
 //  @return FooGetDefaultResponse
-func (a *DefaultAPIService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultResponse, *http.Response, error) {
+func (a *DefaultApiService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -69,7 +69,7 @@ func (a *DefaultAPIService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultRes
 		localVarReturnValue  *FooGetDefaultResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.FooGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.FooGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -107,9 +107,9 @@ func (a *DefaultAPIService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultRes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -126,8 +126,7 @@ func (a *DefaultAPIService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultRes
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode >= 400 && localVarHTTPResponse.StatusCode < 500 {
@@ -137,8 +136,7 @@ func (a *DefaultAPIService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultRes
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 			var v FooGetDefaultResponse
@@ -147,8 +145,7 @@ func (a *DefaultAPIService) FooGetExecute(r ApiFooGetRequest) (*FooGetDefaultRes
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

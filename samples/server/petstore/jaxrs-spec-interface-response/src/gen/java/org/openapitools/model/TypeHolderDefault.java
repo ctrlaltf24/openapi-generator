@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.Serializable;
 import javax.validation.constraints.*;
@@ -20,8 +19,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("TypeHolderDefault")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class TypeHolderDefault  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class TypeHolderDefault  implements Serializable {
+  
   private @Valid String stringItem = "what";
   private @Valid BigDecimal numberItem;
   private @Valid Integer integerItem;
@@ -36,6 +35,8 @@ public class TypeHolderDefault  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(required = true, value = "")
   @JsonProperty("string_item")
   @NotNull
@@ -48,12 +49,14 @@ public class TypeHolderDefault  implements Serializable {
     this.stringItem = stringItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault numberItem(BigDecimal numberItem) {
     this.numberItem = numberItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -68,12 +71,14 @@ public class TypeHolderDefault  implements Serializable {
     this.numberItem = numberItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault integerItem(Integer integerItem) {
     this.integerItem = integerItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -88,12 +93,14 @@ public class TypeHolderDefault  implements Serializable {
     this.integerItem = integerItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault boolItem(Boolean boolItem) {
     this.boolItem = boolItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -108,12 +115,14 @@ public class TypeHolderDefault  implements Serializable {
     this.boolItem = boolItem;
   }
 
-  /**
+/**
    **/
   public TypeHolderDefault arrayItem(List<Integer> arrayItem) {
     this.arrayItem = arrayItem;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")

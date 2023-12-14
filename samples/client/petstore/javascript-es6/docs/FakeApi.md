@@ -19,7 +19,6 @@ Method | HTTP request | Description
 [**testEnumParameters**](FakeApi.md#testEnumParameters) | **GET** /fake | To test enum parameters
 [**testGroupParameters**](FakeApi.md#testGroupParameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional)
 [**testInlineAdditionalProperties**](FakeApi.md#testInlineAdditionalProperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties
-[**testInlineFreeformAdditionalProperties**](FakeApi.md#testInlineFreeformAdditionalProperties) | **POST** /fake/inline-freeform-additionalProperties | test inline free-form additionalProperties
 [**testJsonFormData**](FakeApi.md#testJsonFormData) | **GET** /fake/jsonFormData | test json serialization of form data
 [**testQueryParameterCollectionFormat**](FakeApi.md#testQueryParameterCollectionFormat) | **PUT** /fake/test-query-parameters | 
 
@@ -27,7 +26,7 @@ Method | HTTP request | Description
 
 ## fakeHealthGet
 
-> HealthCheckStatus fakeHealthGet()
+> HealthCheckResult fakeHealthGet()
 
 Health check endpoint
 
@@ -52,7 +51,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**HealthCheckStatus**](HealthCheckStatus.md)
+[**HealthCheckResult**](HealthCheckResult.md)
 
 ### Authorization
 
@@ -79,7 +78,7 @@ let defaultClient = OpenApiPetstore.ApiClient.instance;
 let apiInstance = new OpenApiPetstore.FakeApi();
 let pet = new OpenApiPetstore.Pet(); // Pet | Pet object that needs to be added to the store
 let opts = {
-  'queryOne': "queryOne_example", // String | query parameter
+  'query1': "query1_example", // String | query parameter
   'header1': "header1_example" // String | header parameter
 };
 apiInstance.fakeHttpSignatureTest(pet, opts, (error, data, response) => {
@@ -97,7 +96,7 @@ apiInstance.fakeHttpSignatureTest(pet, opts, (error, data, response) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pet** | [**Pet**](Pet.md)| Pet object that needs to be added to the store | 
- **queryOne** | **String**| query parameter | [optional] 
+ **query1** | **String**| query parameter | [optional] 
  **header1** | **String**| header parameter | [optional] 
 
 ### Return type
@@ -759,51 +758,6 @@ apiInstance.testInlineAdditionalProperties(requestBody, (error, data, response) 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **requestBody** | [**{String: String}**](String.md)| request body | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: Not defined
-
-
-## testInlineFreeformAdditionalProperties
-
-> testInlineFreeformAdditionalProperties(testInlineFreeformAdditionalPropertiesRequest)
-
-test inline free-form additionalProperties
-
-
-
-### Example
-
-```javascript
-import OpenApiPetstore from 'open_api_petstore';
-
-let apiInstance = new OpenApiPetstore.FakeApi();
-let testInlineFreeformAdditionalPropertiesRequest = new OpenApiPetstore.TestInlineFreeformAdditionalPropertiesRequest(); // TestInlineFreeformAdditionalPropertiesRequest | request body
-apiInstance.testInlineFreeformAdditionalProperties(testInlineFreeformAdditionalPropertiesRequest, (error, data, response) => {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully.');
-  }
-});
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **testInlineFreeformAdditionalPropertiesRequest** | [**TestInlineFreeformAdditionalPropertiesRequest**](TestInlineFreeformAdditionalPropertiesRequest.md)| request body | 
 
 ### Return type
 

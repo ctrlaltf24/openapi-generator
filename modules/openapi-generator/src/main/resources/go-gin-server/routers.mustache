@@ -10,22 +10,22 @@ import (
 // Route is the information for every URI.
 type Route struct {
 	// Name is the name of this Route.
-	Name		string
+	Name        string
 	// Method is the string for the HTTP method. ex) GET, POST etc..
-	Method		string
+	Method      string
 	// Pattern is the pattern of the URI.
-	Pattern	 	string
+	Pattern     string
 	// HandlerFunc is the handler function of this route.
-	HandlerFunc	gin.HandlerFunc
+	HandlerFunc gin.HandlerFunc
 }
 
+// Routes is the list of the generated Route.
+type Routes []Route
+
 // NewRouter returns a new router.
-func NewRouter(handleFunctions ApiHandleFunctions) *gin.Engine {
+func NewRouter() *gin.Engine {
 	router := gin.Default()
-	for _, route := range getRoutes(handleFunctions) {
-		if route.HandlerFunc == nil {
-			route.HandlerFunc = DefaultHandleFunc
-		}
+	for _, route := range routes {
 		switch route.Method {
 		case http.MethodGet:
 			router.GET(route.Pattern, route.HandlerFunc)
@@ -43,31 +43,23 @@ func NewRouter(handleFunctions ApiHandleFunctions) *gin.Engine {
 	return router
 }
 
-// Default handler for not yet implemented routes
-func DefaultHandleFunc(c *gin.Context) {
-	c.String(http.StatusNotImplemented, "501 not implemented")
+// Index is the index handler.
+func Index(c *gin.Context) {
+	c.String(http.StatusOK, "Hello World!")
 }
 
-type ApiHandleFunctions struct {
-{{#apiInfo}}{{#apis}}{{#operations}}
-	// Routes for the {{classname}} part of the API
-	{{classname}} {{classname}}{{/operations}}{{/apis}}{{/apiInfo}}
-}
+var routes = Routes{
+	{
+		"Index",
+		http.MethodGet,
+		"{{{basePathWithoutHost}}}/",
+		Index,
+	},{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}
 
-func getRoutes(handleFunctions ApiHandleFunctions) []Route {
-	return []Route{ {{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}
-		{
-			"{{operationId}}",
-			http.Method{{httpMethod}},
-			"{{{basePathWithoutHost}}}{{{path}}}",
-			handleFunctions.{{classname}}.{{operationId}},
-		},{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}{{#webhooks}}{{#operations}}{{#operation}}
-		// webhook handler (adjust path accordingly)
-		{
-			"{{operationId}}",
-			http.Method{{httpMethod}},
-			"{{{basePathWithoutHost}}}{{{path}}}",
-			handleFunctions.{{classname}}.{{operationId}},
-		},{{/operation}}{{/operations}}{{/webhooks}}
-	}
+	{
+		"{{operationId}}",
+		http.Method{{httpMethod}},
+		"{{{basePathWithoutHost}}}{{{path}}}",
+		{{operationId}},
+	},{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}
 }

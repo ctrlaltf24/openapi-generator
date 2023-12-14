@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import Animal from './Animal';
+import DogAllOf from './DogAllOf';
 
 /**
  * The Dog model module.
@@ -25,10 +26,11 @@ class Dog {
      * @alias module:model/Dog
      * @extends module:model/Animal
      * @implements module:model/Animal
+     * @implements module:model/DogAllOf
      * @param className {String} 
      */
     constructor(className) { 
-        Animal.initialize(this, className);
+        Animal.initialize(this, className);DogAllOf.initialize(this);
         Dog.initialize(this, className);
     }
 
@@ -52,6 +54,7 @@ class Dog {
             obj = obj || new Dog();
             Animal.constructFromObject(data, obj);
             Animal.constructFromObject(data, obj);
+            DogAllOf.constructFromObject(data, obj);
 
             if (data.hasOwnProperty('breed')) {
                 obj['breed'] = ApiClient.convertToType(data['breed'], 'String');
@@ -60,30 +63,8 @@ class Dog {
         return obj;
     }
 
-    /**
-     * Validates the JSON data with respect to <code>Dog</code>.
-     * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @return {boolean} to indicate whether the JSON data is valid with respect to <code>Dog</code>.
-     */
-    static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of Dog.RequiredProperties) {
-            if (!data[property]) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
-        // ensure the json data is a string
-        if (data['breed'] && !(typeof data['breed'] === 'string' || data['breed'] instanceof String)) {
-            throw new Error("Expected the field `breed` to be a primitive type in the JSON string but got " + data['breed']);
-        }
-
-        return true;
-    }
-
 
 }
-
-Dog.RequiredProperties = ["className"];
 
 /**
  * @member {String} breed
@@ -101,6 +82,11 @@ Animal.prototype['className'] = undefined;
  * @default 'red'
  */
 Animal.prototype['color'] = 'red';
+// Implement DogAllOf interface:
+/**
+ * @member {String} breed
+ */
+DogAllOf.prototype['breed'] = undefined;
 
 
 

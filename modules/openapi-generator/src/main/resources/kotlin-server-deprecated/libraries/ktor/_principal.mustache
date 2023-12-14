@@ -1,7 +1,7 @@
 {{#authMethods}}
-{{#isBasicBasic}}
+{{#isBasic}}
 val principal = call.authentication.principal<UserIdPrincipal>()
-{{/isBasicBasic}}
+{{/isBasic}}
 {{#isApiKey}}
 val principal = call.authentication.principal<ApiPrincipal>()
 {{/isApiKey}}

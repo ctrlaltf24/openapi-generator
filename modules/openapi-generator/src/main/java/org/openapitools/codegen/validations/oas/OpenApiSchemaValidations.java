@@ -69,12 +69,13 @@ class OpenApiSchemaValidations extends GenericValidator<SchemaWrapper> {
         Schema schema = schemaWrapper.getSchema();
         ValidationRule.Result result = ValidationRule.Pass.empty();
 
-        if (ModelUtils.isComposedSchema(schema)) {
+        if (schema instanceof ComposedSchema) {
+            final ComposedSchema composed = (ComposedSchema) schema;
             // check for loosely defined oneOf extension requirements.
             // This is a recommendation because the 3.0.x spec is not clear enough on usage of oneOf.
             // see https://json-schema.org/draft/2019-09/json-schema-core.html#rfc.section.9.2.1.3 and the OAS section on 'Composition and Inheritance'.
-            if (schema.getOneOf() != null && schema.getOneOf().size() > 0) {
-                if (schema.getProperties() != null && schema.getProperties().size() >= 1 && schema.getProperties().get("discriminator") == null) {
+            if (composed.getOneOf() != null && composed.getOneOf().size() > 0) {
+                if (composed.getProperties() != null && composed.getProperties().size() >= 1 && composed.getProperties().get("discriminator") == null) {
                     // not necessarily "invalid" here, but we trigger the recommendation which requires the method to return false.
                     result = ValidationRule.Fail.empty();
                 }
@@ -90,7 +91,7 @@ class OpenApiSchemaValidations extends GenericValidator<SchemaWrapper> {
      * Note: the validator invokes checkNullType() for every top-level schema in the OAS document. The method
      * is not called for nested schemas that are defined inline.
      *
-     * @param schemaWrapper An input schema, regardless of the type of schema.
+     * @param schema An input schema, regardless of the type of schema.
      * @return {@link ValidationRule.Pass} if the check succeeds, otherwise {@link ValidationRule.Fail}
      */
     private static ValidationRule.Result checkNullType(SchemaWrapper schemaWrapper) {

@@ -3,10 +3,10 @@
 {{#models}}
 {{#model}}
 {{^withoutRuntimeChecks}}
-export * from './{{{ classFilename }}}{{importFileExtension}}';
+export * from './{{{ classFilename }}}';
 {{#useSagaAndRecords}}
 {{^isEnum}}
-export * from './{{{ classFilename }}}Record{{importFileExtension}}';
+export * from './{{{ classFilename }}}Record';
 {{/isEnum}}
 {{/useSagaAndRecords}}
 {{/withoutRuntimeChecks}}

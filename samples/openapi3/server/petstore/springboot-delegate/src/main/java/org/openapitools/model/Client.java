@@ -21,6 +21,7 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Client {
 
+  @JsonProperty("client")
   private String client;
 
   public Client client(String client) {
@@ -33,8 +34,7 @@ public class Client {
    * @return client
   */
   
-  @Schema(name = "client", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("client")
+  @Schema(name = "client", required = false)
   public String getClient() {
     return client;
   }

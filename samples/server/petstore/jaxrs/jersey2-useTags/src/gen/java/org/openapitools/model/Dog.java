@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.model.Animal;
+import org.openapitools.model.DogAllOf;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -65,12 +66,13 @@ public class Dog extends Animal  {
       return false;
     }
     Dog dog = (Dog) o;
-    return super.equals(o) && Objects.equals(breed, dog.breed);
+    return Objects.equals(this.breed, dog.breed) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), breed);
+    return Objects.hash(breed, super.hashCode());
   }
 
   @Override

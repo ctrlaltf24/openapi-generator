@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.Serializable;
 import javax.validation.constraints.*;
@@ -22,14 +21,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("ArrayOfArrayOfNumberOnly")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
 public class ArrayOfArrayOfNumberOnly  implements Serializable {
-  private @Valid List<List<BigDecimal>> arrayArrayNumber;
+  
+  private @Valid List<List<BigDecimal>> arrayArrayNumber = new ArrayList<>();
 
   protected ArrayOfArrayOfNumberOnly(ArrayOfArrayOfNumberOnlyBuilder<?, ?> b) {
-    this.arrayArrayNumber = b.arrayArrayNumber;
+  this.arrayArrayNumber = b.arrayArrayNumber;
   }
 
-  public ArrayOfArrayOfNumberOnly() {
-  }
+  public ArrayOfArrayOfNumberOnly() { }
 
   /**
    **/
@@ -124,7 +123,7 @@ public class ArrayOfArrayOfNumberOnly  implements Serializable {
   }
 
   public static abstract class ArrayOfArrayOfNumberOnlyBuilder<C extends ArrayOfArrayOfNumberOnly, B extends ArrayOfArrayOfNumberOnlyBuilder<C, B>>  {
-    private List<List<BigDecimal>> arrayArrayNumber;
+    private List<List<BigDecimal>> arrayArrayNumber = new ArrayList<>();
     protected abstract B self();
 
     public abstract C build();

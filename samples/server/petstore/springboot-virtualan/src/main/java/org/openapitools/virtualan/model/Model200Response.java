@@ -5,11 +5,12 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
@@ -19,13 +20,15 @@ import javax.annotation.Generated;
  * Model for testing model name starting with number
  */
 
-@Schema(name = "200_response", description = "Model for testing model name starting with number")
+@ApiModel(description = "Model for testing model name starting with number")
 @JsonTypeName("200_response")
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Model200Response {
 
+  @JsonProperty("name")
   private Integer name;
 
+  @JsonProperty("class")
   private String propertyClass;
 
   public Model200Response name(Integer name) {
@@ -38,8 +41,7 @@ public class Model200Response {
    * @return name
   */
   
-  @Schema(name = "name", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("name")
+  @ApiModelProperty(value = "")
   public Integer getName() {
     return name;
   }
@@ -58,8 +60,7 @@ public class Model200Response {
    * @return propertyClass
   */
   
-  @Schema(name = "class", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("class")
+  @ApiModelProperty(value = "")
   public String getPropertyClass() {
     return propertyClass;
   }

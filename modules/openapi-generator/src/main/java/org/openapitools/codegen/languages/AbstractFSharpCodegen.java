@@ -38,7 +38,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
@@ -662,7 +661,7 @@ public abstract class AbstractFSharpCodegen extends DefaultCodegen implements Co
             case original:
                 return name;
             case camelCase:
-                return camelize(name, LOWERCASE_FIRST_LETTER);
+                return camelize(name, true);
             case PascalCase:
                 return camelize(name);
             case snake_case:
@@ -708,7 +707,7 @@ public abstract class AbstractFSharpCodegen extends DefaultCodegen implements Co
 
         // camelize(lower) the variable name
         // pet_id => petId
-        name = camelize(name, LOWERCASE_FIRST_LETTER);
+        name = camelize(name, true);
 
         // for reserved word or word starting with number, append _
         if (isReservedWord(name) || name.matches("^\\d.*")) {
@@ -795,7 +794,7 @@ public abstract class AbstractFSharpCodegen extends DefaultCodegen implements Co
             }
         } else if (ModelUtils.isStringSchema(p)) {
             if (p.getDefault() != null) {
-                String _default = String.valueOf(p.getDefault());
+                String _default = (String) p.getDefault();
                 if (p.getEnum() == null) {
                     return "\"" + _default + "\"";
                 } else {
@@ -880,7 +879,7 @@ public abstract class AbstractFSharpCodegen extends DefaultCodegen implements Co
             return getArrayTypeDeclaration((ArraySchema) p);
         } else if (ModelUtils.isMapSchema(p)) {
             // Should we also support maps of maps?
-            Schema inner = ModelUtils.getAdditionalProperties(p);
+            Schema inner = getAdditionalProperties(p);
             return getSchemaType(p) + "<string, " + getTypeDeclaration(inner) + ">";
         }
         return super.getTypeDeclaration(p);
@@ -1133,7 +1132,5 @@ public abstract class AbstractFSharpCodegen extends DefaultCodegen implements Co
     }
 
     @Override
-    public GeneratorLanguage generatorLanguage() {
-        return GeneratorLanguage.F_SHARP;
-    }
+    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.F_SHARP; }
 }

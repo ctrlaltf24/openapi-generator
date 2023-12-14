@@ -31,7 +31,6 @@ namespace OpenAPI\Server\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
@@ -42,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class Order 
 {
         /**
@@ -51,7 +49,7 @@ class Order
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $id = null;
+    protected $id;
 
     /**
      * @var int|null
@@ -59,7 +57,7 @@ class Order
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $petId = null;
+    protected $petId;
 
     /**
      * @var int|null
@@ -67,15 +65,15 @@ class Order
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $quantity = null;
+    protected $quantity;
 
     /**
      * @var \DateTime|null
      * @SerializedName("shipDate")
-     * @Assert\Type("\DateTime"))
+     * @Assert\DateTime()
      * @Type("DateTime")
      */
-    protected ?\DateTime $shipDate = null;
+    protected $shipDate;
 
     /**
      * Order Status
@@ -86,7 +84,7 @@ class Order
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $status = null;
+    protected $status;
 
     /**
      * @var bool|null
@@ -94,22 +92,20 @@ class Order
      * @Assert\Type("bool")
      * @Type("bool")
      */
-    protected ?bool $complete = false;
+    protected $complete;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        if (is_array($data)) {
-            $this->id = array_key_exists('id', $data) ? $data['id'] : $this->id;
-            $this->petId = array_key_exists('petId', $data) ? $data['petId'] : $this->petId;
-            $this->quantity = array_key_exists('quantity', $data) ? $data['quantity'] : $this->quantity;
-            $this->shipDate = array_key_exists('shipDate', $data) ? $data['shipDate'] : $this->shipDate;
-            $this->status = array_key_exists('status', $data) ? $data['status'] : $this->status;
-            $this->complete = array_key_exists('complete', $data) ? $data['complete'] : $this->complete;
-        }
+        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->petId = isset($data['petId']) ? $data['petId'] : null;
+        $this->quantity = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->shipDate = isset($data['shipDate']) ? $data['shipDate'] : null;
+        $this->status = isset($data['status']) ? $data['status'] : null;
+        $this->complete = isset($data['complete']) ? $data['complete'] : false;
     }
 
     /**
@@ -117,12 +113,10 @@ class Order
      *
      * @return int|null
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
-
-
 
     /**
      * Sets id.
@@ -131,7 +125,7 @@ class Order
      *
      * @return $this
      */
-    public function setId(?int $id = null): self
+    public function setId($id = null)
     {
         $this->id = $id;
 
@@ -143,12 +137,10 @@ class Order
      *
      * @return int|null
      */
-    public function getPetId(): ?int
+    public function getPetId()
     {
         return $this->petId;
     }
-
-
 
     /**
      * Sets petId.
@@ -157,7 +149,7 @@ class Order
      *
      * @return $this
      */
-    public function setPetId(?int $petId = null): self
+    public function setPetId($petId = null)
     {
         $this->petId = $petId;
 
@@ -169,12 +161,10 @@ class Order
      *
      * @return int|null
      */
-    public function getQuantity(): ?int
+    public function getQuantity()
     {
         return $this->quantity;
     }
-
-
 
     /**
      * Sets quantity.
@@ -183,7 +173,7 @@ class Order
      *
      * @return $this
      */
-    public function setQuantity(?int $quantity = null): self
+    public function setQuantity($quantity = null)
     {
         $this->quantity = $quantity;
 
@@ -200,8 +190,6 @@ class Order
         return $this->shipDate;
     }
 
-
-
     /**
      * Sets shipDate.
      *
@@ -209,7 +197,7 @@ class Order
      *
      * @return $this
      */
-    public function setShipDate(?\DateTime $shipDate = null): self
+    public function setShipDate(\DateTime $shipDate = null)
     {
         $this->shipDate = $shipDate;
 
@@ -221,12 +209,10 @@ class Order
      *
      * @return string|null
      */
-    public function getStatus(): ?string
+    public function getStatus()
     {
         return $this->status;
     }
-
-
 
     /**
      * Sets status.
@@ -235,7 +221,7 @@ class Order
      *
      * @return $this
      */
-    public function setStatus(?string $status = null): self
+    public function setStatus($status = null)
     {
         $this->status = $status;
 
@@ -247,12 +233,10 @@ class Order
      *
      * @return bool|null
      */
-    public function isComplete(): ?bool
+    public function isComplete()
     {
         return $this->complete;
     }
-
-
 
     /**
      * Sets complete.
@@ -261,7 +245,7 @@ class Order
      *
      * @return $this
      */
-    public function setComplete(?bool $complete = null): self
+    public function setComplete($complete = null)
     {
         $this->complete = $complete;
 

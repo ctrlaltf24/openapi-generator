@@ -14,7 +14,7 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**updateUser**](UserApi.md#updateUser) | **PUT** /user/{username} | Updated user |
 
 
-<a id="createUser"></a>
+<a name="createUser"></a>
 # **createUser**
 > createUser(user)
 
@@ -75,7 +75,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **0** | successful operation |  -  |
 
-<a id="createUsersWithArrayInput"></a>
+<a name="createUsersWithArrayInput"></a>
 # **createUsersWithArrayInput**
 > createUsersWithArrayInput(user)
 
@@ -136,7 +136,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **0** | successful operation |  -  |
 
-<a id="createUsersWithListInput"></a>
+<a name="createUsersWithListInput"></a>
 # **createUsersWithListInput**
 > createUsersWithListInput(user)
 
@@ -197,7 +197,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **0** | successful operation |  -  |
 
-<a id="deleteUser"></a>
+<a name="deleteUser"></a>
 # **deleteUser**
 > deleteUser(username)
 
@@ -259,7 +259,7 @@ No authorization required
 | **400** | Invalid username supplied |  -  |
 | **404** | User not found |  -  |
 
-<a id="getUserByName"></a>
+<a name="getUserByName"></a>
 # **getUserByName**
 > User getUserByName(username)
 
@@ -323,7 +323,7 @@ No authorization required
 | **400** | Invalid username supplied |  -  |
 | **404** | User not found |  -  |
 
-<a id="loginUser"></a>
+<a name="loginUser"></a>
 # **loginUser**
 > String loginUser(username, password)
 
@@ -388,7 +388,7 @@ No authorization required
 | **200** | successful operation |  * X-Rate-Limit - calls per hour allowed by the user <br>  * X-Expires-After - date in UTC when token expires <br>  |
 | **400** | Invalid username/password supplied |  -  |
 
-<a id="logoutUser"></a>
+<a name="logoutUser"></a>
 # **logoutUser**
 > logoutUser()
 
@@ -445,7 +445,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **0** | successful operation |  -  |
 
-<a id="updateUser"></a>
+<a name="updateUser"></a>
 # **updateUser**
 > updateUser(username, user)
 

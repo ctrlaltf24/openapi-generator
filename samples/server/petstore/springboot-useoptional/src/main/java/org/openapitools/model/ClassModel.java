@@ -23,10 +23,11 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class ClassModel {
 
-  private Optional<String> propertyClass = Optional.empty();
+  @JsonProperty("_class")
+  private String propertyClass;
 
   public ClassModel propertyClass(String propertyClass) {
-    this.propertyClass = Optional.of(propertyClass);
+    this.propertyClass = propertyClass;
     return this;
   }
 
@@ -36,12 +37,11 @@ public class ClassModel {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("_class")
-  public Optional<String> getPropertyClass() {
+  public String getPropertyClass() {
     return propertyClass;
   }
 
-  public void setPropertyClass(Optional<String> propertyClass) {
+  public void setPropertyClass(String propertyClass) {
     this.propertyClass = propertyClass;
   }
 

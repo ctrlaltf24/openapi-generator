@@ -31,7 +31,16 @@ open class OpenApiGeneratorValidateExtension(project: Project) {
     val inputSpec = project.objects.property<String>()
 
     /**
-     * Whether to offer recommendations related to the validated specification document.
+     * Whether or not to offer recommendations related to the validated specification document.
      */
-    val recommend = project.objects.property<Boolean>().convention(true)
+    val recommend = project.objects.property<Boolean?>()
+
+    init {
+        applyDefaults()
+    }
+
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun applyDefaults(){
+        recommend.set(true)
+    }
 }

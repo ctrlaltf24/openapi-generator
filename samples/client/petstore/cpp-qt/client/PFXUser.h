@@ -84,35 +84,35 @@ public:
 private:
     void initializeModel();
 
-    qint64 m_id;
+    qint64 id;
     bool m_id_isSet;
     bool m_id_isValid;
 
-    QString m_username;
+    QString username;
     bool m_username_isSet;
     bool m_username_isValid;
 
-    QString m_first_name;
+    QString first_name;
     bool m_first_name_isSet;
     bool m_first_name_isValid;
 
-    QString m_last_name;
+    QString last_name;
     bool m_last_name_isSet;
     bool m_last_name_isValid;
 
-    QString m_email;
+    QString email;
     bool m_email_isSet;
     bool m_email_isValid;
 
-    QString m_password;
+    QString password;
     bool m_password_isSet;
     bool m_password_isValid;
 
-    QString m_phone;
+    QString phone;
     bool m_phone_isSet;
     bool m_phone_isValid;
 
-    qint32 m_user_status;
+    qint32 user_status;
     bool m_user_status_isSet;
     bool m_user_status_isValid;
 };

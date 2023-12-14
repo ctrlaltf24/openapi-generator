@@ -13,7 +13,7 @@ public class CppTinyServiceServiceTest extends CppTinyBaseTest {
     public void intTypeIsLong() {
         // Arrange
         Schema schema = testSchema();
-        schema.addProperty("id", new IntegerSchema().format("int64"));
+        schema.addProperties("id", new IntegerSchema().format("int64"));
 
         // Act
         CodegenModel model_to_be_generated = makeCodeGenFrom(schema);

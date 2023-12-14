@@ -14,16 +14,14 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  GetBehaviorPermissionsResponse,
-  GetBehaviorTypeResponse,
-} from '../models/index';
 import {
+    GetBehaviorPermissionsResponse,
     GetBehaviorPermissionsResponseFromJSON,
     GetBehaviorPermissionsResponseToJSON,
+    GetBehaviorTypeResponse,
     GetBehaviorTypeResponseFromJSON,
     GetBehaviorTypeResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface GetBehaviorPermissionsRequest {
     behaviorId: number;

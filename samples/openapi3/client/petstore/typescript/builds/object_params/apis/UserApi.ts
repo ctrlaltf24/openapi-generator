@@ -1,7 +1,7 @@
 // TODO: better import syntax?
-import {BaseAPIRequestFactory, RequiredError, COLLECTION_FORMATS} from './baseapi';
+import {BaseAPIRequestFactory, RequiredError} from './baseapi';
 import {Configuration} from '../configuration';
-import {RequestContext, HttpMethod, ResponseContext, HttpFile, HttpInfo} from '../http/http';
+import {RequestContext, HttpMethod, ResponseContext, HttpFile} from '../http/http';
 import * as FormData from "form-data";
 import { URLSearchParams } from 'url';
 import {ObjectSerializer} from '../models/ObjectSerializer';
@@ -376,7 +376,7 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to createUser
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async createUserWithHttpInfo(response: ResponseContext): Promise<HttpInfo< void>> {
+     public async createUser(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("0", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "successful operation", undefined, response.headers);
@@ -384,7 +384,7 @@ export class UserApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+            return;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -397,7 +397,7 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to createUsersWithArrayInput
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async createUsersWithArrayInputWithHttpInfo(response: ResponseContext): Promise<HttpInfo< void>> {
+     public async createUsersWithArrayInput(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("0", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "successful operation", undefined, response.headers);
@@ -405,7 +405,7 @@ export class UserApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+            return;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -418,7 +418,7 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to createUsersWithListInput
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async createUsersWithListInputWithHttpInfo(response: ResponseContext): Promise<HttpInfo< void>> {
+     public async createUsersWithListInput(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("0", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "successful operation", undefined, response.headers);
@@ -426,7 +426,7 @@ export class UserApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+            return;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -439,7 +439,7 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to deleteUser
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async deleteUserWithHttpInfo(response: ResponseContext): Promise<HttpInfo< void>> {
+     public async deleteUser(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "Invalid username supplied", undefined, response.headers);
@@ -450,7 +450,7 @@ export class UserApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+            return;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -463,14 +463,14 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to getUserByName
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getUserByNameWithHttpInfo(response: ResponseContext): Promise<HttpInfo<User >> {
+     public async getUserByName(response: ResponseContext): Promise<User > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: User = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "User", ""
             ) as User;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+            return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "Invalid username supplied", undefined, response.headers);
@@ -485,7 +485,7 @@ export class UserApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "User", ""
             ) as User;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+            return body;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -498,14 +498,14 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to loginUser
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async loginUserWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async loginUser(response: ResponseContext): Promise<string > {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: string = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "string", ""
             ) as string;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+            return body;
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "Invalid username/password supplied", undefined, response.headers);
@@ -517,7 +517,7 @@ export class UserApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "string", ""
             ) as string;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+            return body;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -530,7 +530,7 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to logoutUser
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async logoutUserWithHttpInfo(response: ResponseContext): Promise<HttpInfo< void>> {
+     public async logoutUser(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("0", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "successful operation", undefined, response.headers);
@@ -538,7 +538,7 @@ export class UserApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+            return;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
@@ -551,7 +551,7 @@ export class UserApiResponseProcessor {
      * @params response Response returned by the server for a request to updateUser
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async updateUserWithHttpInfo(response: ResponseContext): Promise<HttpInfo< void>> {
+     public async updateUser(response: ResponseContext): Promise< void> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("400", response.httpStatusCode)) {
             throw new ApiException<undefined>(response.httpStatusCode, "Invalid user supplied", undefined, response.headers);
@@ -562,7 +562,7 @@ export class UserApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+            return;
         }
 
         throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);

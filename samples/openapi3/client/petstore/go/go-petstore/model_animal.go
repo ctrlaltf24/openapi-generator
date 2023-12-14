@@ -12,11 +12,7 @@ package petstore
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the Animal type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Animal{}
 
 // Animal struct for Animal
 type Animal struct {
@@ -75,7 +71,7 @@ func (o *Animal) SetClassName(v string) {
 
 // GetColor returns the Color field value if set, zero value otherwise.
 func (o *Animal) GetColor() string {
-	if o == nil || IsNil(o.Color) {
+	if o == nil || o.Color == nil {
 		var ret string
 		return ret
 	}
@@ -85,7 +81,7 @@ func (o *Animal) GetColor() string {
 // GetColorOk returns a tuple with the Color field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Animal) GetColorOk() (*string, bool) {
-	if o == nil || IsNil(o.Color) {
+	if o == nil || o.Color == nil {
 		return nil, false
 	}
 	return o.Color, true
@@ -93,7 +89,7 @@ func (o *Animal) GetColorOk() (*string, bool) {
 
 // HasColor returns a boolean if a field has been set.
 func (o *Animal) HasColor() bool {
-	if o != nil && !IsNil(o.Color) {
+	if o != nil && o.Color != nil {
 		return true
 	}
 
@@ -106,17 +102,11 @@ func (o *Animal) SetColor(v string) {
 }
 
 func (o Animal) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o Animal) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["className"] = o.ClassName
-	if !IsNil(o.Color) {
+	if true {
+		toSerialize["className"] = o.ClassName
+	}
+	if o.Color != nil {
 		toSerialize["color"] = o.Color
 	}
 
@@ -124,40 +114,15 @@ func (o Animal) ToMap() (map[string]interface{}, error) {
 		toSerialize[key] = value
 	}
 
-	return toSerialize, nil
+	return json.Marshal(toSerialize)
 }
 
 func (o *Animal) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"className",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAnimal := _Animal{}
 
-	err = json.Unmarshal(bytes, &varAnimal)
-
-	if err != nil {
-		return err
+	if err = json.Unmarshal(bytes, &varAnimal); err == nil {
+		*o = Animal(varAnimal)
 	}
-
-	*o = Animal(varAnimal)
 
 	additionalProperties := make(map[string]interface{})
 

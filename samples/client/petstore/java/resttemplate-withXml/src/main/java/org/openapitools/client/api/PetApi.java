@@ -29,6 +29,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen")
+@Component("org.openapitools.client.api.PetApi")
 public class PetApi {
     private ApiClient apiClient;
 
@@ -36,6 +37,7 @@ public class PetApi {
         this(new ApiClient());
     }
 
+    @Autowired
     public PetApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
@@ -51,30 +53,30 @@ public class PetApi {
     /**
      * Add a new pet to the store
      * 
-     * <p><b>200</b> - Successful operation
+     * <p><b>200</b> - successful operation
      * <p><b>405</b> - Invalid input
-     * @param pet Pet object that needs to be added to the store (required)
+     * @param body Pet object that needs to be added to the store (required)
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void addPet(Pet pet) throws RestClientException {
-        addPetWithHttpInfo(pet);
+    public void addPet(Pet body) throws RestClientException {
+        addPetWithHttpInfo(body);
     }
 
     /**
      * Add a new pet to the store
      * 
-     * <p><b>200</b> - Successful operation
+     * <p><b>200</b> - successful operation
      * <p><b>405</b> - Invalid input
-     * @param pet Pet object that needs to be added to the store (required)
+     * @param body Pet object that needs to be added to the store (required)
      * @return ResponseEntity&lt;Void&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> addPetWithHttpInfo(Pet pet) throws RestClientException {
-        Object localVarPostBody = pet;
+    public ResponseEntity<Void> addPetWithHttpInfo(Pet body) throws RestClientException {
+        Object localVarPostBody = body;
         
-        // verify the required parameter 'pet' is set
-        if (pet == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'pet' when calling addPet");
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'body' when calling addPet");
         }
         
 
@@ -98,7 +100,7 @@ public class PetApi {
     /**
      * Deletes a pet
      * 
-     * <p><b>200</b> - Successful operation
+     * <p><b>200</b> - successful operation
      * <p><b>400</b> - Invalid pet value
      * @param petId Pet id to delete (required)
      * @param apiKey  (optional)
@@ -111,7 +113,7 @@ public class PetApi {
     /**
      * Deletes a pet
      * 
-     * <p><b>200</b> - Successful operation
+     * <p><b>200</b> - successful operation
      * <p><b>400</b> - Invalid pet value
      * @param petId Pet id to delete (required)
      * @param apiKey  (optional)
@@ -186,7 +188,6 @@ public class PetApi {
 
         localVarQueryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("csv".toUpperCase(Locale.ROOT)), "status", status));
 
-
         final String[] localVarAccepts = { 
             "application/xml", "application/json"
          };
@@ -240,7 +241,6 @@ public class PetApi {
         final MultiValueMap<String, Object> localVarFormParams = new LinkedMultiValueMap<String, Object>();
 
         localVarQueryParams.putAll(apiClient.parameterToMultiValueMap(ApiClient.CollectionFormat.valueOf("csv".toUpperCase(Locale.ROOT)), "tags", tags));
-
 
         final String[] localVarAccepts = { 
             "application/xml", "application/json"
@@ -310,34 +310,34 @@ public class PetApi {
     /**
      * Update an existing pet
      * 
-     * <p><b>200</b> - Successful operation
+     * <p><b>200</b> - successful operation
      * <p><b>400</b> - Invalid ID supplied
      * <p><b>404</b> - Pet not found
      * <p><b>405</b> - Validation exception
-     * @param pet Pet object that needs to be added to the store (required)
+     * @param body Pet object that needs to be added to the store (required)
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public void updatePet(Pet pet) throws RestClientException {
-        updatePetWithHttpInfo(pet);
+    public void updatePet(Pet body) throws RestClientException {
+        updatePetWithHttpInfo(body);
     }
 
     /**
      * Update an existing pet
      * 
-     * <p><b>200</b> - Successful operation
+     * <p><b>200</b> - successful operation
      * <p><b>400</b> - Invalid ID supplied
      * <p><b>404</b> - Pet not found
      * <p><b>405</b> - Validation exception
-     * @param pet Pet object that needs to be added to the store (required)
+     * @param body Pet object that needs to be added to the store (required)
      * @return ResponseEntity&lt;Void&gt;
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public ResponseEntity<Void> updatePetWithHttpInfo(Pet pet) throws RestClientException {
-        Object localVarPostBody = pet;
+    public ResponseEntity<Void> updatePetWithHttpInfo(Pet body) throws RestClientException {
+        Object localVarPostBody = body;
         
-        // verify the required parameter 'pet' is set
-        if (pet == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'pet' when calling updatePet");
+        // verify the required parameter 'body' is set
+        if (body == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'body' when calling updatePet");
         }
         
 
@@ -361,7 +361,6 @@ public class PetApi {
     /**
      * Updates a pet in the store with form data
      * 
-     * <p><b>200</b> - Successful operation
      * <p><b>405</b> - Invalid input
      * @param petId ID of pet that needs to be updated (required)
      * @param name Updated name of the pet (optional)
@@ -375,7 +374,6 @@ public class PetApi {
     /**
      * Updates a pet in the store with form data
      * 
-     * <p><b>200</b> - Successful operation
      * <p><b>405</b> - Invalid input
      * @param petId ID of pet that needs to be updated (required)
      * @param name Updated name of the pet (optional)

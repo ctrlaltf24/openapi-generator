@@ -43,8 +43,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
-import static org.openapitools.codegen.utils.CamelizeOption.UPPERCASE_FIRST_CHAR;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
@@ -367,17 +365,11 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
         }
     }
 
-    public void setDateTimeFormat(String value) {
-        setStringProp(PROP_DATETIME_FORMAT, value);
-    }
+    public void setDateTimeFormat(String value) { setStringProp(PROP_DATETIME_FORMAT, value); }
 
-    public void setDateTimeParseFormat(String value) {
-        setStringProp(PROP_DATETIME_PARSE_FORMAT, value);
-    }
+    public void setDateTimeParseFormat(String value) { setStringProp(PROP_DATETIME_PARSE_FORMAT, value); }
 
-    public void setDateFormat(String value) {
-        setStringProp(PROP_DATE_FORMAT, value);
-    }
+    public void setDateFormat(String value) { setStringProp(PROP_DATE_FORMAT, value); }
 
     public void setCabalPackage(String value) {
         setStringProp(PROP_CABAL_PACKAGE, value);
@@ -412,9 +404,7 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
         this.useKatip = value;
     }
 
-    public void setCustomTestInstanceModule(String value) {
-        setStringProp(PROP_CUSTOM_TEST_INSTANCE_MODULE, value);
-    }
+    public void setCustomTestInstanceModule(String value) { setStringProp(PROP_CUSTOM_TEST_INSTANCE_MODULE, value); }
 
     private void setStringProp(String key, String value) {
         if (StringUtils.isBlank(value)) {
@@ -550,7 +540,7 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
     public void preprocessOpenAPI(OpenAPI openAPI) {
         String baseTitle = openAPI.getInfo().getTitle();
 
-        if (StringUtils.isBlank(baseTitle)) {
+        if (baseTitle == null) {
             baseTitle = "OpenAPI";
         } else {
             baseTitle = baseTitle.trim();
@@ -657,7 +647,7 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
             Schema inner = ap.getItems();
             return "[" + getTypeDeclaration(inner) + "]";
         } else if (ModelUtils.isMapSchema(p)) {
-            Schema inner = ModelUtils.getAdditionalProperties(p);
+            Schema inner = getAdditionalProperties(p);
             return "(Map.Map String " + getTypeDeclaration(inner) + ")";
         }
         return super.getTypeDeclaration(p);
@@ -679,7 +669,7 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
     @Override
     public String toInstantiationType(Schema p) {
         if (ModelUtils.isMapSchema(p)) {
-            Schema additionalProperties2 = ModelUtils.getAdditionalProperties(p);
+            Schema additionalProperties2 = getAdditionalProperties(p);
             String type = additionalProperties2.getType();
             if (null == type) {
                 LOGGER.error("No Type defined for Additional Schema {}\n\tIn Schema: {}", additionalProperties2, p);
@@ -1181,10 +1171,9 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
     }
 
     public String toVarName(String prefix, String name) {
-        boolean hasPrefix = !StringUtils.isBlank(prefix);
+        Boolean hasPrefix = !StringUtils.isBlank(prefix);
         name = underscore(sanitizeName(name.replaceAll("-", "_")));
-        name = camelize(name, hasPrefix ? UPPERCASE_FIRST_CHAR : LOWERCASE_FIRST_LETTER);
-
+        name = camelize(name, !hasPrefix);
         if (hasPrefix) {
             return prefix + name;
         } else {
@@ -1238,7 +1227,7 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
         if (StringUtils.isEmpty(operationId)) {
             throw new RuntimeException("Empty method/operation name (operationId) not allowed");
         }
-        operationId = escapeIdentifier("op", camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER));
+        operationId = escapeIdentifier("op", camelize(sanitizeName(operationId), true));
         return operationId;
     }
 
@@ -1268,7 +1257,7 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
     public String toDefaultValue(Schema p) {
         if (ModelUtils.isStringSchema(p)) {
             if (p.getDefault() != null) {
-                return "\"" + escapeText((String.valueOf(p.getDefault()))) + "\"";
+                return "\"" + escapeText((String) p.getDefault()) + "\"";
             }
         } else if (ModelUtils.isBooleanSchema(p)) {
             if (p.getDefault() != null) {
@@ -1444,8 +1433,8 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
         // finally escalate characters avoiding code injection
         return escapeUnsafeCharacters(
                 StringEscapeUtils.unescapeJava(
-                                StringEscapeUtils.escapeJava(input)
-                                        .replace("\\/", "/"))
+                        StringEscapeUtils.escapeJava(input)
+                                .replace("\\/", "/"))
                         .replaceAll("[\\t\\n\\r]", " ")
                         .replace("\\", "\\\\")
                         .replace("\"", "\\\""));
@@ -1479,13 +1468,10 @@ public class HaskellHttpClientCodegen extends DefaultCodegen implements CodegenC
             }
         }
     }
-
     static boolean ContainsJsonMimeType(String mime) {
-        return mime != null && CONTAINS_JSON_MIME_PATTERN.matcher(mime).matches();
+            return mime != null && CONTAINS_JSON_MIME_PATTERN.matcher(mime).matches();
     }
 
     @Override
-    public GeneratorLanguage generatorLanguage() {
-        return GeneratorLanguage.HASKELL;
-    }
+    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.HASKELL; }
 }

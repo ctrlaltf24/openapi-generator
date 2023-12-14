@@ -2,11 +2,11 @@ package org.openapitools.client;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import feign.okhttp.OkHttpClient;
+
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -44,8 +44,8 @@ public class ApiClient {
   private Feign.Builder feignBuilder;
 
   public ApiClient() {
-    apiAuthorizations = new LinkedHashMap<String, RequestInterceptor>();
     objectMapper = createObjectMapper();
+    apiAuthorizations = new LinkedHashMap<String, RequestInterceptor>();
     feignBuilder = Feign.builder()
                 .client(new OkHttpClient())
                 .encoder(new FormEncoder(new JacksonEncoder(objectMapper)))
@@ -59,24 +59,23 @@ public class ApiClient {
     this();
     for(String authName : authNames) {
       log.log(Level.FINE, "Creating authentication {0}", authName);
-      RequestInterceptor auth = null;
-      if ("petstore_auth".equals(authName)) {
-        auth = buildOauthRequestInterceptor(OAuthFlow.IMPLICIT, "http://petstore.swagger.io/api/oauth/dialog", "", "write:pets, read:pets");
-      } else if ("api_key".equals(authName)) {
+      RequestInterceptor auth;
+      if ("api_key".equals(authName)) {
         auth = new ApiKeyAuth("header", "api_key");
       } else if ("api_key_query".equals(authName)) {
         auth = new ApiKeyAuth("query", "api_key_query");
-      } else if ("http_basic_test".equals(authName)) {
-        auth = new HttpBasicAuth();
       } else if ("bearer_test".equals(authName)) {
         auth = new HttpBearerAuth("bearer");
+      } else if ("http_basic_test".equals(authName)) {
+        auth = new HttpBasicAuth();
       } else if ("http_signature_test".equals(authName)) {
+        auth = new HttpBearerAuth("signature");
+      } else if ("petstore_auth".equals(authName)) {
+        auth = buildOauthRequestInterceptor(OAuthFlow.IMPLICIT, "http://petstore.swagger.io/api/oauth/dialog", "", "write:pets, read:pets");
       } else {
         throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
       }
-      if (auth != null) {
-        addAuthorization(authName, auth);
-      }
+      addAuthorization(authName, auth);
     }
   }
 
@@ -149,7 +148,6 @@ public class ApiClient {
     }
   }
 
-
   public ObjectMapper getObjectMapper(){
     return objectMapper;
   }
@@ -211,15 +209,6 @@ public class ApiClient {
   public void setBearerToken(String bearerToken) {
     HttpBearerAuth apiAuthorization =  getAuthorization(HttpBearerAuth.class);
     apiAuthorization.setBearerToken(bearerToken);
-  }
-
-  /**
-   * Helper method to configure the supplier of bearer tokens.
-   * @param tokenSupplier the supplier of bearer tokens.
-   */
-  public void setBearerToken(Supplier<String> tokenSupplier) {
-    HttpBearerAuth apiAuthorization =  getAuthorization(HttpBearerAuth.class);
-    apiAuthorization.setBearerToken(tokenSupplier);
   }
 
   /**

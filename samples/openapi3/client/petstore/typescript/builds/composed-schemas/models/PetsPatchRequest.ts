@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { Cat } from '../models/Cat';
-import { Dog } from '../models/Dog';
+import { Cat } from './Cat';
+import { Dog } from './Dog';
 import { HttpFile } from '../http/http';
 
 export class PetsPatchRequest {
@@ -58,10 +58,5 @@ export class PetsPatchRequest {
 }
 
 
-export enum PetsPatchRequestBreedEnum {
-    Dingo = 'Dingo',
-    Husky = 'Husky',
-    Retriever = 'Retriever',
-    Shepherd = 'Shepherd'
-}
+export type PetsPatchRequestBreedEnum = "Dingo" | "Husky" | "Retriever" | "Shepherd" ;
 

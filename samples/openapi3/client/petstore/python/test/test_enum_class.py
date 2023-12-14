@@ -10,14 +10,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import petstore_api
-from petstore_api.models.enum_class import EnumClass  # noqa: E501
-from petstore_api.rest import ApiException
+from petstore_api.model.enum_class import EnumClass
+
 
 class TestEnumClass(unittest.TestCase):
     """EnumClass unit test stubs"""
@@ -30,7 +28,10 @@ class TestEnumClass(unittest.TestCase):
 
     def testEnumClass(self):
         """Test EnumClass"""
-        # inst = EnumClass()
+        # FIXME: construct object with mandatory attributes with example values
+        # model = EnumClass()  # noqa: E501
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

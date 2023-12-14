@@ -145,7 +145,6 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
                         "TArray",
                         "TArray<uint8>",  // For byte arrays
                         "TMap",
-                        "TSet",
                         "TSharedPtr<FJsonObject>",
                         "TSharedPtr<FJsonValue>")
         );
@@ -181,7 +180,6 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
         typeMapping.put("date-time", "FDateTime");
         typeMapping.put("DateTime", "FDateTime");
         typeMapping.put("array", "TArray");
-        typeMapping.put("set", "TSet");
         typeMapping.put("list", "TArray");
         typeMapping.put("map", "TMap");
         typeMapping.put("object", "TSharedPtr<FJsonObject>");
@@ -385,9 +383,11 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
 
         if (ModelUtils.isArraySchema(p)) {
             ArraySchema ap = (ArraySchema) p;
-            return getSchemaType(p) + "<" + getTypeDeclaration(ap.getItems()) + ">";
+            String inner = getSchemaType(ap.getItems());
+            return getSchemaType(p) + "<" + getTypeDeclaration(inner) + ">";
         } else if (ModelUtils.isMapSchema(p)) {
-            return getSchemaType(p) + "<FString, " + getTypeDeclaration(ModelUtils.getAdditionalProperties(p)) + ">";
+            String inner = getSchemaType(getAdditionalProperties(p));
+            return getSchemaType(p) + "<FString, " + getTypeDeclaration(inner) + ">";
         }
 
         if (pointerClasses.contains(openAPIType)) {
@@ -485,7 +485,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
                 languageSpecificPrimitives.contains(type)) {
             return type;
         } else {
-            return modelNamePrefix + camelize(sanitizeName(type));
+            return modelNamePrefix + camelize(sanitizeName(type), false);
         }
     }
 
@@ -500,7 +500,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
         }
 
         //Unreal variable names are CamelCase
-        String camelCaseName = camelize(name);
+        String camelCaseName = camelize(name, false);
 
         //Avoid empty variable name at all costs
         if(!camelCaseName.isEmpty()) {
@@ -527,7 +527,7 @@ public class CppUE4ClientCodegen extends AbstractCppCodegen {
 
     @Override
     public String toApiName(String type) {
-        return modelNamePrefix + camelize(type) + "Api";
+        return modelNamePrefix + camelize(type, false) + "Api";
     }
 
     @Override

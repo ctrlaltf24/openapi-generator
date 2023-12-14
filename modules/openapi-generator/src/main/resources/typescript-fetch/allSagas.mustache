@@ -6,7 +6,7 @@ import {
     {{#lambda.camelcase}}{{classFilename}}{{/lambda.camelcase}}AllSagas,
 {{/apis}}
 {{/apiInfo}}
-} from "./index{{importFileExtension}}";
+} from "./";
 
 export function *allApiSagas() {
     yield all([

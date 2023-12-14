@@ -9,9 +9,6 @@
 
 package petstoreserver
 
-
-
-
 // Tag - A tag for a pet
 type Tag struct {
 
@@ -25,7 +22,14 @@ func AssertTagRequired(obj Tag) error {
 	return nil
 }
 
-// AssertTagConstraints checks if the values respects the defined constraints
-func AssertTagConstraints(obj Tag) error {
-	return nil
+// AssertRecurseTagRequired recursively checks if required fields are not zero-ed in a nested slice.
+// Accepts only nested slice of Tag (e.g. [][]Tag), otherwise ErrTypeAssertionError is thrown.
+func AssertRecurseTagRequired(objSlice interface{}) error {
+	return AssertRecurseInterfaceRequired(objSlice, func(obj interface{}) error {
+		aTag, ok := obj.(Tag)
+		if !ok {
+			return ErrTypeAssertionError
+		}
+		return AssertTagRequired(aTag)
+	})
 }

@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-@objcMembers open class AnotherFakeAPI : NSObject {
+@objc open class AnotherFakeAPI : NSObject {
 
     /**
      To test special tags
@@ -53,6 +53,6 @@ import AnyCodable
 
         let localVariableRequestBuilder: RequestBuilder<Client>.Type = PetstoreClientAPI.requestBuilderFactory.getBuilder()
 
-        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters, requiresAuthentication: false)
+        return localVariableRequestBuilder.init(method: "PATCH", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 }

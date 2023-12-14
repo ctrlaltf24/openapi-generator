@@ -26,7 +26,7 @@ class ClassModel {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ClassModel &&
-    other.class_ == class_;
+     other.class_ == class_;
 
   @override
   int get hashCode =>
@@ -37,13 +37,11 @@ class ClassModel {
   String toString() => 'ClassModel[class_=$class_]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.class_ != null) {
-      json[r'_class'] = this.class_;
-    } else {
-      json[r'_class'] = null;
+    final _json = <String, dynamic>{};
+    if (class_ != null) {
+      _json[r'_class'] = class_;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [ClassModel] instance and imports its values from
@@ -71,7 +69,7 @@ class ClassModel {
     return null;
   }
 
-  static List<ClassModel> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<ClassModel>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <ClassModel>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -102,10 +100,12 @@ class ClassModel {
   static Map<String, List<ClassModel>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<ClassModel>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = ClassModel.listFromJson(entry.value, growable: growable,);
+        final value = ClassModel.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

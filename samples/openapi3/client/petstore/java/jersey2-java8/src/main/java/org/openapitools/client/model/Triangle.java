@@ -18,6 +18,7 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,7 +29,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.client.model.EquilateralTriangle;
 import org.openapitools.client.model.IsoscelesTriangle;
 import org.openapitools.client.model.ScaleneTriangle;
@@ -97,7 +99,7 @@ public class Triangle extends AbstractOpenApiSchema {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             Triangle newTriangle = new Triangle();
-            Map<String, Object> result2 = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Map<String, Object>>() {});
+            Map<String,Object> result2 = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Map<String, Object>>() {});
             String discriminatorValue = (String)result2.get("triangleType");
             switch (discriminatorValue) {
                 case "EquilateralTriangle":
@@ -215,7 +217,7 @@ public class Triangle extends AbstractOpenApiSchema {
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<>();
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
     public Triangle() {
         super("oneOf", Boolean.FALSE);
@@ -234,7 +236,7 @@ public class Triangle extends AbstractOpenApiSchema {
   @JsonAnySetter
   public Triangle putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<>();
+        this.additionalProperties = new HashMap<String, Object>();
     }
     this.additionalProperties.put(key, value);
     return this;
@@ -294,7 +296,7 @@ public class Triangle extends AbstractOpenApiSchema {
         });
         JSON.registerDescendants(Triangle.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
-        Map<String, Class<?>> mappings = new HashMap<>();
+        Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
         mappings.put("EquilateralTriangle", EquilateralTriangle.class);
         mappings.put("IsoscelesTriangle", IsoscelesTriangle.class);
         mappings.put("ScaleneTriangle", ScaleneTriangle.class);
@@ -317,17 +319,17 @@ public class Triangle extends AbstractOpenApiSchema {
      */
     @Override
     public void setActualInstance(Object instance) {
-        if (JSON.isInstanceOf(EquilateralTriangle.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(EquilateralTriangle.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(IsoscelesTriangle.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(IsoscelesTriangle.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(ScaleneTriangle.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(ScaleneTriangle.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }

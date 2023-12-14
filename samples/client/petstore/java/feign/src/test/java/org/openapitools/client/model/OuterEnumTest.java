@@ -15,6 +15,7 @@ package org.openapitools.client.model;
 
 import org.junit.jupiter.api.Test;
 
+
 /**
  * Model tests for OuterEnum
  */

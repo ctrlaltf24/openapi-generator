@@ -10,6 +10,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.model.Animal;
+import org.openapitools.model.BigCat;
+import org.openapitools.model.CatAllOf;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -35,21 +37,11 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Cat extends Animal {
 
-  private Optional<Boolean> declawed = Optional.empty();
-
-  public Cat() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Cat(String className) {
-    super(className);
-  }
+  @JsonProperty("declawed")
+  private Boolean declawed;
 
   public Cat declawed(Boolean declawed) {
-    this.declawed = Optional.of(declawed);
+    this.declawed = declawed;
     return this;
   }
 
@@ -59,25 +51,24 @@ public class Cat extends Animal {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("declawed")
-  public Optional<Boolean> getDeclawed() {
+  public Boolean getDeclawed() {
     return declawed;
   }
 
-  public void setDeclawed(Optional<Boolean> declawed) {
+  public void setDeclawed(Boolean declawed) {
     this.declawed = declawed;
   }
 
-
   public Cat className(String className) {
-    super.className(className);
+    super.setClassName(className);
     return this;
   }
 
   public Cat color(String color) {
-    super.color(color);
+    super.setColor(color);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

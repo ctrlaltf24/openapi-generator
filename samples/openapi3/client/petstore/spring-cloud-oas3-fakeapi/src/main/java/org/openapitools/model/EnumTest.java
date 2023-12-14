@@ -62,6 +62,7 @@ public class EnumTest {
     }
   }
 
+  @JsonProperty("enum_string")
   private EnumStringEnum enumString;
 
   /**
@@ -101,6 +102,7 @@ public class EnumTest {
     }
   }
 
+  @JsonProperty("enum_string_required")
   private EnumStringRequiredEnum enumStringRequired;
 
   /**
@@ -138,6 +140,7 @@ public class EnumTest {
     }
   }
 
+  @JsonProperty("enum_integer")
   private EnumIntegerEnum enumInteger;
 
   /**
@@ -175,8 +178,10 @@ public class EnumTest {
     }
   }
 
+  @JsonProperty("enum_number")
   private EnumNumberEnum enumNumber;
 
+  @JsonProperty("outerEnum")
   private OuterEnum outerEnum;
 
   public EnumTest enumString(EnumStringEnum enumString) {
@@ -189,8 +194,7 @@ public class EnumTest {
    * @return enumString
   */
   
-  @Schema(name = "enum_string", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("enum_string")
+  @Schema(name = "enum_string", required = false)
   public EnumStringEnum getEnumString() {
     return enumString;
   }
@@ -209,8 +213,7 @@ public class EnumTest {
    * @return enumStringRequired
   */
   @NotNull 
-  @Schema(name = "enum_string_required", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("enum_string_required")
+  @Schema(name = "enum_string_required", required = true)
   public EnumStringRequiredEnum getEnumStringRequired() {
     return enumStringRequired;
   }
@@ -229,8 +232,7 @@ public class EnumTest {
    * @return enumInteger
   */
   
-  @Schema(name = "enum_integer", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("enum_integer")
+  @Schema(name = "enum_integer", required = false)
   public EnumIntegerEnum getEnumInteger() {
     return enumInteger;
   }
@@ -249,8 +251,7 @@ public class EnumTest {
    * @return enumNumber
   */
   
-  @Schema(name = "enum_number", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("enum_number")
+  @Schema(name = "enum_number", required = false)
   public EnumNumberEnum getEnumNumber() {
     return enumNumber;
   }
@@ -269,8 +270,7 @@ public class EnumTest {
    * @return outerEnum
   */
   @Valid 
-  @Schema(name = "outerEnum", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("outerEnum")
+  @Schema(name = "outerEnum", required = false)
   public OuterEnum getOuterEnum() {
     return outerEnum;
   }

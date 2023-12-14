@@ -28,6 +28,10 @@
 
 namespace OpenAPI\Server\Tests\Api;
 
+use OpenAPI\Server\Configuration;
+use OpenAPI\Server\ApiClient;
+use OpenAPI\Server\ApiException;
+use OpenAPI\Server\ObjectSerializer;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -38,7 +42,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  * @package  OpenAPI\Server\Tests\Api
  * @author   openapi-generator contributors
  * @link     https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Api\StoreApiInterface
  */
 class StoreApiInterfaceTest extends WebTestCase
 {
@@ -82,7 +85,7 @@ class StoreApiInterfaceTest extends WebTestCase
      * Delete purchase order by ID.
      *
      */
-    public function testDeleteOrder(): void
+    public function testDeleteOrder()
     {
         $client = self::$client;
 
@@ -92,7 +95,6 @@ class StoreApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('DELETE', $path);
-        $this->markTestSkipped('Test for deleteOrder not implemented');
     }
 
     /**
@@ -101,14 +103,13 @@ class StoreApiInterfaceTest extends WebTestCase
      * Returns pet inventories by status.
      *
      */
-    public function testGetInventory(): void
+    public function testGetInventory()
     {
         $client = self::$client;
 
         $path = '/store/inventory';
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for getInventory not implemented');
     }
 
     /**
@@ -117,7 +118,7 @@ class StoreApiInterfaceTest extends WebTestCase
      * Find purchase order by ID.
      *
      */
-    public function testGetOrderById(): void
+    public function testGetOrderById()
     {
         $client = self::$client;
 
@@ -127,7 +128,6 @@ class StoreApiInterfaceTest extends WebTestCase
         $path = str_replace($pattern, $data, $path);
 
         $crawler = $client->request('GET', $path);
-        $this->markTestSkipped('Test for getOrderById not implemented');
     }
 
     /**
@@ -136,25 +136,20 @@ class StoreApiInterfaceTest extends WebTestCase
      * Place an order for a pet.
      *
      */
-    public function testPlaceOrder(): void
+    public function testPlaceOrder()
     {
         $client = self::$client;
 
         $path = '/store/order';
 
         $crawler = $client->request('POST', $path, [], [], ['CONTENT_TYPE' => 'application/json']);
-        $this->markTestSkipped('Test for placeOrder not implemented');
     }
 
-    /**
-     * @param string $regexp
-     * @return mixed
-     */
-    protected function genTestData(string $regexp)
+    protected function genTestData($regexp)
     {
-        $grammar = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
+        $grammar  = new \Hoa\File\Read('hoa://Library/Regex/Grammar.pp');
         $compiler = \Hoa\Compiler\Llk\Llk::load($grammar);
-        $ast = $compiler->parse($regexp);
+        $ast      = $compiler->parse($regexp);
         $generator = new \Hoa\Regex\Visitor\Isotropic(new \Hoa\Math\Sampler\Random());
 
         return $generator->visit($ast);

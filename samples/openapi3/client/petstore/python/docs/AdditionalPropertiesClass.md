@@ -2,29 +2,18 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**map_property** | **Dict[str, str]** |  | [optional] 
-**map_of_map_property** | **Dict[str, Dict[str, str]]** |  | [optional] 
+**map_property** | **{str: (str,)}** |  | [optional] 
+**map_of_map_property** | **{str: ({str: (str,)},)}** |  | [optional] 
+**anytype_1** | **bool, date, datetime, dict, float, int, list, str, none_type** |  | [optional] 
+**map_with_undeclared_properties_anytype_1** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
+**map_with_undeclared_properties_anytype_2** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
+**map_with_undeclared_properties_anytype_3** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}** |  | [optional] 
+**empty_map** | **dict** | an object with no declared properties and no undeclared properties, hence it&#39;s an empty map. | [optional] 
+**map_with_undeclared_properties_string** | **{str: (str,)}** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
-## Example
-
-```python
-from petstore_api.models.additional_properties_class import AdditionalPropertiesClass
-
-# TODO update the JSON string below
-json = "{}"
-# create an instance of AdditionalPropertiesClass from a JSON string
-additional_properties_class_instance = AdditionalPropertiesClass.from_json(json)
-# print the JSON string representation of the object
-print AdditionalPropertiesClass.to_json()
-
-# convert the object into a dict
-additional_properties_class_dict = additional_properties_class_instance.to_dict()
-# create an instance of AdditionalPropertiesClass from a dict
-additional_properties_class_form_dict = additional_properties_class.from_dict(additional_properties_class_dict)
-```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

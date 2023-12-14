@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ws.rs.core.GenericType;
 
 public class StoreApi {
     private ApiClient localVarApiClient;
@@ -103,7 +104,7 @@ public class StoreApi {
 
         // create path and map variables
         String localVarPath = "/store/order/{order_id}"
-            .replace("{" + "order_id" + "}", localVarApiClient.escapeString(orderId.toString()));
+            .replaceAll("\\{" + "order_id" + "\\}", localVarApiClient.escapeString(orderId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -112,6 +113,7 @@ public class StoreApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
+            
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -119,6 +121,7 @@ public class StoreApi {
         }
 
         final String[] localVarContentTypes = {
+            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -131,12 +134,15 @@ public class StoreApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call deleteOrderValidateBeforeCall(String orderId, final ApiCallback _callback) throws ApiException {
+        
         // verify the required parameter 'orderId' is set
         if (orderId == null) {
             throw new ApiException("Missing the required parameter 'orderId' when calling deleteOrder(Async)");
         }
+        
 
-        return deleteOrderCall(orderId, _callback);
+        okhttp3.Call localVarCall = deleteOrderCall(orderId, _callback);
+        return localVarCall;
 
     }
 
@@ -239,6 +245,7 @@ public class StoreApi {
         }
 
         final String[] localVarContentTypes = {
+            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -251,7 +258,10 @@ public class StoreApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getInventoryValidateBeforeCall(final ApiCallback _callback) throws ApiException {
-        return getInventoryCall(_callback);
+        
+
+        okhttp3.Call localVarCall = getInventoryCall(_callback);
+        return localVarCall;
 
     }
 
@@ -339,7 +349,7 @@ public class StoreApi {
 
         // create path and map variables
         String localVarPath = "/store/order/{order_id}"
-            .replace("{" + "order_id" + "}", localVarApiClient.escapeString(orderId.toString()));
+            .replaceAll("\\{" + "order_id" + "\\}", localVarApiClient.escapeString(orderId.toString()));
 
         List<Pair> localVarQueryParams = new ArrayList<Pair>();
         List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
@@ -348,8 +358,7 @@ public class StoreApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/xml",
-            "application/json"
+            "application/xml", "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -357,6 +366,7 @@ public class StoreApi {
         }
 
         final String[] localVarContentTypes = {
+            
         };
         final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
         if (localVarContentType != null) {
@@ -369,18 +379,21 @@ public class StoreApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call getOrderByIdValidateBeforeCall(Long orderId, final ApiCallback _callback) throws ApiException {
+        
         // verify the required parameter 'orderId' is set
         if (orderId == null) {
             throw new ApiException("Missing the required parameter 'orderId' when calling getOrderById(Async)");
         }
+        
 
-        return getOrderByIdCall(orderId, _callback);
+        okhttp3.Call localVarCall = getOrderByIdCall(orderId, _callback);
+        return localVarCall;
 
     }
 
     /**
      * Find purchase order by ID
-     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
      * @param orderId ID of pet that needs to be fetched (required)
      * @return Order
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -399,7 +412,7 @@ public class StoreApi {
 
     /**
      * Find purchase order by ID
-     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
      * @param orderId ID of pet that needs to be fetched (required)
      * @return ApiResponse&lt;Order&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -419,7 +432,7 @@ public class StoreApi {
 
     /**
      * Find purchase order by ID (asynchronously)
-     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+     * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
      * @param orderId ID of pet that needs to be fetched (required)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
@@ -478,8 +491,7 @@ public class StoreApi {
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
 
         final String[] localVarAccepts = {
-            "application/xml",
-            "application/json"
+            "application/xml", "application/json"
         };
         final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
         if (localVarAccept != null) {
@@ -500,12 +512,15 @@ public class StoreApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call placeOrderValidateBeforeCall(Order order, final ApiCallback _callback) throws ApiException {
+        
         // verify the required parameter 'order' is set
         if (order == null) {
             throw new ApiException("Missing the required parameter 'order' when calling placeOrder(Async)");
         }
+        
 
-        return placeOrderCall(order, _callback);
+        okhttp3.Call localVarCall = placeOrderCall(order, _callback);
+        return localVarCall;
 
     }
 

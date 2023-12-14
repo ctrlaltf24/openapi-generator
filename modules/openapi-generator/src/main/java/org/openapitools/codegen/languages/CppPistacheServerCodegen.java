@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.*;
-import java.util.function.Predicate;
 
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
@@ -114,7 +113,11 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
                 VARIABLE_NAME_FIRST_CHARACTER_UPPERCASE_DESC,
                 Boolean.toString(this.variableNameFirstCharacterUppercase));
 
-        setupSupportingFiles();
+        supportingFiles.add(new SupportingFile("helpers-header.mustache", "model", modelNamePrefix + "Helpers.h"));
+        supportingFiles.add(new SupportingFile("helpers-source.mustache", "model", modelNamePrefix + "Helpers.cpp"));
+        supportingFiles.add(new SupportingFile("main-api-server.mustache", "", modelNamePrefix + "main-api-server.cpp"));
+        supportingFiles.add(new SupportingFile("cmake.mustache", "", "CMakeLists.txt"));
+        supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
 
         languageSpecificPrimitives = new HashSet<>(
                 Arrays.asList("int", "char", "bool", "long", "float", "double", "int32_t", "int64_t"));
@@ -136,24 +139,12 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
         typeMapping.put("UUID", "std::string");
         typeMapping.put("URI", "std::string");
         typeMapping.put("ByteArray", "std::string");
-        typeMapping.put("AnyType", "nlohmann::json");
 
         super.importMapping = new HashMap<>();
         importMapping.put("std::vector", "#include <vector>");
         importMapping.put("std::map", "#include <map>");
         importMapping.put("std::string", "#include <string>");
         importMapping.put("Object", "#include \"Object.h\"");
-        importMapping.put("nlohmann::json", "#include <nlohmann/json.hpp>");
-    }
-
-    private void setupSupportingFiles() {
-        supportingFiles.clear();
-        supportingFiles.add(new SupportingFile("api-base-header.mustache", "api", "ApiBase.h"));
-        supportingFiles.add(new SupportingFile("helpers-header.mustache", "model", modelNamePrefix + "Helpers.h"));
-        supportingFiles.add(new SupportingFile("helpers-source.mustache", "model", modelNamePrefix + "Helpers.cpp"));
-        supportingFiles.add(new SupportingFile("main-api-server.mustache", "", modelNamePrefix + "main-api-server.cpp"));
-        supportingFiles.add(new SupportingFile("cmake.mustache", "", "CMakeLists.txt"));
-        supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
     }
 
     @Override
@@ -164,7 +155,12 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
         }
         if (additionalProperties.containsKey("modelNamePrefix")) {
             additionalProperties().put("prefix", modelNamePrefix);
-            setupSupportingFiles();
+            supportingFiles.clear();
+            supportingFiles.add(new SupportingFile("helpers-header.mustache", "model", modelNamePrefix + "Helpers.h"));
+            supportingFiles.add(new SupportingFile("helpers-source.mustache", "model", modelNamePrefix + "Helpers.cpp"));
+            supportingFiles.add(new SupportingFile("main-api-server.mustache", "", modelNamePrefix + "main-api-server.cpp"));
+            supportingFiles.add(new SupportingFile("cmake.mustache", "", "CMakeLists.txt"));
+            supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
         }
         if (additionalProperties.containsKey(RESERVED_WORD_PREFIX_OPTION)) {
             reservedWordPrefix = (String) additionalProperties.get(RESERVED_WORD_PREFIX_OPTION);
@@ -244,9 +240,9 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
             ApiResponse apiResponse = findMethodResponse(operation.getResponses());
 
             if (apiResponse != null) {
-                Schema response = ModelUtils.getSchemaFromResponse(openAPI, apiResponse);
+                Schema response = ModelUtils.getSchemaFromResponse(apiResponse);
                 if (response != null) {
-                    CodegenProperty cm = fromProperty("response", response, false);
+                    CodegenProperty cm = fromProperty("response", response);
                     op.vendorExtensions.put("x-codegen-response", cm);
                     if ("HttpContent".equals(cm.dataType)) {
                         op.vendorExtensions.put("x-codegen-response-ishttpcontent", true);
@@ -269,67 +265,61 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
         operations.put("classnameSnakeLowerCase", underscore(classname).toLowerCase(Locale.ROOT));
         List<CodegenOperation> operationList = operations.getOperation();
         for (CodegenOperation op : operationList) {
-            postProcessSingleOperation(operations, op);
+            boolean consumeJson = false;
+            boolean isParsingSupported = true;
+            if (op.bodyParam != null) {
+                if (op.bodyParam.vendorExtensions == null) {
+                    op.bodyParam.vendorExtensions = new HashMap<>();
+                }
+
+                boolean isStringOrDate = op.bodyParam.isString || op.bodyParam.isDate;
+                op.bodyParam.vendorExtensions.put("x-codegen-pistache-is-string-or-date", isStringOrDate);
+            }
+            if (op.consumes != null) {
+                for (Map<String, String> consume : op.consumes) {
+                    if (consume.get("mediaType") != null && consume.get("mediaType").equals("application/json")) {
+                        consumeJson = true;
+                    }
+                }
+            }
+
+            op.httpMethod = op.httpMethod.substring(0, 1).toUpperCase(Locale.ROOT) + op.httpMethod.substring(1).toLowerCase(Locale.ROOT);
+
+            for (CodegenParameter param : op.allParams) {
+                if (param.isFormParam) isParsingSupported = false;
+                if (param.isFile) isParsingSupported = false;
+                if (param.isCookieParam) isParsingSupported = false;
+
+                //TODO: This changes the info about the real type but it is needed to parse the header params
+                if (param.isHeaderParam) {
+                    param.dataType = "std::optional<Pistache::Http::Header::Raw>";
+                    param.baseType = "std::optional<Pistache::Http::Header::Raw>";
+                } else if (param.isQueryParam) {
+                    if (param.isPrimitiveType) {
+                        param.dataType = "std::optional<" + param.dataType + ">";
+                    } else {
+                        param.dataType = "std::optional<" + param.dataType + ">";
+                        param.baseType = "std::optional<" + param.baseType + ">";
+                    }
+                }
+            }
+
+            if (op.vendorExtensions == null) {
+                op.vendorExtensions = new HashMap<>();
+            }
+            op.vendorExtensions.put("x-codegen-pistache-consumes-json", consumeJson);
+            op.vendorExtensions.put("x-codegen-pistache-is-parsing-supported", isParsingSupported);
+
+            // Check if any one of the operations needs a model, then at API file level, at least one model has to be included.
+            for (String hdr : op.imports) {
+                if (importMapping.containsKey(hdr)) {
+                    continue;
+                }
+                operations.put("hasModelImport", true);
+            }
         }
 
         return objs;
-    }
-
-    private void postProcessSingleOperation(OperationMap operations, CodegenOperation op) {
-        if (op.vendorExtensions == null) {
-            op.vendorExtensions = new HashMap<>();
-        }
-
-        if (op.bodyParam != null) {
-            if (op.bodyParam.vendorExtensions == null) {
-                op.bodyParam.vendorExtensions = new HashMap<>();
-            }
-
-            boolean isStringOrDate = op.bodyParam.isString || op.bodyParam.isDate;
-            op.bodyParam.vendorExtensions.put("x-codegen-pistache-is-string-or-date", isStringOrDate);
-        }
-
-        boolean consumeJson = false;
-        if (op.consumes != null) {
-            Predicate<Map<String,String>> isMediaTypeJson =  consume -> (consume.get("mediaType") != null && consume.get("mediaType").equals("application/json"));
-            consumeJson =  op.consumes.stream().anyMatch(isMediaTypeJson);
-        }
-        op.vendorExtensions.put("x-codegen-pistache-consumes-json", consumeJson);
-
-        op.httpMethod = op.httpMethod.substring(0, 1).toUpperCase(Locale.ROOT) + op.httpMethod.substring(1).toLowerCase(Locale.ROOT);
-
-        boolean isParsingSupported = true;
-        for (CodegenParameter param : op.allParams) {
-            boolean paramSupportsParsing =  (!param.isFormParam && !param.isFile && !param.isCookieParam);
-            isParsingSupported = isParsingSupported && paramSupportsParsing;
-
-            postProcessSingleParam(param);
-        }
-        op.vendorExtensions.put("x-codegen-pistache-is-parsing-supported", isParsingSupported);
-
-        // Check if any one of the operations needs a model, then at API file level, at least one model has to be included.
-        Predicate<String> importNotInImportMapping = hdr -> !importMapping.containsKey(hdr);
-        if (op.imports.stream().anyMatch(importNotInImportMapping)) {
-            operations.put("hasModelImport", true);
-        }
-    }
-
-    /**
-     * postProcessSingleParam - Modifies a single parameter, adjusting generated
-     * data types for Header and Query parameters.
-     * @param param CodegenParameter to be modified.
-     */
-    private static void postProcessSingleParam(CodegenParameter param) {
-        //TODO: This changes the info about the real type but it is needed to parse the header params
-        if (param.isHeaderParam) {
-            param.dataType = "std::optional<Pistache::Http::Header::Raw>";
-            param.baseType = "std::optional<Pistache::Http::Header::Raw>";
-        } else if (param.isQueryParam) {
-            param.dataType = "std::optional<" + param.dataType + ">";
-            if (!param.isPrimitiveType) {
-                param.baseType = "std::optional<" + param.baseType + ">";
-            }
-        }
     }
 
     @Override
@@ -342,24 +332,14 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
         String result = super.apiFilename(templateName, tag);
 
         if (templateName.endsWith("impl-header.mustache")) {
-            result = implFilenameFromApiFilename(result, ".h");
+            int ix = result.lastIndexOf(File.separatorChar);
+            result = result.substring(0, ix) + result.substring(ix, result.length() - 2) + "Impl.h";
+            result = result.replace(apiFileFolder(), implFileFolder());
         } else if (templateName.endsWith("impl-source.mustache")) {
-            result = implFilenameFromApiFilename(result, ".cpp");
+            int ix = result.lastIndexOf(File.separatorChar);
+            result = result.substring(0, ix) + result.substring(ix, result.length() - 4) + "Impl.cpp";
+            result = result.replace(apiFileFolder(), implFileFolder());
         }
-        return result;
-    }
-
-    /**
-     * implFilenameFromApiFilename - Inserts the string "Impl" in front of the
-     * suffix and replace "api" with "impl" directory prefix.
-     *
-     * @param filename Filename of the api-file to be modified
-     * @param suffix Suffix of the file (usually ".cpp" or ".h")
-     * @return a filename string of impl file.
-     */
-    private String implFilenameFromApiFilename(String filename, String suffix) {
-        String result = filename.substring(0, filename.length() - suffix.length()) + "Impl" + suffix;
-        result = result.replace(apiFileFolder(), implFileFolder());
         return result;
     }
 
@@ -386,7 +366,7 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
             return getSchemaType(p) + "<" + getTypeDeclaration(inner) + ">";
         }
         if (ModelUtils.isMapSchema(p)) {
-            Schema inner = ModelUtils.getAdditionalProperties(p);
+            Schema inner = getAdditionalProperties(p);
             return getSchemaType(p) + "<std::string, " + getTypeDeclaration(inner) + ">";
         } else if (ModelUtils.isByteArraySchema(p)) {
             return "std::string";
@@ -471,7 +451,7 @@ public class CppPistacheServerCodegen extends AbstractCppCodegen {
                 return "\"\"";
             }
         } else if (ModelUtils.isMapSchema(p)) {
-            String inner = getSchemaType(ModelUtils.getAdditionalProperties(p));
+            String inner = getSchemaType(getAdditionalProperties(p));
             return "std::map<std::string, " + inner + ">()";
         } else if (ModelUtils.isArraySchema(p)) {
             ArraySchema ap = (ArraySchema) p;

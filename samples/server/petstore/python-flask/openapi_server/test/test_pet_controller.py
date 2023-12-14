@@ -1,6 +1,10 @@
+# coding: utf-8
+
+from __future__ import absolute_import
 import unittest
 
 from flask import json
+from six import BytesIO
 
 from openapi_server.models.api_response import ApiResponse  # noqa: E501
 from openapi_server.models.pet import Pet  # noqa: E501
@@ -10,13 +14,29 @@ from openapi_server.test import BaseTestCase
 class TestPetController(BaseTestCase):
     """PetController integration test stubs"""
 
-    @unittest.skip("Connexion does not support multiple consumes. See https://github.com/zalando/connexion/pull/760")
+    @unittest.skip("Connexion does not support multiple consummes. See https://github.com/zalando/connexion/pull/760")
     def test_add_pet(self):
         """Test case for add_pet
 
         Add a new pet to the store
         """
-        body = {"photoUrls":["photoUrls","photoUrls"],"name":"doggie","id":0,"category":{"name":"name","id":6},"tags":[{"name":"name","id":1},{"name":"name","id":1}],"status":"available"}
+        body = {
+  "photoUrls" : [ "photoUrls", "photoUrls" ],
+  "name" : "doggie",
+  "id" : 0,
+  "category" : {
+    "name" : "name",
+    "id" : 6
+  },
+  "tags" : [ {
+    "name" : "name",
+    "id" : 1
+  }, {
+    "name" : "name",
+    "id" : 1
+  } ],
+  "status" : "available"
+}
         headers = { 
             'Content-Type': 'application/json',
             'Authorization': 'Bearer special-key',
@@ -51,7 +71,7 @@ class TestPetController(BaseTestCase):
 
         Finds Pets by status
         """
-        query_string = [('status', ['status_example'])]
+        query_string = [('status', 'available')]
         headers = { 
             'Accept': 'application/json',
             'Authorization': 'Bearer special-key',
@@ -69,7 +89,7 @@ class TestPetController(BaseTestCase):
 
         Finds Pets by tags
         """
-        query_string = [('tags', ['tags_example'])]
+        query_string = [('tags', 'tags_example')]
         headers = { 
             'Accept': 'application/json',
             'Authorization': 'Bearer special-key',
@@ -98,13 +118,29 @@ class TestPetController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
-    @unittest.skip("Connexion does not support multiple consumes. See https://github.com/zalando/connexion/pull/760")
+    @unittest.skip("Connexion does not support multiple consummes. See https://github.com/zalando/connexion/pull/760")
     def test_update_pet(self):
         """Test case for update_pet
 
         Update an existing pet
         """
-        body = {"photoUrls":["photoUrls","photoUrls"],"name":"doggie","id":0,"category":{"name":"name","id":6},"tags":[{"name":"name","id":1},{"name":"name","id":1}],"status":"available"}
+        body = {
+  "photoUrls" : [ "photoUrls", "photoUrls" ],
+  "name" : "doggie",
+  "id" : 0,
+  "category" : {
+    "name" : "name",
+    "id" : 6
+  },
+  "tags" : [ {
+    "name" : "name",
+    "id" : 1
+  }, {
+    "name" : "name",
+    "id" : 1
+  } ],
+  "status" : "available"
+}
         headers = { 
             'Content-Type': 'application/json',
             'Authorization': 'Bearer special-key',
@@ -151,7 +187,7 @@ class TestPetController(BaseTestCase):
             'Authorization': 'Bearer special-key',
         }
         data = dict(additional_metadata='additional_metadata_example',
-                    file='/path/to/file')
+                    file=(BytesIO(b'some file data'), 'file.txt'))
         response = self.client.open(
             '/v2/pet/{pet_id}/uploadImage'.format(pet_id=56),
             method='POST',

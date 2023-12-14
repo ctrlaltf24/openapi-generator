@@ -24,7 +24,6 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.CompletableFuture;
 
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 import com.typesafe.config.Config;
 
 import openapitools.OpenAPIUtils.ApiAction;
@@ -59,7 +58,7 @@ public class PetApiController extends Controller {
 
     @ApiAction
     public CompletionStage<Result> deletePet(Http.Request request, Long petId) throws Exception {
-        String valueapiKey = request.header("api_key").orElse(null);
+        String valueapiKey = request.header("api_key").get();
         String apiKey;
         if (valueapiKey != null) {
             apiKey = valueapiKey;

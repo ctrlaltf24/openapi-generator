@@ -35,10 +35,9 @@ Class | Method | HTTP request | Description
  - [Fruit](docs/Fruit.md)
 
 
-<a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
-Endpoints do not require authorization.
+ All endpoints do not require authorization.
 
 
 ## Author

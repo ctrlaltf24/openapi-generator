@@ -1,6 +1,10 @@
+# coding: utf-8
+
+from __future__ import absolute_import
 import unittest
 
 from flask import json
+from six import BytesIO
 
 from openapi_server.models.order import Order  # noqa: E501
 from openapi_server.test import BaseTestCase
@@ -48,7 +52,7 @@ class TestStoreController(BaseTestCase):
             'Accept': 'application/json',
         }
         response = self.client.open(
-            '/v2/store/order/{order_id}'.format(order_id=56),
+            '/v2/store/order/{order_id}'.format(order_id=5),
             method='GET',
             headers=headers)
         self.assert200(response,
@@ -60,7 +64,7 @@ class TestStoreController(BaseTestCase):
 
         Place an order for a pet
         """
-        body = openapi_server.Order()
+        body = {}
         headers = { 
             'Accept': 'application/json',
             'Content-Type': 'application/json',

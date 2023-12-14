@@ -10,7 +10,6 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**fakeOuterNumberSerialize**](FakeApi.md#fakeOuterNumberSerialize) | **POST** /fake/outer/number |  |
 | [**fakeOuterStringSerialize**](FakeApi.md#fakeOuterStringSerialize) | **POST** /fake/outer/string |  |
 | [**getArrayOfEnums**](FakeApi.md#getArrayOfEnums) | **GET** /fake/array-of-enums | Array of Enums |
-| [**getParameterNameMapping**](FakeApi.md#getParameterNameMapping) | **GET** /fake/parameter-name-mapping | parameter name mapping test |
 | [**testBodyWithFileSchema**](FakeApi.md#testBodyWithFileSchema) | **PUT** /fake/body-with-file-schema |  |
 | [**testBodyWithQueryParams**](FakeApi.md#testBodyWithQueryParams) | **PUT** /fake/body-with-query-params |  |
 | [**testClientModel**](FakeApi.md#testClientModel) | **PATCH** /fake | To test \&quot;client\&quot; model |
@@ -18,12 +17,11 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**testEnumParameters**](FakeApi.md#testEnumParameters) | **GET** /fake | To test enum parameters |
 | [**testGroupParameters**](FakeApi.md#testGroupParameters) | **DELETE** /fake | Fake endpoint to test group parameters (optional) |
 | [**testInlineAdditionalProperties**](FakeApi.md#testInlineAdditionalProperties) | **POST** /fake/inline-additionalProperties | test inline additionalProperties |
-| [**testInlineFreeformAdditionalProperties**](FakeApi.md#testInlineFreeformAdditionalProperties) | **POST** /fake/inline-freeform-additionalProperties | test inline free-form additionalProperties |
 | [**testJsonFormData**](FakeApi.md#testJsonFormData) | **GET** /fake/jsonFormData | test json serialization of form data |
 | [**testQueryParameterCollectionFormat**](FakeApi.md#testQueryParameterCollectionFormat) | **PUT** /fake/test-query-parameters |  |
 
 
-<a id="fakeHealthGet"></a>
+<a name="fakeHealthGet"></a>
 # **fakeHealthGet**
 > HealthCheckResult fakeHealthGet()
 
@@ -79,7 +77,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | The instance started successfully |  -  |
 
-<a id="fakeOuterBooleanSerialize"></a>
+<a name="fakeOuterBooleanSerialize"></a>
 # **fakeOuterBooleanSerialize**
 > Boolean fakeOuterBooleanSerialize(body)
 
@@ -141,7 +139,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output boolean |  -  |
 
-<a id="fakeOuterCompositeSerialize"></a>
+<a name="fakeOuterCompositeSerialize"></a>
 # **fakeOuterCompositeSerialize**
 > OuterComposite fakeOuterCompositeSerialize(outerComposite)
 
@@ -203,7 +201,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output composite |  -  |
 
-<a id="fakeOuterNumberSerialize"></a>
+<a name="fakeOuterNumberSerialize"></a>
 # **fakeOuterNumberSerialize**
 > BigDecimal fakeOuterNumberSerialize(body)
 
@@ -265,7 +263,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output number |  -  |
 
-<a id="fakeOuterStringSerialize"></a>
+<a name="fakeOuterStringSerialize"></a>
 # **fakeOuterStringSerialize**
 > String fakeOuterStringSerialize(body)
 
@@ -327,7 +325,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output string |  -  |
 
-<a id="getArrayOfEnums"></a>
+<a name="getArrayOfEnums"></a>
 # **getArrayOfEnums**
 > List&lt;OuterEnum&gt; getArrayOfEnums()
 
@@ -383,70 +381,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Got named array of enums |  -  |
 
-<a id="getParameterNameMapping"></a>
-# **getParameterNameMapping**
-> getParameterNameMapping(underscoreType, type, typeWithUnderscore)
-
-parameter name mapping test
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.FakeApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
-
-    FakeApi apiInstance = new FakeApi(defaultClient);
-    Long underscoreType = 56L; // Long | _type
-    String type = "type_example"; // String | type
-    String typeWithUnderscore = "typeWithUnderscore_example"; // String | type_
-    try {
-      apiInstance.getParameterNameMapping(underscoreType, type, typeWithUnderscore);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling FakeApi#getParameterNameMapping");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **underscoreType** | **Long**| _type | |
-| **type** | **String**| type | |
-| **typeWithUnderscore** | **String**| type_ | |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-
-<a id="testBodyWithFileSchema"></a>
+<a name="testBodyWithFileSchema"></a>
 # **testBodyWithFileSchema**
 > testBodyWithFileSchema(fileSchemaTestClass)
 
@@ -507,7 +442,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 
-<a id="testBodyWithQueryParams"></a>
+<a name="testBodyWithQueryParams"></a>
 # **testBodyWithQueryParams**
 > testBodyWithQueryParams(query, user)
 
@@ -568,7 +503,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 
-<a id="testClientModel"></a>
+<a name="testClientModel"></a>
 # **testClientModel**
 > Client testClientModel(client)
 
@@ -630,7 +565,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="testEndpointParameters"></a>
+<a name="testEndpointParameters"></a>
 # **testEndpointParameters**
 > testEndpointParameters(number, _double, patternWithoutDelimiter, _byte, integer, int32, int64, _float, string, binary, date, dateTime, password, paramCallback)
 
@@ -724,7 +659,7 @@ null (empty response body)
 | **400** | Invalid username supplied |  -  |
 | **404** | User not found |  -  |
 
-<a id="testEnumParameters"></a>
+<a name="testEnumParameters"></a>
 # **testEnumParameters**
 > testEnumParameters(enumHeaderStringArray, enumHeaderString, enumQueryStringArray, enumQueryString, enumQueryInteger, enumQueryDouble, enumFormStringArray, enumFormString)
 
@@ -800,7 +735,7 @@ No authorization required
 | **400** | Invalid request |  -  |
 | **404** | Not found |  -  |
 
-<a id="testGroupParameters"></a>
+<a name="testGroupParameters"></a>
 # **testGroupParameters**
 > testGroupParameters(requiredStringGroup, requiredBooleanGroup, requiredInt64Group).stringGroup(stringGroup).booleanGroup(booleanGroup).int64Group(int64Group).execute();
 
@@ -878,9 +813,9 @@ null (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Something wrong |  -  |
+| **400** | Someting wrong |  -  |
 
-<a id="testInlineAdditionalProperties"></a>
+<a name="testInlineAdditionalProperties"></a>
 # **testInlineAdditionalProperties**
 > testInlineAdditionalProperties(requestBody)
 
@@ -941,68 +876,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="testInlineFreeformAdditionalProperties"></a>
-# **testInlineFreeformAdditionalProperties**
-> testInlineFreeformAdditionalProperties(testInlineFreeformAdditionalPropertiesRequest)
-
-test inline free-form additionalProperties
-
-
-
-### Example
-```java
-// Import classes:
-import org.openapitools.client.ApiClient;
-import org.openapitools.client.ApiException;
-import org.openapitools.client.Configuration;
-import org.openapitools.client.models.*;
-import org.openapitools.client.api.FakeApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://petstore.swagger.io:80/v2");
-
-    FakeApi apiInstance = new FakeApi(defaultClient);
-    TestInlineFreeformAdditionalPropertiesRequest testInlineFreeformAdditionalPropertiesRequest = new TestInlineFreeformAdditionalPropertiesRequest(); // TestInlineFreeformAdditionalPropertiesRequest | request body
-    try {
-      apiInstance.testInlineFreeformAdditionalProperties(testInlineFreeformAdditionalPropertiesRequest);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling FakeApi#testInlineFreeformAdditionalProperties");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **testInlineFreeformAdditionalPropertiesRequest** | [**TestInlineFreeformAdditionalPropertiesRequest**](TestInlineFreeformAdditionalPropertiesRequest.md)| request body | |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | successful operation |  -  |
-
-<a id="testJsonFormData"></a>
+<a name="testJsonFormData"></a>
 # **testJsonFormData**
 > testJsonFormData(param, param2)
 
@@ -1065,7 +939,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="testQueryParameterCollectionFormat"></a>
+<a name="testQueryParameterCollectionFormat"></a>
 # **testQueryParameterCollectionFormat**
 > testQueryParameterCollectionFormat(pipe, ioutil, http, url, context)
 

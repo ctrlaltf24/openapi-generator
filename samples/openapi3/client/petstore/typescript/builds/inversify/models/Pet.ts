@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { Category } from '../models/Category';
-import { Tag } from '../models/Tag';
+import { Category } from './Category';
+import { Tag } from './Tag';
 import { HttpFile } from '../http/http';
 
 /**
@@ -77,9 +77,5 @@ export class Pet {
 }
 
 
-export enum PetStatusEnum {
-    Available = 'available',
-    Pending = 'pending',
-    Sold = 'sold'
-}
+export type PetStatusEnum = "available" | "pending" | "sold" ;
 

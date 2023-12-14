@@ -12,11 +12,12 @@ docs/ArrayOfNumberOnly.md
 docs/ArrayTest.md
 docs/Capitalization.md
 docs/Cat.md
+docs/CatAllOf.md
 docs/Category.md
 docs/ClassModel.md
 docs/Client.md
 docs/Dog.md
-docs/DollarSpecialLeftSquareBracketModelPeriodNameRightSquareBracket.md
+docs/DogAllOf.md
 docs/EnumArrays.md
 docs/EnumClass.md
 docs/EnumTest.md
@@ -26,6 +27,7 @@ docs/List.md
 docs/MapTest.md
 docs/MixedPropertiesAndAdditionalPropertiesClass.md
 docs/Model200Response.md
+docs/ModelReturn.md
 docs/Name.md
 docs/NumberOnly.md
 docs/ObjectContainingObjectWithOnlyAdditionalProperties.md
@@ -38,7 +40,7 @@ docs/OuterNumber.md
 docs/OuterString.md
 docs/Pet.md
 docs/ReadOnlyFirst.md
-docs/Return.md
+docs/SpecialModelName.md
 docs/Tag.md
 docs/User.md
 docs/another_fake_api.md

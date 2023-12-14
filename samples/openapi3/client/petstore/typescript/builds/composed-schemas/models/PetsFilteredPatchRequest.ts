@@ -10,8 +10,8 @@
  * Do not edit the class manually.
  */
 
-import { PetByAge } from '../models/PetByAge';
-import { PetByType } from '../models/PetByType';
+import { PetByAge } from './PetByAge';
+import { PetByType } from './PetByType';
 import { HttpFile } from '../http/http';
 
 export class PetsFilteredPatchRequest {
@@ -57,8 +57,5 @@ export class PetsFilteredPatchRequest {
 }
 
 
-export enum PetsFilteredPatchRequestPetTypeEnum {
-    Cat = 'Cat',
-    Dog = 'Dog'
-}
+export type PetsFilteredPatchRequestPetTypeEnum = "Cat" | "Dog" ;
 

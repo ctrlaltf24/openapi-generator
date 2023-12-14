@@ -76,11 +76,7 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
         modifyFeatureSet(features -> features
                 .includeDocumentationFeatures(DocumentationFeature.Readme)
                 .wireFormatFeatures(EnumSet.of(WireFormatFeature.JSON))
-                .securityFeatures(EnumSet.of(
-                        SecurityFeature.BasicAuth,
-                        SecurityFeature.BearerToken,
-                        SecurityFeature.ApiKey,
-                        SecurityFeature.OAuth2_Implicit))
+                .securityFeatures(EnumSet.noneOf(SecurityFeature.class))
                 .excludeGlobalFeatures(
                         GlobalFeature.XMLStructureDefinitions,
                         GlobalFeature.Callbacks,
@@ -95,6 +91,9 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
         generatorMetadata = GeneratorMetadata.newBuilder(generatorMetadata)
                 .stability(Stability.BETA)
                 .build();
+
+        //no point to use double - http://php.net/manual/en/language.types.float.php , especially because of PHP 7+ float type declaration
+        typeMapping.put("double", "float");
 
         // remove these from primitive types to make the output works
         languageSpecificPrimitives.remove("\\DateTime");
@@ -339,14 +338,13 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
      * @param openAPI OpenAPI object
      */
     protected void generateContainerSchemas(OpenAPI openAPI) {
-        Set<Schema> visitedSchemas = new HashSet<>();
         Paths paths = openAPI.getPaths();
         for (String pathName : paths.keySet()) {
             for (Operation operation : paths.get(pathName).readOperations()) {
                 List<Parameter> parameters = operation.getParameters();
                 if (parameters != null) {
                     for (Parameter parameter : parameters) {
-                        generateContainerSchemas(openAPI, visitedSchemas, ModelUtils.getReferencedParameter(openAPI, parameter).getSchema());
+                        generateContainerSchemas(openAPI, ModelUtils.getReferencedParameter(openAPI, parameter).getSchema());
                     }
                 }
                 RequestBody requestBody = ModelUtils.getReferencedRequestBody(openAPI, operation.getRequestBody());
@@ -354,7 +352,7 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
                     Content requestBodyContent = requestBody.getContent();
                     if (requestBodyContent != null) {
                         for (String mediaTypeName : requestBodyContent.keySet()) {
-                            generateContainerSchemas(openAPI, visitedSchemas, requestBodyContent.get(mediaTypeName).getSchema());
+                            generateContainerSchemas(openAPI, requestBodyContent.get(mediaTypeName).getSchema());
                         }
                     }
                 }
@@ -364,7 +362,7 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
                     Content responseContent = response.getContent();
                     if (responseContent != null) {
                         for (String mediaTypeName : responseContent.keySet()) {
-                            generateContainerSchemas(openAPI, visitedSchemas, responseContent.get(mediaTypeName).getSchema());
+                            generateContainerSchemas(openAPI, responseContent.get(mediaTypeName).getSchema());
                         }
                     }
                 }
@@ -376,15 +374,9 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
      * Generate additional model definitions for containers in specified schema
      *
      * @param openAPI OpenAPI object
-     * @param visitedSchemas Set of Schemas that have been processed already
      * @param schema  OAS schema to process
      */
-    protected void generateContainerSchemas(OpenAPI openAPI, Set<Schema> visitedSchemas, Schema schema) {
-        if (visitedSchemas.contains(schema)) {
-            return;
-        }
-        visitedSchemas.add(schema);
-
+    protected void generateContainerSchemas(OpenAPI openAPI, Schema schema) {
         if (schema != null) {
             //Dereference schema
             schema = ModelUtils.getReferencedSchema(openAPI, schema);
@@ -395,18 +387,18 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
                 Map<String, Schema> properties = schema.getProperties();
                 if (properties != null) {
                     for (String propertyName : properties.keySet()) {
-                        generateContainerSchemas(openAPI, visitedSchemas, properties.get(propertyName));
+                        generateContainerSchemas(openAPI, properties.get(propertyName));
                     }
                 }
             } else if (ModelUtils.isArraySchema(schema)) {
                 //Recursively process schema of array items
-                generateContainerSchemas(openAPI, visitedSchemas, ((ArraySchema) schema).getItems());
+                generateContainerSchemas(openAPI, ((ArraySchema) schema).getItems());
                 isContainer = Boolean.TRUE;
             } else if (ModelUtils.isMapSchema(schema)) {
                 //Recursively process schema of map items
                 Object itemSchema = schema.getAdditionalProperties();
                 if (itemSchema instanceof Schema) {
-                    generateContainerSchemas(openAPI, visitedSchemas, (Schema) itemSchema);
+                    generateContainerSchemas(openAPI, (Schema) itemSchema);
                 }
                 isContainer = Boolean.TRUE;
             }
@@ -415,7 +407,7 @@ public class PhpDataTransferClientCodegen extends AbstractPhpCodegen {
                 //Generate special component schema for container
                 String containerSchemaName = generateUniqueSchemaName(openAPI, "Collection");
                 Schema containerSchema = new ObjectSchema();
-                containerSchema.addProperty("inner", schema);
+                containerSchema.addProperties("inner", schema);
                 addInternalExtensionToSchema(containerSchema, VEN_FROM_CONTAINER, Boolean.TRUE);
                 openAPI.getComponents().addSchemas(containerSchemaName, containerSchema);
                 String containerDataType = getTypeDeclaration(toModelName(containerSchemaName));

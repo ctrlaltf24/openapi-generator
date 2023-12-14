@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -60,6 +59,7 @@ public class EnumArrays {
     }
   }
 
+  @JsonProperty("just_symbol")
   private JustSymbolEnum justSymbol;
 
   /**
@@ -97,8 +97,9 @@ public class EnumArrays {
     }
   }
 
+  @JsonProperty("array_enum")
   @Valid
-  private List<ArrayEnumEnum> arrayEnum;
+  private List<ArrayEnumEnum> arrayEnum = null;
 
   public EnumArrays justSymbol(JustSymbolEnum justSymbol) {
     this.justSymbol = justSymbol;
@@ -110,8 +111,7 @@ public class EnumArrays {
    * @return justSymbol
   */
   
-  @Schema(name = "just_symbol", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("just_symbol")
+  @Schema(name = "just_symbol", required = false)
   public JustSymbolEnum getJustSymbol() {
     return justSymbol;
   }
@@ -138,8 +138,7 @@ public class EnumArrays {
    * @return arrayEnum
   */
   
-  @Schema(name = "array_enum", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("array_enum")
+  @Schema(name = "array_enum", required = false)
   public List<ArrayEnumEnum> getArrayEnum() {
     return arrayEnum;
   }

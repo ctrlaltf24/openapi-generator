@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
+import org.openapitools.model.BigCatAllOf;
 import org.openapitools.model.Cat;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -66,18 +67,8 @@ public class BigCat extends Cat {
     }
   }
 
+  @JsonProperty("kind")
   private KindEnum kind;
-
-  public BigCat() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public BigCat(String className) {
-    super(className);
-  }
 
   public BigCat kind(KindEnum kind) {
     this.kind = kind;
@@ -89,8 +80,7 @@ public class BigCat extends Cat {
    * @return kind
   */
   
-  @Schema(name = "kind", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("kind")
+  @Schema(name = "kind", required = false)
   public KindEnum getKind() {
     return kind;
   }
@@ -99,21 +89,21 @@ public class BigCat extends Cat {
     this.kind = kind;
   }
 
-
   public BigCat declawed(Boolean declawed) {
-    super.declawed(declawed);
+    super.setDeclawed(declawed);
     return this;
   }
 
   public BigCat className(String className) {
-    super.className(className);
+    super.setClassName(className);
     return this;
   }
 
   public BigCat color(String color) {
-    super.color(color);
+    super.setColor(color);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

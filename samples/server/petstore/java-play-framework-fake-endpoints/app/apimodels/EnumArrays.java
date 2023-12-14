@@ -1,14 +1,12 @@
 package apimodels;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Set;
 import javax.validation.*;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 /**
  * EnumArrays
  */
@@ -108,10 +106,10 @@ public class EnumArrays   {
   }
 
   public EnumArrays addArrayEnumItem(ArrayEnumEnum arrayEnumItem) {
-    if (this.arrayEnum == null) {
-      this.arrayEnum = new ArrayList<>();
+    if (arrayEnum == null) {
+      arrayEnum = new ArrayList<>();
     }
-    this.arrayEnum.add(arrayEnumItem);
+    arrayEnum.add(arrayEnumItem);
     return this;
   }
 

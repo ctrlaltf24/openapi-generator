@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **Id** | **Decimal** |  | [optional] 
 **DeprecatedRef** | [**DeprecatedObject**](DeprecatedObject.md) |  | [optional] 
 **Bars** | **String[]** |  | [optional] 
-**SomethingElse** | **String** |  | [optional] 
 
 ## Examples
 
@@ -16,8 +15,7 @@ Name | Type | Description | Notes
 $ObjectWithDeprecatedFields = Initialize-PSPetstoreObjectWithDeprecatedFields  -Uuid null `
  -Id null `
  -DeprecatedRef null `
- -Bars null `
- -SomethingElse null
+ -Bars null
 ```
 
 - Convert the resource to JSON

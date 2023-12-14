@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.ws.rs.core.GenericType;
 
 public class FakeClassnameTags123Api {
     private ApiClient localVarApiClient;
@@ -142,12 +143,15 @@ public class FakeClassnameTags123Api {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call testClassnameValidateBeforeCall(Client body, final ApiCallback _callback) throws ApiException {
+        
         // verify the required parameter 'body' is set
         if (body == null) {
             throw new ApiException("Missing the required parameter 'body' when calling testClassname(Async)");
         }
+        
 
-        return testClassnameCall(body, _callback);
+        okhttp3.Call localVarCall = testClassnameCall(body, _callback);
+        return localVarCall;
 
     }
 

@@ -26,18 +26,8 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Pasta extends Entity {
 
+  @JsonProperty("vendor")
   private String vendor;
-
-  public Pasta() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Pasta(String atType) {
-    super(atType);
-  }
 
   public Pasta vendor(String vendor) {
     this.vendor = vendor;
@@ -49,8 +39,7 @@ public class Pasta extends Entity {
    * @return vendor
   */
   
-  @Schema(name = "vendor", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("vendor")
+  @Schema(name = "vendor", required = false)
   public String getVendor() {
     return vendor;
   }
@@ -59,31 +48,31 @@ public class Pasta extends Entity {
     this.vendor = vendor;
   }
 
-
   public Pasta href(String href) {
-    super.href(href);
+    super.setHref(href);
     return this;
   }
 
   public Pasta id(String id) {
-    super.id(id);
+    super.setId(id);
     return this;
   }
 
   public Pasta atSchemaLocation(String atSchemaLocation) {
-    super.atSchemaLocation(atSchemaLocation);
+    super.setAtSchemaLocation(atSchemaLocation);
     return this;
   }
 
   public Pasta atBaseType(String atBaseType) {
-    super.atBaseType(atBaseType);
+    super.setAtBaseType(atBaseType);
     return this;
   }
 
   public Pasta atType(String atType) {
-    super.atType(atType);
+    super.setAtType(atType);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

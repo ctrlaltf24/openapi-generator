@@ -28,7 +28,7 @@ This runs all tests and packages the library.
 * Some Kotlin and Java types are fully qualified to avoid conflicts with types defined in OpenAPI definitions.
 
 {{#generateApiDocs}}
-<a id="documentation-for-api-endpoints"></a>
+<a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
 All URIs are relative to *{{{basePath}}}*
@@ -40,7 +40,7 @@ Class | Method | HTTP request | Description
 {{/generateApiDocs}}
 
 {{#generateModelDocs}}
-<a id="documentation-for-models"></a>
+<a name="documentation-for-models"></a>
 ## Documentation for Models
 
 {{#modelPackage}}
@@ -52,25 +52,27 @@ No model defined in this package
 {{/modelPackage}}
 {{/generateModelDocs}}
 
-<a id="documentation-for-authorization"></a>
+<a name="documentation-for-authorization"></a>{{! TODO: optional documentation for authorization? }}
 ## Documentation for Authorization
 
-{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
-{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
+{{^authMethods}}
+All endpoints do not require authorization.
+{{/authMethods}}
 {{#authMethods}}
-<a id="{{name}}"></a>
+{{#last}}
+Authentication schemes defined for the API:
+{{/last}}
+{{/authMethods}}
+{{#authMethods}}
+<a name="{{name}}"></a>
 ### {{name}}
 
 {{#isApiKey}}- **Type**: API key
 - **API key parameter name**: {{keyParamName}}
 - **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
 {{/isApiKey}}
-{{#isBasicBasic}}- **Type**: HTTP basic authentication
-{{/isBasicBasic}}
-{{#isBasicBearer}}- **Type**: HTTP Bearer Token authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
-{{/isBasicBearer}}
-{{#isHttpSignature}}- **Type**: HTTP signature authentication
-{{/isHttpSignature}}
+{{#isBasic}}- **Type**: HTTP basic authentication
+{{/isBasic}}
 {{#isOAuth}}- **Type**: OAuth
 - **Flow**: {{flow}}
 - **Authorization URL**: {{authorizationUrl}}

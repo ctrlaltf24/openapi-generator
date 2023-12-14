@@ -18,6 +18,7 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,7 +29,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.openapitools.client.model.Quadrilateral;
 import org.openapitools.client.model.Triangle;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -96,7 +98,7 @@ public class NullableShape extends AbstractOpenApiSchema {
             JsonNode tree = jp.readValueAsTree();
             Object deserialized = null;
             NullableShape newNullableShape = new NullableShape();
-            Map<String, Object> result2 = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Map<String, Object>>() {});
+            Map<String,Object> result2 = tree.traverse(jp.getCodec()).readValueAs(new TypeReference<Map<String, Object>>() {});
             String discriminatorValue = (String)result2.get("shapeType");
             switch (discriminatorValue) {
                 case "Quadrilateral":
@@ -186,7 +188,7 @@ public class NullableShape extends AbstractOpenApiSchema {
     }
 
     // store a list of schema names defined in oneOf
-    public static final Map<String, GenericType> schemas = new HashMap<>();
+    public static final Map<String, GenericType> schemas = new HashMap<String, GenericType>();
 
     public NullableShape() {
         super("oneOf", Boolean.TRUE);
@@ -205,7 +207,7 @@ public class NullableShape extends AbstractOpenApiSchema {
   @JsonAnySetter
   public NullableShape putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<>();
+        this.additionalProperties = new HashMap<String, Object>();
     }
     this.additionalProperties.put(key, value);
     return this;
@@ -258,7 +260,7 @@ public class NullableShape extends AbstractOpenApiSchema {
         });
         JSON.registerDescendants(NullableShape.class, Collections.unmodifiableMap(schemas));
         // Initialize and register the discriminator mappings.
-        Map<String, Class<?>> mappings = new HashMap<>();
+        Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
         mappings.put("Quadrilateral", Quadrilateral.class);
         mappings.put("Triangle", Triangle.class);
         mappings.put("NullableShape", NullableShape.class);
@@ -285,12 +287,12 @@ public class NullableShape extends AbstractOpenApiSchema {
            return;
         }
 
-        if (JSON.isInstanceOf(Quadrilateral.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(Quadrilateral.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }
 
-        if (JSON.isInstanceOf(Triangle.class, instance, new HashSet<>())) {
+        if (JSON.isInstanceOf(Triangle.class, instance, new HashSet<Class<?>>())) {
             super.setActualInstance(instance);
             return;
         }

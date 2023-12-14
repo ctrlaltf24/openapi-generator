@@ -19,12 +19,15 @@ package org.openapitools.codegen.templating.mustache;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
+import org.openapitools.codegen.CodegenConfig;
 
 import java.io.IOException;
 import java.io.Writer;
 
+import static org.openapitools.codegen.utils.StringUtils.camelize;
+
 /**
- * Strips trailing ? from a text fragment
+ * Strips trailing ? from a text fragement
  *
  * Register:
  * <pre>
@@ -37,8 +40,15 @@ import java.io.Writer;
  * </pre>
  */
 public class RequiredParameterLambda implements Mustache.Lambda {
+    private CodegenConfig generator = null;
+    private Boolean escapeParam = false;
 
     public RequiredParameterLambda() {}
+
+    public RequiredParameterLambda generator(final CodegenConfig generator) {
+        this.generator = generator;
+        return this;
+    }
 
     @Override
     public void execute(Template.Fragment fragment, Writer writer) throws IOException {

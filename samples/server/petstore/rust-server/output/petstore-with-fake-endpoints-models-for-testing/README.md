@@ -167,11 +167,12 @@ Method | HTTP request | Description
  - [ArrayTest](docs/ArrayTest.md)
  - [Capitalization](docs/Capitalization.md)
  - [Cat](docs/Cat.md)
+ - [CatAllOf](docs/CatAllOf.md)
  - [Category](docs/Category.md)
  - [ClassModel](docs/ClassModel.md)
  - [Client](docs/Client.md)
  - [Dog](docs/Dog.md)
- - [DollarSpecialLeftSquareBracketModelPeriodNameRightSquareBracket](docs/DollarSpecialLeftSquareBracketModelPeriodNameRightSquareBracket.md)
+ - [DogAllOf](docs/DogAllOf.md)
  - [EnumArrays](docs/EnumArrays.md)
  - [EnumClass](docs/EnumClass.md)
  - [EnumTest](docs/EnumTest.md)
@@ -181,6 +182,7 @@ Method | HTTP request | Description
  - [MapTest](docs/MapTest.md)
  - [MixedPropertiesAndAdditionalPropertiesClass](docs/MixedPropertiesAndAdditionalPropertiesClass.md)
  - [Model200Response](docs/Model200Response.md)
+ - [ModelReturn](docs/ModelReturn.md)
  - [Name](docs/Name.md)
  - [NumberOnly](docs/NumberOnly.md)
  - [ObjectContainingObjectWithOnlyAdditionalProperties](docs/ObjectContainingObjectWithOnlyAdditionalProperties.md)
@@ -193,15 +195,32 @@ Method | HTTP request | Description
  - [OuterString](docs/OuterString.md)
  - [Pet](docs/Pet.md)
  - [ReadOnlyFirst](docs/ReadOnlyFirst.md)
- - [Return](docs/Return.md)
+ - [SpecialModelName](docs/SpecialModelName.md)
  - [Tag](docs/Tag.md)
  - [User](docs/User.md)
 
 
 ## Documentation For Authorization
 
-Authentication schemes defined for the API:
-### petstore_auth
+## api_key
+- **Type**: API key
+
+Example
+```
+```
+## api_key_query
+- **Type**: API key
+
+Example
+```
+```
+## http_basic_test
+- **Type**: HTTP basic authentication
+
+Example
+```
+```
+## petstore_auth
 - **Type**: OAuth
 - **Flow**: implicit
 - **Authorization URL**: http://petstore.swagger.io/api/oauth/dialog
@@ -214,24 +233,6 @@ Example
 ```
 
 Or via OAuth2 module to automatically refresh tokens and perform user authentication.
-```
-```
-### api_key
-- **Type**: API key
-
-Example
-```
-```
-### api_key_query
-- **Type**: API key
-
-Example
-```
-```
-### http_basic_test
-- **Type**: HTTP basic authentication
-
-Example
 ```
 ```
 

@@ -73,10 +73,12 @@ Class | Method | HTTP request | Description
  - [ArrayTest](docs/ArrayTest.md)
  - [Capitalization](docs/Capitalization.md)
  - [Cat](docs/Cat.md)
+ - [CatAllOf](docs/CatAllOf.md)
  - [Category](docs/Category.md)
  - [ClassModel](docs/ClassModel.md)
  - [Client](docs/Client.md)
  - [Dog](docs/Dog.md)
+ - [DogAllOf](docs/DogAllOf.md)
  - [EnumArrays](docs/EnumArrays.md)
  - [EnumClass](docs/EnumClass.md)
  - [EnumTest](docs/EnumTest.md)
@@ -104,13 +106,26 @@ Class | Method | HTTP request | Description
  - [User](docs/User.md)
 
 
-<a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
 
-Authentication schemes defined for the API:
-<a id="petstore_auth"></a>
-### petstore_auth
+## api_key
+
+- **Type**: API key
+- **API key parameter name**: api_key
+- **Location**: HTTP header
+
+## api_key_query
+
+- **Type**: API key
+- **API key parameter name**: api_key_query
+- **Location**: URL query string
+
+## http_basic_test
+
+- **Type**: HTTP basic authentication
+
+## petstore_auth
 
 - **Type**: OAuth
 - **Flow**: implicit
@@ -118,25 +133,6 @@ Authentication schemes defined for the API:
 - **Scopes**: 
  - **write:pets**: modify pets in your account
  - **read:pets**: read your pets
-
-<a id="api_key"></a>
-### api_key
-
-- **Type**: API key
-- **API key parameter name**: api_key
-- **Location**: HTTP header
-
-<a id="api_key_query"></a>
-### api_key_query
-
-- **Type**: API key
-- **API key parameter name**: api_key_query
-- **Location**: URL query string
-
-<a id="http_basic_test"></a>
-### http_basic_test
-
-- **Type**: HTTP basic authentication
 
 
 ## Author

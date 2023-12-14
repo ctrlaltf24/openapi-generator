@@ -21,22 +21,14 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Extensible {
 
+  @JsonProperty("@schemaLocation")
   private String atSchemaLocation;
 
+  @JsonProperty("@baseType")
   private String atBaseType;
 
+  @JsonProperty("@type")
   private String atType;
-
-  public Extensible() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Extensible(String atType) {
-    this.atType = atType;
-  }
 
   public Extensible atSchemaLocation(String atSchemaLocation) {
     this.atSchemaLocation = atSchemaLocation;
@@ -48,8 +40,7 @@ public class Extensible {
    * @return atSchemaLocation
   */
   
-  @Schema(name = "@schemaLocation", description = "A URI to a JSON-Schema file that defines additional attributes and relationships", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("@schemaLocation")
+  @Schema(name = "@schemaLocation", description = "A URI to a JSON-Schema file that defines additional attributes and relationships", required = false)
   public String getAtSchemaLocation() {
     return atSchemaLocation;
   }
@@ -68,8 +59,7 @@ public class Extensible {
    * @return atBaseType
   */
   
-  @Schema(name = "@baseType", description = "When sub-classing, this defines the super-class", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("@baseType")
+  @Schema(name = "@baseType", description = "When sub-classing, this defines the super-class", required = false)
   public String getAtBaseType() {
     return atBaseType;
   }
@@ -88,8 +78,7 @@ public class Extensible {
    * @return atType
   */
   @NotNull 
-  @Schema(name = "@type", description = "When sub-classing, this defines the sub-class Extensible name", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("@type")
+  @Schema(name = "@type", description = "When sub-classing, this defines the sub-class Extensible name", required = true)
   public String getAtType() {
     return atType;
   }

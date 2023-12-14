@@ -21,16 +21,22 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Capitalization {
 
+  @JsonProperty("smallCamel")
   private String smallCamel;
 
+  @JsonProperty("CapitalCamel")
   private String capitalCamel;
 
+  @JsonProperty("small_Snake")
   private String smallSnake;
 
+  @JsonProperty("Capital_Snake")
   private String capitalSnake;
 
+  @JsonProperty("SCA_ETH_Flow_Points")
   private String scAETHFlowPoints;
 
+  @JsonProperty("ATT_NAME")
   private String ATT_NAME;
 
   public Capitalization smallCamel(String smallCamel) {
@@ -43,8 +49,7 @@ public class Capitalization {
    * @return smallCamel
   */
   
-  @Schema(name = "smallCamel", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("smallCamel")
+  @Schema(name = "smallCamel", required = false)
   public String getSmallCamel() {
     return smallCamel;
   }
@@ -63,8 +68,7 @@ public class Capitalization {
    * @return capitalCamel
   */
   
-  @Schema(name = "CapitalCamel", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("CapitalCamel")
+  @Schema(name = "CapitalCamel", required = false)
   public String getCapitalCamel() {
     return capitalCamel;
   }
@@ -83,8 +87,7 @@ public class Capitalization {
    * @return smallSnake
   */
   
-  @Schema(name = "small_Snake", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("small_Snake")
+  @Schema(name = "small_Snake", required = false)
   public String getSmallSnake() {
     return smallSnake;
   }
@@ -103,8 +106,7 @@ public class Capitalization {
    * @return capitalSnake
   */
   
-  @Schema(name = "Capital_Snake", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("Capital_Snake")
+  @Schema(name = "Capital_Snake", required = false)
   public String getCapitalSnake() {
     return capitalSnake;
   }
@@ -123,8 +125,7 @@ public class Capitalization {
    * @return scAETHFlowPoints
   */
   
-  @Schema(name = "SCA_ETH_Flow_Points", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("SCA_ETH_Flow_Points")
+  @Schema(name = "SCA_ETH_Flow_Points", required = false)
   public String getScAETHFlowPoints() {
     return scAETHFlowPoints;
   }
@@ -143,8 +144,7 @@ public class Capitalization {
    * @return ATT_NAME
   */
   
-  @Schema(name = "ATT_NAME", description = "Name of the pet ", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("ATT_NAME")
+  @Schema(name = "ATT_NAME", description = "Name of the pet ", required = false)
   public String getATTNAME() {
     return ATT_NAME;
   }

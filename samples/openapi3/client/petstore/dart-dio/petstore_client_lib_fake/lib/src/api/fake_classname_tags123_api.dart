@@ -30,7 +30,7 @@ class FakeClassnameTags123Api {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [ModelClient] as data
-  /// Throws [DioException] if API call or serialization fails
+  /// Throws [DioError] if API call or serialization fails
   Future<Response<ModelClient>> testClassname({ 
     required ModelClient modelClient,
     CancelToken? cancelToken,
@@ -68,15 +68,14 @@ class FakeClassnameTags123Api {
       _bodyData = _serializers.serialize(modelClient, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioException(
+      throw DioError(
          requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     final _response = await _dio.request<Object>(
@@ -88,23 +87,22 @@ class FakeClassnameTags123Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    ModelClient? _responseData;
+    ModelClient _responseData;
 
     try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(ModelClient),
+      const _responseType = FullType(ModelClient);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
       ) as ModelClient;
 
     } catch (error, stackTrace) {
-      throw DioException(
+      throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     return Response<ModelClient>(

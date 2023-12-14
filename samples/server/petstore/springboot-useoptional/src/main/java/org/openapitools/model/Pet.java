@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,17 +30,22 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Pet {
 
-  private Optional<Long> id = Optional.empty();
+  @JsonProperty("id")
+  private Long id;
 
-  private Optional<Category> category = Optional.empty();
+  @JsonProperty("category")
+  private Category category;
 
+  @JsonProperty("name")
   private String name;
 
+  @JsonProperty("photoUrls")
   @Valid
   private Set<String> photoUrls = new LinkedHashSet<>();
 
+  @JsonProperty("tags")
   @Valid
-  private List<@Valid Tag> tags;
+  private List<Tag> tags = null;
 
   /**
    * pet status in the store
@@ -80,23 +84,11 @@ public class Pet {
     }
   }
 
-  @Deprecated
-  private Optional<StatusEnum> status = Optional.empty();
-
-  public Pet() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Pet(String name, Set<String> photoUrls) {
-    this.name = name;
-    this.photoUrls = photoUrls;
-  }
+  @JsonProperty("status")
+  private StatusEnum status;
 
   public Pet id(Long id) {
-    this.id = Optional.of(id);
+    this.id = id;
     return this;
   }
 
@@ -106,17 +98,16 @@ public class Pet {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("id")
-  public Optional<Long> getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Optional<Long> id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
   public Pet category(Category category) {
-    this.category = Optional.of(category);
+    this.category = category;
     return this;
   }
 
@@ -126,12 +117,11 @@ public class Pet {
   */
   @Valid 
   @ApiModelProperty(value = "")
-  @JsonProperty("category")
-  public Optional<Category> getCategory() {
+  public Category getCategory() {
     return category;
   }
 
-  public void setCategory(Optional<Category> category) {
+  public void setCategory(Category category) {
     this.category = category;
   }
 
@@ -146,7 +136,6 @@ public class Pet {
   */
   @NotNull 
   @ApiModelProperty(example = "doggie", required = true, value = "")
-  @JsonProperty("name")
   public String getName() {
     return name;
   }
@@ -161,9 +150,6 @@ public class Pet {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new LinkedHashSet<>();
-    }
     this.photoUrls.add(photoUrlsItem);
     return this;
   }
@@ -174,7 +160,6 @@ public class Pet {
   */
   @NotNull 
   @ApiModelProperty(required = true, value = "")
-  @JsonProperty("photoUrls")
   public Set<String> getPhotoUrls() {
     return photoUrls;
   }
@@ -184,7 +169,7 @@ public class Pet {
     this.photoUrls = photoUrls;
   }
 
-  public Pet tags(List<@Valid Tag> tags) {
+  public Pet tags(List<Tag> tags) {
     this.tags = tags;
     return this;
   }
@@ -203,38 +188,30 @@ public class Pet {
   */
   @Valid 
   @ApiModelProperty(value = "")
-  @JsonProperty("tags")
-  public List<@Valid Tag> getTags() {
+  public List<Tag> getTags() {
     return tags;
   }
 
-  public void setTags(List<@Valid Tag> tags) {
+  public void setTags(List<Tag> tags) {
     this.tags = tags;
   }
 
   public Pet status(StatusEnum status) {
-    this.status = Optional.of(status);
+    this.status = status;
     return this;
   }
 
   /**
    * pet status in the store
    * @return status
-   * @deprecated
   */
   
   @ApiModelProperty(value = "pet status in the store")
-  @JsonProperty("status")
-  @Deprecated
-  public Optional<StatusEnum> getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  /**
-   * @deprecated
-  */
-  @Deprecated
-  public void setStatus(Optional<StatusEnum> status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

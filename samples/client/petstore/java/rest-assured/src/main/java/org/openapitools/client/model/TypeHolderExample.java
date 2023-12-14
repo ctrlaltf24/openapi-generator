@@ -20,10 +20,11 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
@@ -58,7 +59,7 @@ public class TypeHolderExample {
   @SerializedName(SERIALIZED_NAME_ARRAY_ITEM)
   private List<Integer> arrayItem = new ArrayList<>();
 
-  public TypeHolderExample() {
+  public TypeHolderExample() { 
   }
 
   public TypeHolderExample stringItem(String stringItem) {
@@ -73,7 +74,7 @@ public class TypeHolderExample {
   **/
   @javax.annotation.Nonnull
   @NotNull
-
+  @ApiModelProperty(example = "what", required = true, value = "")
 
   public String getStringItem() {
     return stringItem;
@@ -98,7 +99,7 @@ public class TypeHolderExample {
   @javax.annotation.Nonnull
   @NotNull
   @Valid
-
+  @ApiModelProperty(example = "1.234", required = true, value = "")
 
   public BigDecimal getNumberItem() {
     return numberItem;
@@ -122,7 +123,7 @@ public class TypeHolderExample {
   **/
   @javax.annotation.Nonnull
   @NotNull
-
+  @ApiModelProperty(example = "1.234", required = true, value = "")
 
   public Float getFloatItem() {
     return floatItem;
@@ -146,7 +147,7 @@ public class TypeHolderExample {
   **/
   @javax.annotation.Nonnull
   @NotNull
-
+  @ApiModelProperty(example = "-2", required = true, value = "")
 
   public Integer getIntegerItem() {
     return integerItem;
@@ -170,7 +171,7 @@ public class TypeHolderExample {
   **/
   @javax.annotation.Nonnull
   @NotNull
-
+  @ApiModelProperty(example = "true", required = true, value = "")
 
   public Boolean isBoolItem() {
     return boolItem;
@@ -189,9 +190,6 @@ public class TypeHolderExample {
   }
 
   public TypeHolderExample addArrayItemItem(Integer arrayItemItem) {
-    if (this.arrayItem == null) {
-      this.arrayItem = new ArrayList<>();
-    }
     this.arrayItem.add(arrayItemItem);
     return this;
   }
@@ -202,7 +200,7 @@ public class TypeHolderExample {
   **/
   @javax.annotation.Nonnull
   @NotNull
-
+  @ApiModelProperty(example = "[0, 1, 2, 3]", required = true, value = "")
 
   public List<Integer> getArrayItem() {
     return arrayItem;
@@ -212,6 +210,7 @@ public class TypeHolderExample {
   public void setArrayItem(List<Integer> arrayItem) {
     this.arrayItem = arrayItem;
   }
+
 
   @Override
   public boolean equals(Object o) {

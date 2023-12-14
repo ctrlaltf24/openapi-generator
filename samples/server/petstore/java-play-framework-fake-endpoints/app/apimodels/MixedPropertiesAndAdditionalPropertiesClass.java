@@ -3,6 +3,7 @@ package apimodels;
 import apimodels.Animal;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import com.fasterxml.jackson.annotation.*;
@@ -10,7 +11,6 @@ import java.util.Set;
 import javax.validation.*;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 /**
  * MixedPropertiesAndAdditionalPropertiesClass
  */

@@ -11,11 +11,11 @@
         "sdk",
         "api"
     ],
-    "homepage": "https://openapi-generator.tech",
+    "homepage": "http://openapi-generator.tech",
     "license": "unlicense",
     "authors": [
         {
-            "name": "OpenAPI",
+            "name": "OpenAPI-Generator contributors",
             "homepage": "https://openapi-generator.tech"
         }
     ],

@@ -1,6 +1,7 @@
 package org.openapitools.model
 
 import org.openapitools.model.Animal
+import org.openapitools.model.CatAllOf
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 import jakarta.inject.Inject

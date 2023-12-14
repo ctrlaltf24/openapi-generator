@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 
 /**
  * A User who is purchasing from the pet store
@@ -33,6 +32,7 @@ public class User   {
   private String phone;
 
   private Integer userStatus;
+
 
   /**
    **/

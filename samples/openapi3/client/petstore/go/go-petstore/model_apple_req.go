@@ -12,11 +12,7 @@ package petstore
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the AppleReq type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AppleReq{}
 
 // AppleReq struct for AppleReq
 type AppleReq struct {
@@ -71,7 +67,7 @@ func (o *AppleReq) SetCultivar(v string) {
 
 // GetMealy returns the Mealy field value if set, zero value otherwise.
 func (o *AppleReq) GetMealy() bool {
-	if o == nil || IsNil(o.Mealy) {
+	if o == nil || o.Mealy == nil {
 		var ret bool
 		return ret
 	}
@@ -81,7 +77,7 @@ func (o *AppleReq) GetMealy() bool {
 // GetMealyOk returns a tuple with the Mealy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AppleReq) GetMealyOk() (*bool, bool) {
-	if o == nil || IsNil(o.Mealy) {
+	if o == nil || o.Mealy == nil {
 		return nil, false
 	}
 	return o.Mealy, true
@@ -89,7 +85,7 @@ func (o *AppleReq) GetMealyOk() (*bool, bool) {
 
 // HasMealy returns a boolean if a field has been set.
 func (o *AppleReq) HasMealy() bool {
-	if o != nil && !IsNil(o.Mealy) {
+	if o != nil && o.Mealy != nil {
 		return true
 	}
 
@@ -102,17 +98,11 @@ func (o *AppleReq) SetMealy(v bool) {
 }
 
 func (o AppleReq) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o AppleReq) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["cultivar"] = o.Cultivar
-	if !IsNil(o.Mealy) {
+	if true {
+		toSerialize["cultivar"] = o.Cultivar
+	}
+	if o.Mealy != nil {
 		toSerialize["mealy"] = o.Mealy
 	}
 
@@ -120,40 +110,15 @@ func (o AppleReq) ToMap() (map[string]interface{}, error) {
 		toSerialize[key] = value
 	}
 
-	return toSerialize, nil
+	return json.Marshal(toSerialize)
 }
 
 func (o *AppleReq) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"cultivar",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAppleReq := _AppleReq{}
 
-	err = json.Unmarshal(bytes, &varAppleReq)
-
-	if err != nil {
-		return err
+	if err = json.Unmarshal(bytes, &varAppleReq); err == nil {
+		*o = AppleReq(varAppleReq)
 	}
-
-	*o = AppleReq(varAppleReq)
 
 	additionalProperties := make(map[string]interface{})
 

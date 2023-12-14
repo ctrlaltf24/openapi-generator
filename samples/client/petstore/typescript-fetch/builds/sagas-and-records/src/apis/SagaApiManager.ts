@@ -1,7 +1,7 @@
 import {
     Configuration,
     ConfigurationParameters,
-} from "../index";
+} from "../";
 
 import {
     BehaviorApi,
@@ -9,7 +9,7 @@ import {
     PetPartApi,
     StoreApi,
     UserApi,
-} from "./index";
+} from "./";
 
 export class Api {
     public static behaviorApi: BehaviorApi;

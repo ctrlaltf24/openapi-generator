@@ -12,19 +12,13 @@ package petstore
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the Category type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Category{}
 
 // Category struct for Category
 type Category struct {
 	Id *int64 `json:"id,omitempty"`
 	Name string `json:"name"`
 }
-
-type _Category Category
 
 // NewCategory instantiates a new Category object
 // This constructor will assign default values to properties that have it defined,
@@ -48,7 +42,7 @@ func NewCategoryWithDefaults() *Category {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Category) GetId() int64 {
-	if o == nil || IsNil(o.Id) {
+	if o == nil || o.Id == nil {
 		var ret int64
 		return ret
 	}
@@ -58,7 +52,7 @@ func (o *Category) GetId() int64 {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Category) GetIdOk() (*int64, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
 	return o.Id, true
@@ -66,7 +60,7 @@ func (o *Category) GetIdOk() (*int64, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Category) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
+	if o != nil && o.Id != nil {
 		return true
 	}
 
@@ -103,55 +97,14 @@ func (o *Category) SetName(v string) {
 }
 
 func (o Category) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o Category) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
+	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
-	toSerialize["name"] = o.Name
-	return toSerialize, nil
-}
-
-func (o *Category) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
+	if true {
+		toSerialize["name"] = o.Name
 	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varCategory := _Category{}
-
-	err = json.Unmarshal(bytes, &varCategory)
-
-	if err != nil {
-		return err
-	}
-
-	*o = Category(varCategory)
-
-	return err
+	return json.Marshal(toSerialize)
 }
 
 type NullableCategory struct {

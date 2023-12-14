@@ -121,11 +121,11 @@ export class {{classname}} {
         }
 {{/isKeyInQuery}}
 {{/isApiKey}}
-{{#isBasicBasic}}
+{{#isBasic}}
         if (this.APIConfiguration.username || this.APIConfiguration.password) {
             headers['Authorization'] = btoa(this.APIConfiguration.username + ':' + this.APIConfiguration.password);
         }
-{{/isBasicBasic}}
+{{/isBasic}}
 {{#isOAuth}}
         if (this.APIConfiguration.accessToken) {
             let accessToken = typeof this.APIConfiguration.accessToken === 'function'

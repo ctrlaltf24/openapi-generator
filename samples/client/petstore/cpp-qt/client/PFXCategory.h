@@ -54,11 +54,11 @@ public:
 private:
     void initializeModel();
 
-    qint64 m_id;
+    qint64 id;
     bool m_id_isSet;
     bool m_id_isValid;
 
-    QString m_name;
+    QString name;
     bool m_name_isSet;
     bool m_name_isValid;
 };

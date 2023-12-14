@@ -51,9 +51,9 @@ public class ScalaGatlingCodegenTest {
 
         final Schema model = new Schema()
                 .description("a sample model")
-                .addProperty("id", new IntegerSchema().format(SchemaTypeUtil.INTEGER64_FORMAT))
-                .addProperty("name", new StringSchema())
-                .addProperty("createdAt", new DateTimeSchema())
+                .addProperties("id", new IntegerSchema().format(SchemaTypeUtil.INTEGER64_FORMAT))
+                .addProperties("name", new StringSchema())
+                .addProperties("createdAt", new DateTimeSchema())
                 .addRequiredItem("id")
                 .addRequiredItem("name");
         final OpenAPI openAPI = TestUtils.createOpenAPIWithOneSchema("sample", model);

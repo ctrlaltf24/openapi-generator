@@ -45,7 +45,7 @@ public class AuthorTemplate extends OpenApiGeneratorCommand {
     @Override
     void execute() {
         CodegenConfig config = CodegenConfigLoader.forName(generatorName);
-        String templateDirectory = config.templateDir().replace('\\', '/');
+        String templateDirectory = config.templateDir();
 
         log("Requesting '{}' from embedded resource directory '{}'", generatorName, templateDirectory);
 

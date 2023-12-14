@@ -68,7 +68,6 @@ public class GroovyClientCodegen extends AbstractJavaCodegen {
         languageSpecificPrimitives.add("ArrayList");
         languageSpecificPrimitives.add("File");
         languageSpecificPrimitives.add("Map");
-        languageSpecificPrimitives.add("List");
 
         // this must not be OS-specific
         sourceFolder = projectFolder + "/groovy";

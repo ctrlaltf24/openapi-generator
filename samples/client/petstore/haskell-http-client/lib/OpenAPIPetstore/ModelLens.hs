@@ -252,6 +252,15 @@ bigCatKindL f BigCat{..} = (\bigCatKind -> BigCat { bigCatKind, ..} ) <$> f bigC
 
 
 
+-- * BigCatAllOf
+
+-- | 'bigCatAllOfKind' Lens
+bigCatAllOfKindL :: Lens_' BigCatAllOf (Maybe E'Kind)
+bigCatAllOfKindL f BigCatAllOf{..} = (\bigCatAllOfKind -> BigCatAllOf { bigCatAllOfKind, ..} ) <$> f bigCatAllOfKind
+{-# INLINE bigCatAllOfKindL #-}
+
+
+
 -- * Capitalization
 
 -- | 'capitalizationSmallCamel' Lens
@@ -305,6 +314,15 @@ catDeclawedL f Cat{..} = (\catDeclawed -> Cat { catDeclawed, ..} ) <$> f catDecl
 
 
 
+-- * CatAllOf
+
+-- | 'catAllOfDeclawed' Lens
+catAllOfDeclawedL :: Lens_' CatAllOf (Maybe Bool)
+catAllOfDeclawedL f CatAllOf{..} = (\catAllOfDeclawed -> CatAllOf { catAllOfDeclawed, ..} ) <$> f catAllOfDeclawed
+{-# INLINE catAllOfDeclawedL #-}
+
+
+
 -- * Category
 
 -- | 'categoryId' Lens
@@ -353,6 +371,15 @@ dogColorL f Dog{..} = (\dogColor -> Dog { dogColor, ..} ) <$> f dogColor
 dogBreedL :: Lens_' Dog (Maybe Text)
 dogBreedL f Dog{..} = (\dogBreed -> Dog { dogBreed, ..} ) <$> f dogBreed
 {-# INLINE dogBreedL #-}
+
+
+
+-- * DogAllOf
+
+-- | 'dogAllOfBreed' Lens
+dogAllOfBreedL :: Lens_' DogAllOf (Maybe Text)
+dogAllOfBreedL f DogAllOf{..} = (\dogAllOfBreed -> DogAllOf { dogAllOfBreed, ..} ) <$> f dogAllOfBreed
+{-# INLINE dogAllOfBreedL #-}
 
 
 

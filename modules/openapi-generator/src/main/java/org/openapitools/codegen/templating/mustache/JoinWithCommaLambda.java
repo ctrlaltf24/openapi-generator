@@ -19,6 +19,7 @@ package org.openapitools.codegen.templating.mustache;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
+import org.openapitools.codegen.CodegenConfig;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -37,30 +38,21 @@ import java.io.Writer;
  * </pre>
  */
 public class JoinWithCommaLambda implements Mustache.Lambda {
-
-    private final String delimit;
-    private final String coalesce;
-    private final boolean trimInput;
+    private CodegenConfig generator = null;
 
     public JoinWithCommaLambda() {
-        this.delimit = "  ";
-        this.coalesce = ", ";
-        this.trimInput = true;
+
     }
 
-    public JoinWithCommaLambda(boolean trimInput, String delimit, String coalesce) {
-        this.delimit = delimit;
-        this.coalesce = coalesce;
-        this.trimInput = trimInput;
+    public JoinWithCommaLambda generator(final CodegenConfig generator) {
+        this.generator = generator;
+        return this;
     }
-
 
     @Override
     public void execute(Template.Fragment fragment, Writer writer) throws IOException {
-        String[] input = this.trimInput
-                ? fragment.execute().trim().split(delimit)
-                : fragment.execute().split(delimit);
+        String[] substr = fragment.execute().trim().split("  ");
 
-        writer.write(String.join(coalesce, input));
+        writer.write(String.join(", ", substr));
     }
 }

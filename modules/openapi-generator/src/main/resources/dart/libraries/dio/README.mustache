@@ -19,11 +19,8 @@ For more information, please visit [{{{infoUrl}}}]({{{infoUrl}}})
 
 ## Requirements
 
-* Dart 2.15.0+ or Flutter 2.8.0+
-* Dio 5.0.0+ (https://pub.dev/packages/dio)
-{{#useJsonSerializable}}
-* JSON Serializable 6.1.5+ (https://pub.dev/packages/json_serializable)
-{{/useJsonSerializable}}
+* Dart 2.12.0 or later OR Flutter 1.26.0 or later
+* Dio 4.0.0+
 {{#useDateLibTimeMachine}}
 * timemachine option currently **DOES NOT** support sound null-safety and may not work
 {{/useDateLibTimeMachine}}
@@ -73,7 +70,7 @@ try {
     {{#returnType}}
     print(response);
     {{/returnType}}
-} catch on DioException (e) {
+} catch on DioError (e) {
     print("Exception when calling {{classname}}->{{operationId}}: $e\n");
 }
 {{/-first}}{{/operation}}{{/operations}}{{/-first}}{{/apis}}{{/apiInfo}}
@@ -95,21 +92,16 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Authorization
 
-{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
-{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
-{{#authMethods}}
-### {{{name}}}
+{{^authMethods}} All endpoints do not require authorization.
+{{/authMethods}}{{#authMethods}}{{#last}} Authentication schemes defined for the API:{{/last}}{{/authMethods}}
+{{#authMethods}}## {{{name}}}
 
 {{#isApiKey}}- **Type**: API key
 - **API key parameter name**: {{{keyParamName}}}
 - **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
 {{/isApiKey}}
-{{#isBasicBasic}}- **Type**: HTTP basic authentication
-{{/isBasicBasic}}
-{{#isBasicBearer}}- **Type**: HTTP Bearer Token authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
-{{/isBasicBearer}}
-{{#isHttpSignature}}- **Type**: HTTP signature authentication
-{{/isHttpSignature}}
+{{#isBasic}}- **Type**: HTTP basic authentication
+{{/isBasic}}
 {{#isOAuth}}- **Type**: OAuth
 - **Flow**: {{{flow}}}
 - **Authorization URL**: {{{authorizationUrl}}}

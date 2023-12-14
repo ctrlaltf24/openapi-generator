@@ -2,12 +2,10 @@
 
 namespace OpenAPI\Client;
 
-use GuzzleHttp\Psr7\Response;
 use OpenAPI\Client\Api\FakeApi;
 use OpenAPI\Client\Api\PetApi;
 use OpenAPI\Client\Model\Pet;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 
 require_once __DIR__ . '/FakeHttpClient.php';
 
@@ -19,7 +17,6 @@ class AuthTest extends TestCase
         $authConfig->setApiKey('api_key', '123qwe');
 
         $fakeHttpClient = new FakeHttpClient();
-        $fakeHttpClient->setResponse(new Response(200, [], json_encode([])));
         $api = new PetApi($fakeHttpClient, $authConfig);
         $api->getPetById(123);
 

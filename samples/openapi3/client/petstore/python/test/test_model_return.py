@@ -10,14 +10,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import petstore_api
-from petstore_api.models.model_return import ModelReturn  # noqa: E501
-from petstore_api.rest import ApiException
+from petstore_api.model.model_return import ModelReturn
+
 
 class TestModelReturn(unittest.TestCase):
     """ModelReturn unit test stubs"""
@@ -28,24 +26,12 @@ class TestModelReturn(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test ModelReturn
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = petstore_api.models.model_return.ModelReturn()  # noqa: E501
-        if include_optional :
-            return ModelReturn(
-                _return = 56
-            )
-        else :
-            return ModelReturn(
-        )
-
     def testModelReturn(self):
         """Test ModelReturn"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = ModelReturn()  # noqa: E501
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

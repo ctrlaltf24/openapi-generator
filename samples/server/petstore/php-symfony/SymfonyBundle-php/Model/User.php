@@ -31,7 +31,6 @@ namespace OpenAPI\Server\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
@@ -42,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class User 
 {
         /**
@@ -51,7 +49,7 @@ class User
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $id = null;
+    protected $id;
 
     /**
      * @var string|null
@@ -59,7 +57,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $username = null;
+    protected $username;
 
     /**
      * @var string|null
@@ -67,7 +65,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $firstName = null;
+    protected $firstName;
 
     /**
      * @var string|null
@@ -75,7 +73,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $lastName = null;
+    protected $lastName;
 
     /**
      * @var string|null
@@ -83,7 +81,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $email = null;
+    protected $email;
 
     /**
      * @var string|null
@@ -91,7 +89,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $password = null;
+    protected $password;
 
     /**
      * @var string|null
@@ -99,7 +97,7 @@ class User
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $phone = null;
+    protected $phone;
 
     /**
      * User Status
@@ -109,24 +107,22 @@ class User
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $userStatus = null;
+    protected $userStatus;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        if (is_array($data)) {
-            $this->id = array_key_exists('id', $data) ? $data['id'] : $this->id;
-            $this->username = array_key_exists('username', $data) ? $data['username'] : $this->username;
-            $this->firstName = array_key_exists('firstName', $data) ? $data['firstName'] : $this->firstName;
-            $this->lastName = array_key_exists('lastName', $data) ? $data['lastName'] : $this->lastName;
-            $this->email = array_key_exists('email', $data) ? $data['email'] : $this->email;
-            $this->password = array_key_exists('password', $data) ? $data['password'] : $this->password;
-            $this->phone = array_key_exists('phone', $data) ? $data['phone'] : $this->phone;
-            $this->userStatus = array_key_exists('userStatus', $data) ? $data['userStatus'] : $this->userStatus;
-        }
+        $this->id = isset($data['id']) ? $data['id'] : null;
+        $this->username = isset($data['username']) ? $data['username'] : null;
+        $this->firstName = isset($data['firstName']) ? $data['firstName'] : null;
+        $this->lastName = isset($data['lastName']) ? $data['lastName'] : null;
+        $this->email = isset($data['email']) ? $data['email'] : null;
+        $this->password = isset($data['password']) ? $data['password'] : null;
+        $this->phone = isset($data['phone']) ? $data['phone'] : null;
+        $this->userStatus = isset($data['userStatus']) ? $data['userStatus'] : null;
     }
 
     /**
@@ -134,12 +130,10 @@ class User
      *
      * @return int|null
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
-
-
 
     /**
      * Sets id.
@@ -148,7 +142,7 @@ class User
      *
      * @return $this
      */
-    public function setId(?int $id = null): self
+    public function setId($id = null)
     {
         $this->id = $id;
 
@@ -160,12 +154,10 @@ class User
      *
      * @return string|null
      */
-    public function getUsername(): ?string
+    public function getUsername()
     {
         return $this->username;
     }
-
-
 
     /**
      * Sets username.
@@ -174,7 +166,7 @@ class User
      *
      * @return $this
      */
-    public function setUsername(?string $username = null): self
+    public function setUsername($username = null)
     {
         $this->username = $username;
 
@@ -186,12 +178,10 @@ class User
      *
      * @return string|null
      */
-    public function getFirstName(): ?string
+    public function getFirstName()
     {
         return $this->firstName;
     }
-
-
 
     /**
      * Sets firstName.
@@ -200,7 +190,7 @@ class User
      *
      * @return $this
      */
-    public function setFirstName(?string $firstName = null): self
+    public function setFirstName($firstName = null)
     {
         $this->firstName = $firstName;
 
@@ -212,12 +202,10 @@ class User
      *
      * @return string|null
      */
-    public function getLastName(): ?string
+    public function getLastName()
     {
         return $this->lastName;
     }
-
-
 
     /**
      * Sets lastName.
@@ -226,7 +214,7 @@ class User
      *
      * @return $this
      */
-    public function setLastName(?string $lastName = null): self
+    public function setLastName($lastName = null)
     {
         $this->lastName = $lastName;
 
@@ -238,12 +226,10 @@ class User
      *
      * @return string|null
      */
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
-
-
 
     /**
      * Sets email.
@@ -252,7 +238,7 @@ class User
      *
      * @return $this
      */
-    public function setEmail(?string $email = null): self
+    public function setEmail($email = null)
     {
         $this->email = $email;
 
@@ -264,12 +250,10 @@ class User
      *
      * @return string|null
      */
-    public function getPassword(): ?string
+    public function getPassword()
     {
         return $this->password;
     }
-
-
 
     /**
      * Sets password.
@@ -278,7 +262,7 @@ class User
      *
      * @return $this
      */
-    public function setPassword(?string $password = null): self
+    public function setPassword($password = null)
     {
         $this->password = $password;
 
@@ -290,12 +274,10 @@ class User
      *
      * @return string|null
      */
-    public function getPhone(): ?string
+    public function getPhone()
     {
         return $this->phone;
     }
-
-
 
     /**
      * Sets phone.
@@ -304,7 +286,7 @@ class User
      *
      * @return $this
      */
-    public function setPhone(?string $phone = null): self
+    public function setPhone($phone = null)
     {
         $this->phone = $phone;
 
@@ -316,12 +298,10 @@ class User
      *
      * @return int|null
      */
-    public function getUserStatus(): ?int
+    public function getUserStatus()
     {
         return $this->userStatus;
     }
-
-
 
     /**
      * Sets userStatus.
@@ -330,7 +310,7 @@ class User
      *
      * @return $this
      */
-    public function setUserStatus(?int $userStatus = null): self
+    public function setUserStatus($userStatus = null)
     {
         $this->userStatus = $userStatus;
 

@@ -2,14 +2,12 @@ package apimodels;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Set;
 import javax.validation.*;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 /**
  * XmlItem
  */
@@ -211,10 +209,10 @@ public class XmlItem   {
   }
 
   public XmlItem addWrappedArrayItem(Integer wrappedArrayItem) {
-    if (this.wrappedArray == null) {
-      this.wrappedArray = new ArrayList<>();
+    if (wrappedArray == null) {
+      wrappedArray = new ArrayList<>();
     }
-    this.wrappedArray.add(wrappedArrayItem);
+    wrappedArray.add(wrappedArrayItem);
     return this;
   }
 
@@ -304,10 +302,10 @@ public class XmlItem   {
   }
 
   public XmlItem addNameArrayItem(Integer nameArrayItem) {
-    if (this.nameArray == null) {
-      this.nameArray = new ArrayList<>();
+    if (nameArray == null) {
+      nameArray = new ArrayList<>();
     }
-    this.nameArray.add(nameArrayItem);
+    nameArray.add(nameArrayItem);
     return this;
   }
 
@@ -329,10 +327,10 @@ public class XmlItem   {
   }
 
   public XmlItem addNameWrappedArrayItem(Integer nameWrappedArrayItem) {
-    if (this.nameWrappedArray == null) {
-      this.nameWrappedArray = new ArrayList<>();
+    if (nameWrappedArray == null) {
+      nameWrappedArray = new ArrayList<>();
     }
-    this.nameWrappedArray.add(nameWrappedArrayItem);
+    nameWrappedArray.add(nameWrappedArrayItem);
     return this;
   }
 
@@ -422,10 +420,10 @@ public class XmlItem   {
   }
 
   public XmlItem addPrefixArrayItem(Integer prefixArrayItem) {
-    if (this.prefixArray == null) {
-      this.prefixArray = new ArrayList<>();
+    if (prefixArray == null) {
+      prefixArray = new ArrayList<>();
     }
-    this.prefixArray.add(prefixArrayItem);
+    prefixArray.add(prefixArrayItem);
     return this;
   }
 
@@ -447,10 +445,10 @@ public class XmlItem   {
   }
 
   public XmlItem addPrefixWrappedArrayItem(Integer prefixWrappedArrayItem) {
-    if (this.prefixWrappedArray == null) {
-      this.prefixWrappedArray = new ArrayList<>();
+    if (prefixWrappedArray == null) {
+      prefixWrappedArray = new ArrayList<>();
     }
-    this.prefixWrappedArray.add(prefixWrappedArrayItem);
+    prefixWrappedArray.add(prefixWrappedArrayItem);
     return this;
   }
 
@@ -540,10 +538,10 @@ public class XmlItem   {
   }
 
   public XmlItem addNamespaceArrayItem(Integer namespaceArrayItem) {
-    if (this.namespaceArray == null) {
-      this.namespaceArray = new ArrayList<>();
+    if (namespaceArray == null) {
+      namespaceArray = new ArrayList<>();
     }
-    this.namespaceArray.add(namespaceArrayItem);
+    namespaceArray.add(namespaceArrayItem);
     return this;
   }
 
@@ -565,10 +563,10 @@ public class XmlItem   {
   }
 
   public XmlItem addNamespaceWrappedArrayItem(Integer namespaceWrappedArrayItem) {
-    if (this.namespaceWrappedArray == null) {
-      this.namespaceWrappedArray = new ArrayList<>();
+    if (namespaceWrappedArray == null) {
+      namespaceWrappedArray = new ArrayList<>();
     }
-    this.namespaceWrappedArray.add(namespaceWrappedArrayItem);
+    namespaceWrappedArray.add(namespaceWrappedArrayItem);
     return this;
   }
 
@@ -658,10 +656,10 @@ public class XmlItem   {
   }
 
   public XmlItem addPrefixNsArrayItem(Integer prefixNsArrayItem) {
-    if (this.prefixNsArray == null) {
-      this.prefixNsArray = new ArrayList<>();
+    if (prefixNsArray == null) {
+      prefixNsArray = new ArrayList<>();
     }
-    this.prefixNsArray.add(prefixNsArrayItem);
+    prefixNsArray.add(prefixNsArrayItem);
     return this;
   }
 
@@ -683,10 +681,10 @@ public class XmlItem   {
   }
 
   public XmlItem addPrefixNsWrappedArrayItem(Integer prefixNsWrappedArrayItem) {
-    if (this.prefixNsWrappedArray == null) {
-      this.prefixNsWrappedArray = new ArrayList<>();
+    if (prefixNsWrappedArray == null) {
+      prefixNsWrappedArray = new ArrayList<>();
     }
-    this.prefixNsWrappedArray.add(prefixNsWrappedArrayItem);
+    prefixNsWrappedArray.add(prefixNsWrappedArrayItem);
     return this;
   }
 

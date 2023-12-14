@@ -1,6 +1,3 @@
-/*
-// commenting out below tests for the time being since the requests consistently timeout
-
 import { expect } from '@esm-bundle/chai';
 import * as petstore from "ts-petstore-client";
 
@@ -49,4 +46,3 @@ for (let libName in libs) {
         });
     })
 }
-*/

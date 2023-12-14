@@ -49,10 +49,10 @@ void PFXTag::fromJson(QString jsonString) {
 
 void PFXTag::fromJsonObject(QJsonObject json) {
 
-    m_id_isValid = ::test_namespace::fromJsonValue(m_id, json[QString("id")]);
+    m_id_isValid = ::test_namespace::fromJsonValue(id, json[QString("id")]);
     m_id_isSet = !json[QString("id")].isNull() && m_id_isValid;
 
-    m_name_isValid = ::test_namespace::fromJsonValue(m_name, json[QString("name")]);
+    m_name_isValid = ::test_namespace::fromJsonValue(name, json[QString("name")]);
     m_name_isSet = !json[QString("name")].isNull() && m_name_isValid;
 }
 
@@ -66,20 +66,20 @@ QString PFXTag::asJson() const {
 QJsonObject PFXTag::asJsonObject() const {
     QJsonObject obj;
     if (m_id_isSet) {
-        obj.insert(QString("id"), ::test_namespace::toJsonValue(m_id));
+        obj.insert(QString("id"), ::test_namespace::toJsonValue(id));
     }
     if (m_name_isSet) {
-        obj.insert(QString("name"), ::test_namespace::toJsonValue(m_name));
+        obj.insert(QString("name"), ::test_namespace::toJsonValue(name));
     }
     return obj;
 }
 
 qint64 PFXTag::getId() const {
-    return m_id;
+    return id;
 }
 void PFXTag::setId(const qint64 &id) {
-    m_id = id;
-    m_id_isSet = true;
+    this->id = id;
+    this->m_id_isSet = true;
 }
 
 bool PFXTag::is_id_Set() const{
@@ -91,11 +91,11 @@ bool PFXTag::is_id_Valid() const{
 }
 
 QString PFXTag::getName() const {
-    return m_name;
+    return name;
 }
 void PFXTag::setName(const QString &name) {
-    m_name = name;
-    m_name_isSet = true;
+    this->name = name;
+    this->m_name_isSet = true;
 }
 
 bool PFXTag::is_name_Set() const{

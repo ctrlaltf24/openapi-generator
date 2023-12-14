@@ -59,15 +59,15 @@ public:
 private:
     void initializeModel();
 
-    qint32 m_code;
+    qint32 code;
     bool m_code_isSet;
     bool m_code_isValid;
 
-    QString m_type;
+    QString type;
     bool m_type_isSet;
     bool m_type_isValid;
 
-    QString m_message;
+    QString message;
     bool m_message_isSet;
     bool m_message_isValid;
 };

@@ -15,7 +15,6 @@ package org.openapitools.model;
 import java.util.Objects;
 import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.model.ReadOnlyFirst;
 import com.fasterxml.jackson.annotation.*;
@@ -44,7 +43,7 @@ public class ArrayTest {
     private List<List<Long>> arrayArrayOfInteger = null;
 
     public static final String JSON_PROPERTY_ARRAY_ARRAY_OF_MODEL = "array_array_of_model";
-    private List<List<@Valid ReadOnlyFirst>> arrayArrayOfModel = null;
+    private List<List<ReadOnlyFirst>> arrayArrayOfModel = null;
 
     public ArrayTest() {
     }
@@ -108,12 +107,12 @@ public class ArrayTest {
         this.arrayArrayOfInteger = arrayArrayOfInteger;
     }
 
-    public ArrayTest arrayArrayOfModel(List<List<@Valid ReadOnlyFirst>> arrayArrayOfModel) {
+    public ArrayTest arrayArrayOfModel(List<List<ReadOnlyFirst>> arrayArrayOfModel) {
         this.arrayArrayOfModel = arrayArrayOfModel;
         return this;
     }
 
-    public ArrayTest addArrayArrayOfModelItem(List<@Valid ReadOnlyFirst> arrayArrayOfModelItem) {
+    public ArrayTest addArrayArrayOfModelItem(List<ReadOnlyFirst> arrayArrayOfModelItem) {
         if (this.arrayArrayOfModel == null) {
             this.arrayArrayOfModel = new ArrayList<>();
         }
@@ -128,13 +127,13 @@ public class ArrayTest {
     @Nullable
     @JsonProperty(JSON_PROPERTY_ARRAY_ARRAY_OF_MODEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public List<List<@Valid ReadOnlyFirst>> getArrayArrayOfModel() {
+    public List<List<ReadOnlyFirst>> getArrayArrayOfModel() {
         return arrayArrayOfModel;
     }
 
     @JsonProperty(JSON_PROPERTY_ARRAY_ARRAY_OF_MODEL)
     @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-    public void setArrayArrayOfModel(List<List<@Valid ReadOnlyFirst>> arrayArrayOfModel) {
+    public void setArrayArrayOfModel(List<List<ReadOnlyFirst>> arrayArrayOfModel) {
         this.arrayArrayOfModel = arrayArrayOfModel;
     }
 
@@ -180,4 +179,3 @@ public class ArrayTest {
     }
 
 }
-

@@ -75,27 +75,27 @@ public:
 private:
     void initializeModel();
 
-    qint64 m_id;
+    qint64 id;
     bool m_id_isSet;
     bool m_id_isValid;
 
-    qint64 m_pet_id;
+    qint64 pet_id;
     bool m_pet_id_isSet;
     bool m_pet_id_isValid;
 
-    qint32 m_quantity;
+    qint32 quantity;
     bool m_quantity_isSet;
     bool m_quantity_isValid;
 
-    QDateTime m_ship_date;
+    QDateTime ship_date;
     bool m_ship_date_isSet;
     bool m_ship_date_isValid;
 
-    QString m_status;
+    QString status;
     bool m_status_isSet;
     bool m_status_isValid;
 
-    bool m_complete;
+    bool complete;
     bool m_complete_isSet;
     bool m_complete_isValid;
 };

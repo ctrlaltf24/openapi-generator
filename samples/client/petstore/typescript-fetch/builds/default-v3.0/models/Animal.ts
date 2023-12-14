@@ -16,7 +16,7 @@ import { exists, mapValues } from '../runtime';
 import {
      CatFromJSONTyped,
      DogFromJSONTyped
-} from './index';
+} from './';
 
 /**
  * 
@@ -38,16 +38,6 @@ export interface Animal {
     color?: string;
 }
 
-/**
- * Check if a given object implements the Animal interface.
- */
-export function instanceOfAnimal(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "className" in value;
-
-    return isInstance;
-}
-
 export function AnimalFromJSON(json: any): Animal {
     return AnimalFromJSONTyped(json, false);
 }
@@ -57,10 +47,10 @@ export function AnimalFromJSONTyped(json: any, ignoreDiscriminator: boolean): An
         return json;
     }
     if (!ignoreDiscriminator) {
-        if (json['className'] === 'CAT') {
+        if (json['className'] === 'Cat') {
             return CatFromJSONTyped(json, true);
         }
-        if (json['className'] === 'DOG') {
+        if (json['className'] === 'Dog') {
             return DogFromJSONTyped(json, true);
         }
     }

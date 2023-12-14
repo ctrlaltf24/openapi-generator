@@ -43,7 +43,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 
 public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
@@ -147,7 +146,7 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
         typeMapping.put("DateTime", "Posix");
         typeMapping.put("password", "String");
         typeMapping.put("ByteArray", "String");
-        typeMapping.put("file", "File");
+        typeMapping.put("file", "String");
         typeMapping.put("binary", "String");
         typeMapping.put("UUID", "Uuid");
         typeMapping.put("URI", "String");
@@ -188,11 +187,11 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
             throw new RuntimeException("Empty method/operation name (operationId) not allowed");
         }
 
-        operationId = camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER);
+        operationId = camelize(sanitizeName(operationId), true);
 
         // method name cannot use reserved keyword, e.g. return
         if (isReservedWord(operationId)) {
-            String newOperationId = camelize("call_" + operationId, LOWERCASE_FIRST_LETTER);
+            String newOperationId = camelize("call_" + operationId, true);
             LOGGER.warn("{} (reserved word) cannot be used as method name. Renamed to {}", operationId, newOperationId);
             return newOperationId;
         }
@@ -200,7 +199,7 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
         // operationId starts with a number
         if (operationId.matches("^\\d.*")) {
             LOGGER.warn(operationId + " (starting with a number) cannot be used as method sname. Renamed to " + camelize("call_" + operationId), true);
-            operationId = camelize("call_" + operationId, LOWERCASE_FIRST_LETTER);
+            operationId = camelize("call_" + operationId, true);
         }
 
         return operationId;
@@ -227,7 +226,7 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
 
     @Override
     public String toVarName(String name) {
-        final String varName = camelize(name.replaceAll("[^a-zA-Z0-9_]", ""), LOWERCASE_FIRST_LETTER);
+        final String varName = camelize(name.replaceAll("[^a-zA-Z0-9_]", ""), true);
         return isReservedWord(varName) ? escapeReservedWord(name) : varName;
     }
 
@@ -373,34 +372,18 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
                     response.isModel = !response.primitiveType;
                 }
             });
-            // an empty string is truthy so we explicitly set empty notes to null
-            // So we don't print empty notes
-            if (op.notes != null && op.notes.isEmpty())
-                op.notes = null;
         });
 
-        final boolean includeTime = anyOperationResponse(ops, response -> response.isDate || response.isDateTime) ||
-                anyOperationParam(ops, param -> (param.isDate || param.isDateTime) || itemsIncludesType(param.items, p -> p.isDate || p.isDateTime));
-        final boolean includeUuid = anyOperationResponse(ops, response -> response.isUuid) ||
-                anyOperationParam(ops, param -> param.isUuid || itemsIncludesType(param.items, p -> p.isUuid));
-        final boolean includeFile = anyOperationResponse(ops, response -> response.isFile) ||
-            anyOperationParam(ops, param -> param.isFile || itemsIncludesType(param.items, p -> p.isFile));
-
+        final boolean includeTime =
+            anyOperationResponse(ops, response -> response.isDate || response.isDateTime) ||
+            anyOperationParam(ops, param -> param.isDate || param.isDateTime);
+        final boolean includeUuid =
+            anyOperationResponse(ops, response -> response.isUuid) ||
+            anyOperationParam(ops, param -> param.isUuid);
         operations.put("includeTime", includeTime);
         operations.put("includeUuid", includeUuid);
-        operations.put("includeFile", includeFile);
 
         return operations;
-    }
-
-    private static boolean itemsIncludesType(CodegenProperty p, Predicate<CodegenProperty> condition) {
-        if (p == null)
-            return false;
-
-        if (p.items != null)
-            return itemsIncludesType(p.items, condition);
-
-        return condition.test(p);
     }
 
     static class ParameterSorter implements Comparator<CodegenParameter> {
@@ -468,7 +451,7 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
             Schema inner = ap.getItems();
             return getTypeDeclaration(inner);
         } else if (ModelUtils.isMapSchema(p)) {
-            Schema inner = ModelUtils.getAdditionalProperties(p);
+            Schema inner = getAdditionalProperties(p);
             return getTypeDeclaration(inner);
         }
         return super.getTypeDeclaration(p);
@@ -477,7 +460,7 @@ public class ElmClientCodegen extends DefaultCodegen implements CodegenConfig {
     private static class RemoveWhitespaceLambda implements Mustache.Lambda {
         @Override
         public void execute(final Template.Fragment fragment, final Writer writer) throws IOException {
-            writer.write(fragment.execute().replaceAll("\\s+", " ").trim());
+            writer.write(fragment.execute().replaceAll("\\s+", ""));
         }
     }
 

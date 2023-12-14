@@ -20,7 +20,7 @@ object_t *object_create();
 
 void object_free(object_t *object);
 
-object_t *object_parseFromJSON(cJSON *json);
+object_t *object_parseFromJSON(char *jsonString);
 
 cJSON *object_convertToJSON(object_t *object);
 

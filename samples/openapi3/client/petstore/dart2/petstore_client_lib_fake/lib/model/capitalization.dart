@@ -72,12 +72,12 @@ class Capitalization {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Capitalization &&
-    other.smallCamel == smallCamel &&
-    other.capitalCamel == capitalCamel &&
-    other.smallSnake == smallSnake &&
-    other.capitalSnake == capitalSnake &&
-    other.sCAETHFlowPoints == sCAETHFlowPoints &&
-    other.ATT_NAME == ATT_NAME;
+     other.smallCamel == smallCamel &&
+     other.capitalCamel == capitalCamel &&
+     other.smallSnake == smallSnake &&
+     other.capitalSnake == capitalSnake &&
+     other.sCAETHFlowPoints == sCAETHFlowPoints &&
+     other.ATT_NAME == ATT_NAME;
 
   @override
   int get hashCode =>
@@ -93,38 +93,26 @@ class Capitalization {
   String toString() => 'Capitalization[smallCamel=$smallCamel, capitalCamel=$capitalCamel, smallSnake=$smallSnake, capitalSnake=$capitalSnake, sCAETHFlowPoints=$sCAETHFlowPoints, ATT_NAME=$ATT_NAME]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.smallCamel != null) {
-      json[r'smallCamel'] = this.smallCamel;
-    } else {
-      json[r'smallCamel'] = null;
+    final _json = <String, dynamic>{};
+    if (smallCamel != null) {
+      _json[r'smallCamel'] = smallCamel;
     }
-    if (this.capitalCamel != null) {
-      json[r'CapitalCamel'] = this.capitalCamel;
-    } else {
-      json[r'CapitalCamel'] = null;
+    if (capitalCamel != null) {
+      _json[r'CapitalCamel'] = capitalCamel;
     }
-    if (this.smallSnake != null) {
-      json[r'small_Snake'] = this.smallSnake;
-    } else {
-      json[r'small_Snake'] = null;
+    if (smallSnake != null) {
+      _json[r'small_Snake'] = smallSnake;
     }
-    if (this.capitalSnake != null) {
-      json[r'Capital_Snake'] = this.capitalSnake;
-    } else {
-      json[r'Capital_Snake'] = null;
+    if (capitalSnake != null) {
+      _json[r'Capital_Snake'] = capitalSnake;
     }
-    if (this.sCAETHFlowPoints != null) {
-      json[r'SCA_ETH_Flow_Points'] = this.sCAETHFlowPoints;
-    } else {
-      json[r'SCA_ETH_Flow_Points'] = null;
+    if (sCAETHFlowPoints != null) {
+      _json[r'SCA_ETH_Flow_Points'] = sCAETHFlowPoints;
     }
-    if (this.ATT_NAME != null) {
-      json[r'ATT_NAME'] = this.ATT_NAME;
-    } else {
-      json[r'ATT_NAME'] = null;
+    if (ATT_NAME != null) {
+      _json[r'ATT_NAME'] = ATT_NAME;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [Capitalization] instance and imports its values from
@@ -157,7 +145,7 @@ class Capitalization {
     return null;
   }
 
-  static List<Capitalization> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Capitalization>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <Capitalization>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -188,10 +176,12 @@ class Capitalization {
   static Map<String, List<Capitalization>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<Capitalization>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = Capitalization.listFromJson(entry.value, growable: growable,);
+        final value = Capitalization.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

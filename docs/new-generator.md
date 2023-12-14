@@ -119,7 +119,7 @@ outputFolder = "generated-code" + File.separator + "common-mark";
 
 This is the default output location. This will be `generated-code/common-mark` on non-Windows machines and `generated-code\common-mark` on Windows. You may change this to any value you'd like, but a user will almost always provide an output directory.
 
-> When joining paths, always use `File.separator`
+> When joining paths, always use `File.seperator`
 
 ```java
  modelTemplateFiles.put("model.mustache", ".zz");
@@ -187,7 +187,7 @@ The `new.sh` created our three required files. Let's start filling out each of t
 # Documentation for {{appName}}
 
 {{#generateApiDocs}}
-<a id="documentation-for-api-endpoints"></a>
+<a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
 All URIs are relative to *{{{basePath}}}*
@@ -199,7 +199,7 @@ Class | Method | HTTP request | Description
 {{/generateApiDocs}}
 
 {{#generateModelDocs}}
-<a id="documentation-for-models"></a>
+<a name="documentation-for-models"></a>
 ## Documentation for Models
 
 {{#modelPackage}}
@@ -211,25 +211,27 @@ No model defined in this package
 {{/modelPackage}}
 {{/generateModelDocs}}
 
-<a id="documentation-for-authorization"></a>{{! TODO: optional documentation for authorization? }}
+<a name="documentation-for-authorization"></a>{{! TODO: optional documentation for authorization? }}
 ## Documentation for Authorization
 
-{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
-{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
+{{^authMethods}}
+All endpoints do not require authorization.
+{{/authMethods}}
 {{#authMethods}}
-<a id="{{name}}"></a>
+{{#last}}
+Authentication schemes defined for the API:
+{{/last}}
+{{/authMethods}}
+{{#authMethods}}
+<a name="{{name}}"></a>
 ### {{name}}
 
 {{#isApiKey}}- **Type**: API key
 - **API key parameter name**: {{keyParamName}}
 - **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
 {{/isApiKey}}
-{{#isBasicBasic}}- **Type**: HTTP basic authentication
-{{/isBasicBasic}}
-{{#isBasicBearer}}- **Type**: HTTP Bearer Token authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
-{{/isBasicBearer}}
-{{#isHttpSignature}}- **Type**: HTTP signature authentication
-{{/isHttpSignature}}
+{{#isBasic}}- **Type**: HTTP basic authentication
+{{/isBasic}}
 {{#isOAuth}}- **Type**: OAuth
 - **Flow**: {{flow}}
 - **Authorization URL**: {{authorizationUrl}}
@@ -237,10 +239,6 @@ No model defined in this package
 {{#scopes}}  - {{scope}}: {{description}}
 {{/scopes}}
 {{/isOAuth}}
-{{#isOpenId}}- **Type**: OpenIDConnect
-- **Connect URL**: {{{openIdConnectUrl}}}
-- **Bearer Format**: {{{bearerFormat}}}
-{{/isOpenId}}
 
 {{/authMethods}}
 ```
@@ -264,7 +262,7 @@ Method | HTTP request | Description
 
 {{#operations}}
 {{#operation}}
-<a id="{{operationId}}"></a>
+<a name="{{operationId}}"></a>
 # **{{operationId}}**
 > {{#returnType}}{{returnType}} {{/returnType}}{{operationId}}({{#allParams}}{{{paramName}}}{{^-last}}, {{/-last}}{{/allParams}})
 

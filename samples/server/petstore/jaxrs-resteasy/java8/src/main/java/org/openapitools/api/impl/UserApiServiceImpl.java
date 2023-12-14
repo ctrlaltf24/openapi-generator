@@ -4,6 +4,7 @@ import org.openapitools.api.*;
 import org.openapitools.model.*;
 
 
+import java.util.List;
 import java.time.OffsetDateTime;
 import org.openapitools.model.User;
 
@@ -12,8 +13,6 @@ import org.openapitools.api.NotFoundException;
 
 import java.io.InputStream;
 
-import javax.validation.constraints.*;
-import javax.validation.Valid;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -26,12 +25,12 @@ public class UserApiServiceImpl implements UserApiService {
       // do some magic!
       return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
   }
-      public Response createUsersWithArrayInput(List<@Valid User> body,SecurityContext securityContext)
+      public Response createUsersWithArrayInput(List<User> body,SecurityContext securityContext)
       throws NotFoundException {
       // do some magic!
       return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();
   }
-      public Response createUsersWithListInput(List<@Valid User> body,SecurityContext securityContext)
+      public Response createUsersWithListInput(List<User> body,SecurityContext securityContext)
       throws NotFoundException {
       // do some magic!
       return Response.ok().entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!")).build();

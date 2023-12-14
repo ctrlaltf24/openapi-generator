@@ -10,14 +10,14 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import petstore_api
-from petstore_api.models.map_test import MapTest  # noqa: E501
-from petstore_api.rest import ApiException
+from petstore_api.model.string_boolean_map import StringBooleanMap
+globals()['StringBooleanMap'] = StringBooleanMap
+from petstore_api.model.map_test import MapTest
+
 
 class TestMapTest(unittest.TestCase):
     """MapTest unit test stubs"""
@@ -28,38 +28,12 @@ class TestMapTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test MapTest
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = petstore_api.models.map_test.MapTest()  # noqa: E501
-        if include_optional :
-            return MapTest(
-                map_map_of_string = {
-                    'key' : {
-                        'key' : ''
-                        }
-                    }, 
-                map_of_enum_string = {
-                    'UPPER' : 'UPPER'
-                    }, 
-                direct_map = {
-                    'key' : True
-                    }, 
-                indirect_map = {
-                    'key' : True
-                    }
-            )
-        else :
-            return MapTest(
-        )
-
     def testMapTest(self):
         """Test MapTest"""
-        # TODO
-        #inst_req_only = self.make_instance(include_optional=False)
-        #inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = MapTest()  # noqa: E501
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

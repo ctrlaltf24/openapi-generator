@@ -14,13 +14,11 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  Order,
-} from '../models/index';
 import {
+    Order,
     OrderFromJSON,
     OrderToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface DeleteOrderRequest {
     orderId: string;
@@ -73,7 +71,7 @@ export interface StoreApiInterface {
     getInventory(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: number; }>;
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * @summary Find purchase order by ID
      * @param {number} orderId ID of pet that needs to be fetched
      * @param {*} [options] Override http request option.
@@ -83,7 +81,7 @@ export interface StoreApiInterface {
     getOrderByIdRaw(requestParameters: GetOrderByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Order>>;
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * Find purchase order by ID
      */
     getOrderById(requestParameters: GetOrderByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Order>;
@@ -174,7 +172,7 @@ export class StoreApi extends runtime.BaseAPI implements StoreApiInterface {
     }
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * Find purchase order by ID
      */
     async getOrderByIdRaw(requestParameters: GetOrderByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Order>> {
@@ -197,7 +195,7 @@ export class StoreApi extends runtime.BaseAPI implements StoreApiInterface {
     }
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * Find purchase order by ID
      */
     async getOrderById(requestParameters: GetOrderByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Order> {

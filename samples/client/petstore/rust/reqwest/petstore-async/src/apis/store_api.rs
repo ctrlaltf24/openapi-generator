@@ -15,21 +15,21 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 /// struct for passing parameters to the method [`delete_order`]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct DeleteOrderParams {
     /// ID of the order that needs to be deleted
     pub order_id: String
 }
 
 /// struct for passing parameters to the method [`get_order_by_id`]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct GetOrderByIdParams {
     /// ID of pet that needs to be fetched
     pub order_id: i64
 }
 
 /// struct for passing parameters to the method [`place_order`]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Default)]
 pub struct PlaceOrderParams {
     /// order placed for purchasing the pet
     pub order: crate::models::Order
@@ -176,7 +176,7 @@ pub async fn get_inventory(configuration: &configuration::Configuration) -> Resu
     }
 }
 
-/// For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+/// For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
 pub async fn get_order_by_id(configuration: &configuration::Configuration, params: GetOrderByIdParams) -> Result<ResponseContent<GetOrderByIdSuccess>, Error<GetOrderByIdError>> {
     let local_var_configuration = configuration;
 

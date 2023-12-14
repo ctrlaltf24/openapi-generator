@@ -14,15 +14,18 @@
 package org.openapitools.client.model;
 
 import java.util.Objects;
+import java.util.Arrays;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.openapitools.client.model.Animal;
@@ -37,16 +40,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.openapitools.client.JSON;
@@ -66,12 +65,13 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
 
   public static final String SERIALIZED_NAME_MAP = "map";
   @SerializedName(SERIALIZED_NAME_MAP)
-  private Map<String, Animal> map = new HashMap<>();
+  private Map<String, Animal> map = null;
 
-  public MixedPropertiesAndAdditionalPropertiesClass() {
+  public MixedPropertiesAndAdditionalPropertiesClass() { 
   }
 
   public MixedPropertiesAndAdditionalPropertiesClass uuid(UUID uuid) {
+    
     this.uuid = uuid;
     return this;
   }
@@ -81,9 +81,12 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
    * @return uuid
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
   public UUID getUuid() {
     return uuid;
   }
+
 
   public void setUuid(UUID uuid) {
     this.uuid = uuid;
@@ -91,6 +94,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
 
 
   public MixedPropertiesAndAdditionalPropertiesClass dateTime(OffsetDateTime dateTime) {
+    
     this.dateTime = dateTime;
     return this;
   }
@@ -100,9 +104,12 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
    * @return dateTime
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
   public OffsetDateTime getDateTime() {
     return dateTime;
   }
+
 
   public void setDateTime(OffsetDateTime dateTime) {
     this.dateTime = dateTime;
@@ -110,6 +117,7 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
 
 
   public MixedPropertiesAndAdditionalPropertiesClass map(Map<String, Animal> map) {
+    
     this.map = map;
     return this;
   }
@@ -127,9 +135,12 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
    * @return map
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+
   public Map<String, Animal> getMap() {
     return map;
   }
+
 
   public void setMap(Map<String, Animal> map) {
     this.map = map;
@@ -194,27 +205,28 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
   }
 
  /**
-  * Validates the JSON Element and throws an exception if issues found
+  * Validates the JSON Object and throws an exception if issues found
   *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to MixedPropertiesAndAdditionalPropertiesClass
+  * @param jsonObj JSON Object
+  * @throws IOException if the JSON Object is invalid with respect to MixedPropertiesAndAdditionalPropertiesClass
   */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      if (jsonElement == null) {
-        if (!MixedPropertiesAndAdditionalPropertiesClass.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+  public static void validateJsonObject(JsonObject jsonObj) throws IOException {
+      if (jsonObj == null) {
+        if (MixedPropertiesAndAdditionalPropertiesClass.openapiRequiredFields.isEmpty()) {
+          return;
+        } else { // has required fields
           throw new IllegalArgumentException(String.format("The required field(s) %s in MixedPropertiesAndAdditionalPropertiesClass is not found in the empty JSON string", MixedPropertiesAndAdditionalPropertiesClass.openapiRequiredFields.toString()));
         }
       }
 
-      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      Set<Entry<String, JsonElement>> entries = jsonObj.entrySet();
       // check to see if the JSON string contains additional fields
-      for (Map.Entry<String, JsonElement> entry : entries) {
+      for (Entry<String, JsonElement> entry : entries) {
         if (!MixedPropertiesAndAdditionalPropertiesClass.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MixedPropertiesAndAdditionalPropertiesClass` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `MixedPropertiesAndAdditionalPropertiesClass` properties. JSON: %s", entry.getKey(), jsonObj.toString()));
         }
       }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonNull()) && !jsonObj.get("uuid").isJsonPrimitive()) {
+      if (jsonObj.get("uuid") != null && !jsonObj.get("uuid").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format("Expected the field `uuid` to be a primitive type in the JSON string but got `%s`", jsonObj.get("uuid").toString()));
       }
   }
@@ -239,9 +251,9 @@ public class MixedPropertiesAndAdditionalPropertiesClass {
 
            @Override
            public MixedPropertiesAndAdditionalPropertiesClass read(JsonReader in) throws IOException {
-             JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
-             return thisAdapter.fromJsonTree(jsonElement);
+             JsonObject jsonObj = elementAdapter.read(in).getAsJsonObject();
+             validateJsonObject(jsonObj);
+             return thisAdapter.fromJsonTree(jsonObj);
            }
 
        }.nullSafe();

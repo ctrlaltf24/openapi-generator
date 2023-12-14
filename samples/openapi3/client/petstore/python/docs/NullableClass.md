@@ -2,40 +2,23 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**required_integer_prop** | **int** |  | 
-**integer_prop** | **int** |  | [optional] 
-**number_prop** | **float** |  | [optional] 
-**boolean_prop** | **bool** |  | [optional] 
-**string_prop** | **str** |  | [optional] 
-**date_prop** | **date** |  | [optional] 
-**datetime_prop** | **datetime** |  | [optional] 
-**array_nullable_prop** | **List[object]** |  | [optional] 
-**array_and_items_nullable_prop** | **List[object]** |  | [optional] 
-**array_items_nullable** | **List[object]** |  | [optional] 
-**object_nullable_prop** | **Dict[str, object]** |  | [optional] 
-**object_and_items_nullable_prop** | **Dict[str, object]** |  | [optional] 
-**object_items_nullable** | **Dict[str, object]** |  | [optional] 
+**integer_prop** | **int, none_type** |  | [optional] 
+**number_prop** | **float, none_type** |  | [optional] 
+**boolean_prop** | **bool, none_type** |  | [optional] 
+**string_prop** | **str, none_type** |  | [optional] 
+**date_prop** | **date, none_type** |  | [optional] 
+**datetime_prop** | **datetime, none_type** |  | [optional] 
+**array_nullable_prop** | **[{str: (bool, date, datetime, dict, float, int, list, str, none_type)}], none_type** |  | [optional] 
+**array_and_items_nullable_prop** | **[{str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type], none_type** |  | [optional] 
+**array_items_nullable** | **[{str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type]** |  | [optional] 
+**object_nullable** | **{str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type** |  | [optional] 
+**object_nullable_prop** | **{str: ({str: (bool, date, datetime, dict, float, int, list, str, none_type)},)}, none_type** |  | [optional] 
+**object_and_items_nullable_prop** | **{str: ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type)}, none_type** |  | [optional] 
+**object_items_nullable** | **{str: ({str: (bool, date, datetime, dict, float, int, list, str, none_type)}, none_type)}** |  | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
-## Example
-
-```python
-from petstore_api.models.nullable_class import NullableClass
-
-# TODO update the JSON string below
-json = "{}"
-# create an instance of NullableClass from a JSON string
-nullable_class_instance = NullableClass.from_json(json)
-# print the JSON string representation of the object
-print NullableClass.to_json()
-
-# convert the object into a dict
-nullable_class_dict = nullable_class_instance.to_dict()
-# create an instance of NullableClass from a dict
-nullable_class_form_dict = nullable_class.from_dict(nullable_class_dict)
-```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

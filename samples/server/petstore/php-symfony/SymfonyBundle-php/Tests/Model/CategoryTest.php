@@ -29,22 +29,20 @@
 
 namespace OpenAPI\Server\Model;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
  * CategoryTest Class Doc Comment
  *
- * @category    Class
- * @description A category for a pet
+ * @category    Class */
+// * @description A category for a pet
+/**
  * @package     OpenAPI\Server\Tests\Model
  * @author      openapi-generator contributors
  * @link        https://github.com/openapitools/openapi-generator
- * @coversDefaultClass \OpenAPI\Server\Model\Category
  */
 class CategoryTest extends TestCase
 {
-    protected Category|MockObject $object;
 
     /**
      * Setup before running any test case
@@ -58,7 +56,6 @@ class CategoryTest extends TestCase
      */
     public function setUp(): void
     {
-         $this->object = $this->getMockBuilder(Category::class)->getMockForAbstractClass();
     }
 
     /**
@@ -76,34 +73,24 @@ class CategoryTest extends TestCase
     }
 
     /**
-     * @group integration
-     * @small
+     * Test "Category"
      */
-    public function testTestClassExists(): void
+    public function testCategory()
     {
-        $this->assertTrue(class_exists(Category::class));
-        $this->assertInstanceOf(Category::class, $this->object);
+        $testCategory = new Category();
     }
 
     /**
      * Test attribute "id"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyId(): void
+    public function testPropertyId()
     {
-        $this->markTestSkipped('Test for property id not implemented');
     }
 
     /**
      * Test attribute "name"
-     *
-     * @group unit
-     * @small
      */
-    public function testPropertyName(): void
+    public function testPropertyName()
     {
-        $this->markTestSkipped('Test for property name not implemented');
     }
 }

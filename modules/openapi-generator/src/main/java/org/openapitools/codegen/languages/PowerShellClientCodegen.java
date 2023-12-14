@@ -43,8 +43,8 @@ import static org.openapitools.codegen.utils.StringUtils.camelize;
 
 public class PowerShellClientCodegen extends DefaultCodegen implements CodegenConfig {
     private final Logger LOGGER = LoggerFactory.getLogger(PowerShellClientCodegen.class);
-    private String packageGuid = "{" + randomUUID().toString().toUpperCase(Locale.ROOT) + "}";
 
+    private String packageGuid = "{" + randomUUID().toString().toUpperCase(Locale.ROOT) + "}";
 
     protected String sourceFolder = "src";
     protected String packageName = "PSOpenAPITools";
@@ -70,8 +70,6 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
     protected String modelsCmdletVerb = "Initialize";
     protected boolean useClassNameInModelsExamples = true;
 
-    private Map<String, String> schemaKeyToModelNameCache = new HashMap<>();
-
     /**
      * Constructs an instance of `PowerShellClientCodegen`.
      */
@@ -82,9 +80,8 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
                 .wireFormatFeatures(EnumSet.of(WireFormatFeature.JSON, WireFormatFeature.XML))
                 .securityFeatures(EnumSet.of(
                         SecurityFeature.BasicAuth,
-                        SecurityFeature.BearerToken,
                         SecurityFeature.ApiKey,
-                        SecurityFeature.SignatureAuth
+                        SecurityFeature.OAuth2_Implicit
                 ))
                 .excludeGlobalFeatures(
                         GlobalFeature.XMLStructureDefinitions,
@@ -910,23 +907,6 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
      */
     @Override
     public String toModelName(String name) {
-        // obtain the name from modelNameMapping directly if provided
-        if (modelNameMapping.containsKey(name)) {
-            return modelNameMapping.get(name);
-        }
-
-        // check if schema-mapping has a different model for this class, so we can use it
-        // instead of the auto-generated one.
-        if (schemaMapping.containsKey(name)) {
-            return schemaMapping.get(name);
-        }
-
-        // memoization
-        String origName = name;
-        if (schemaKeyToModelNameCache.containsKey(origName)) {
-            return schemaKeyToModelNameCache.get(origName);
-        }
-
         if (!StringUtils.isEmpty(modelNamePrefix)) {
             name = modelNamePrefix + "_" + name;
         }
@@ -952,8 +932,6 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
                     camelize("model_" + name));
             name = camelize("model_" + name); // e.g. 200Response => Model200Response (after camelize)
         }
-
-        schemaKeyToModelNameCache.put(origName, name);
 
         return name;
     }
@@ -1021,11 +999,6 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
 
     @Override
     public String toParamName(String name) {
-        // obtain the name from parameterNameMapping directly if provided
-        if (parameterNameMapping.containsKey(name)) {
-            return parameterNameMapping.get(name);
-        }
-
         // sanitize and camelize parameter name
         // pet_id => PetId
         name = camelize(sanitizeName(name));
@@ -1158,11 +1131,6 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
 
     @Override
     public String toVarName(String name) {
-        // obtain the name from nameMapping directly if provided
-        if (nameMapping.containsKey(name)) {
-            return nameMapping.get(name);
-        }
-
         // sanitize name
         name = sanitizeName(name);
 
@@ -1598,7 +1566,7 @@ public class PowerShellClientCodegen extends DefaultCodegen implements CodegenCo
             varName = varName.replaceAll("-", "MINUS_");
             varName = varName.replaceAll("\\+", "PLUS_");
             varName = varName.replaceAll("\\.", "_DOT_");
-            return "NUMBER_" + varName;
+            return varName;
         }
 
         // remove special character

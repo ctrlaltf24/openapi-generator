@@ -44,9 +44,9 @@ class OuterComposite {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is OuterComposite &&
-    other.myNumber == myNumber &&
-    other.myString == myString &&
-    other.myBoolean == myBoolean;
+     other.myNumber == myNumber &&
+     other.myString == myString &&
+     other.myBoolean == myBoolean;
 
   @override
   int get hashCode =>
@@ -59,23 +59,17 @@ class OuterComposite {
   String toString() => 'OuterComposite[myNumber=$myNumber, myString=$myString, myBoolean=$myBoolean]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.myNumber != null) {
-      json[r'my_number'] = this.myNumber;
-    } else {
-      json[r'my_number'] = null;
+    final _json = <String, dynamic>{};
+    if (myNumber != null) {
+      _json[r'my_number'] = myNumber;
     }
-    if (this.myString != null) {
-      json[r'my_string'] = this.myString;
-    } else {
-      json[r'my_string'] = null;
+    if (myString != null) {
+      _json[r'my_string'] = myString;
     }
-    if (this.myBoolean != null) {
-      json[r'my_boolean'] = this.myBoolean;
-    } else {
-      json[r'my_boolean'] = null;
+    if (myBoolean != null) {
+      _json[r'my_boolean'] = myBoolean;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [OuterComposite] instance and imports its values from
@@ -97,7 +91,9 @@ class OuterComposite {
       }());
 
       return OuterComposite(
-        myNumber: num.parse('${json[r'my_number']}'),
+        myNumber: json[r'my_number'] == null
+            ? null
+            : num.parse(json[r'my_number'].toString()),
         myString: mapValueOfType<String>(json, r'my_string'),
         myBoolean: mapValueOfType<bool>(json, r'my_boolean'),
       );
@@ -105,7 +101,7 @@ class OuterComposite {
     return null;
   }
 
-  static List<OuterComposite> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<OuterComposite>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <OuterComposite>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -136,10 +132,12 @@ class OuterComposite {
   static Map<String, List<OuterComposite>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<OuterComposite>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = OuterComposite.listFromJson(entry.value, growable: growable,);
+        final value = OuterComposite.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

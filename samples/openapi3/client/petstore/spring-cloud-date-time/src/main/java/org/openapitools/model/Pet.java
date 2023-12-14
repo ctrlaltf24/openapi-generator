@@ -25,30 +25,25 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Pet {
 
+  @JsonProperty("@type")
   private String atType = "Pet";
 
+  @JsonProperty("age")
   private Integer age = 4;
 
+  @JsonProperty("happy")
   private Boolean happy = true;
 
+  @JsonProperty("price")
   private BigDecimal price = new BigDecimal("32000000000");
 
+  @JsonProperty("lastFeed")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   private OffsetDateTime lastFeed = OffsetDateTime.parse("1973-12-19T11:39:57Z[UTC]", java.time.format.DateTimeFormatter.ISO_ZONED_DATE_TIME.withZone(java.time.ZoneId.systemDefault()));
 
+  @JsonProperty("dateOfBirth")
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate dateOfBirth = LocalDate.parse("2021-01-01");
-
-  public Pet() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Pet(String atType) {
-    this.atType = atType;
-  }
 
   public Pet atType(String atType) {
     this.atType = atType;
@@ -60,8 +55,7 @@ public class Pet {
    * @return atType
   */
   @NotNull 
-  @Schema(name = "@type", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("@type")
+  @Schema(name = "@type", required = true)
   public String getAtType() {
     return atType;
   }
@@ -80,8 +74,7 @@ public class Pet {
    * @return age
   */
   
-  @Schema(name = "age", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("age")
+  @Schema(name = "age", required = false)
   public Integer getAge() {
     return age;
   }
@@ -100,8 +93,7 @@ public class Pet {
    * @return happy
   */
   
-  @Schema(name = "happy", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("happy")
+  @Schema(name = "happy", required = false)
   public Boolean getHappy() {
     return happy;
   }
@@ -120,8 +112,7 @@ public class Pet {
    * @return price
   */
   @Valid 
-  @Schema(name = "price", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("price")
+  @Schema(name = "price", required = false)
   public BigDecimal getPrice() {
     return price;
   }
@@ -140,8 +131,7 @@ public class Pet {
    * @return lastFeed
   */
   @Valid 
-  @Schema(name = "lastFeed", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("lastFeed")
+  @Schema(name = "lastFeed", required = false)
   public OffsetDateTime getLastFeed() {
     return lastFeed;
   }
@@ -160,8 +150,7 @@ public class Pet {
    * @return dateOfBirth
   */
   @Valid 
-  @Schema(name = "dateOfBirth", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("dateOfBirth")
+  @Schema(name = "dateOfBirth", required = false)
   public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }

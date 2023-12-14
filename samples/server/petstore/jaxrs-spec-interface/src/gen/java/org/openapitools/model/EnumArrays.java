@@ -3,7 +3,6 @@ package org.openapitools.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.io.Serializable;
 import javax.validation.constraints.*;
@@ -21,7 +20,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("EnumArrays")
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
 public class EnumArrays  implements Serializable {
-  public enum JustSymbolEnum {
+  
+
+public enum JustSymbolEnum {
 
     GREATER_THAN_OR_EQUAL_TO(String.valueOf(">=")), DOLLAR(String.valueOf("$"));
 
@@ -46,7 +47,7 @@ public class EnumArrays  implements Serializable {
      * Convert a String into String, as specified in the
      * <a href="https://download.oracle.com/otndocs/jcp/jaxrs-2_0-fr-eval-spec/index.html">See JAX RS 2.0 Specification, section 3.2, p. 12</a>
      */
-    public static JustSymbolEnum fromString(String s) {
+	public static JustSymbolEnum fromString(String s) {
         for (JustSymbolEnum b : JustSymbolEnum.values()) {
             // using Objects.toString() to be safe if value type non-object type
             // because types like 'int' etc. will be auto-boxed
@@ -55,8 +56,8 @@ public class EnumArrays  implements Serializable {
             }
         }
         throw new IllegalArgumentException("Unexpected string value '" + s + "'");
-    }
-
+	}
+	
     @JsonCreator
     public static JustSymbolEnum fromValue(String value) {
         for (JustSymbolEnum b : JustSymbolEnum.values()) {
@@ -69,7 +70,8 @@ public class EnumArrays  implements Serializable {
 }
 
   private @Valid JustSymbolEnum justSymbol;
-  public enum ArrayEnumEnum {
+
+public enum ArrayEnumEnum {
 
     FISH(String.valueOf("fish")), CRAB(String.valueOf("crab"));
 
@@ -94,7 +96,7 @@ public class EnumArrays  implements Serializable {
      * Convert a String into String, as specified in the
      * <a href="https://download.oracle.com/otndocs/jcp/jaxrs-2_0-fr-eval-spec/index.html">See JAX RS 2.0 Specification, section 3.2, p. 12</a>
      */
-    public static ArrayEnumEnum fromString(String s) {
+	public static ArrayEnumEnum fromString(String s) {
         for (ArrayEnumEnum b : ArrayEnumEnum.values()) {
             // using Objects.toString() to be safe if value type non-object type
             // because types like 'int' etc. will be auto-boxed
@@ -103,8 +105,8 @@ public class EnumArrays  implements Serializable {
             }
         }
         throw new IllegalArgumentException("Unexpected string value '" + s + "'");
-    }
-
+	}
+	
     @JsonCreator
     public static ArrayEnumEnum fromValue(String value) {
         for (ArrayEnumEnum b : ArrayEnumEnum.values()) {
@@ -116,7 +118,7 @@ public class EnumArrays  implements Serializable {
     }
 }
 
-  private @Valid List<ArrayEnumEnum> arrayEnum;
+  private @Valid List<ArrayEnumEnum> arrayEnum = new ArrayList<>();
 
   /**
    **/
@@ -137,7 +139,7 @@ public class EnumArrays  implements Serializable {
     this.justSymbol = justSymbol;
   }
 
-  /**
+/**
    **/
   public EnumArrays arrayEnum(List<ArrayEnumEnum> arrayEnum) {
     this.arrayEnum = arrayEnum;

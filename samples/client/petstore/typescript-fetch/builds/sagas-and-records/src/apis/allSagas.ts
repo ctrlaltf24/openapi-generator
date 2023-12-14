@@ -6,7 +6,7 @@ import {
     petPartApiAllSagas,
     storeApiAllSagas,
     userApiAllSagas,
-} from "./index";
+} from "./";
 
 export function *allApiSagas() {
     yield all([

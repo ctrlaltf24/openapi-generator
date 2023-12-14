@@ -17,8 +17,6 @@ import org.openapitools.client.model.Client;
 import org.junit.Test;
 import org.junit.Ignore;
 
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +41,8 @@ public class FakeClassnameTags123ApiTest {
      */
     @Test
     public void testClassnameTest() {
-        Client client = null;
-        Client response = api.testClassname(client);
+        Client body = null;
+        Client response = api.testClassname(body);
 
         // TODO: test validations
     }

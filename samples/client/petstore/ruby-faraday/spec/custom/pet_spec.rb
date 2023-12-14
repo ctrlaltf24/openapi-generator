@@ -23,7 +23,7 @@ describe "Pet" do
       tag1 = Petstore::Tag.new('id' => 1, 'name' => 'tag1')
       tag2 = Petstore::Tag.new('id' => 2, 'name' => 'tag2')
       category1 = Petstore::Category.new(:id => 1, :name => 'category unknown')
-      # initialize using both string and symbol key
+      # initalize using both string and symbol key
       pet_hash = {
         :id => @pet_id,
         :name => "RUBY UNIT TESTING",
@@ -42,7 +42,8 @@ describe "Pet" do
       expect(pet.category.name).to eq('category unknown')
 
       # test build_from_hash
-      pet2 = Petstore::Pet.build_from_hash(pet.to_hash)
+      pet2 = Petstore::Pet.new
+      pet2.build_from_hash(pet.to_hash)
       expect(pet.to_hash).to eq(pet2.to_hash)
 
       # make sure sub-object has different object id
@@ -77,7 +78,7 @@ describe "Pet" do
         fail 'it should raise error'
       rescue Petstore::ApiError => e
         expect(e.code).to eq(404)
-        # skip the check as the response contains a timestamp that changes on every response
+        # skip the check as the response contains a timestamp that changes on every reponse
         # expect(e.message).to eq("Error message: the server returns an error\nHTTP status code: 404\nResponse headers: {\"Date\"=>\"Tue, 26 Feb 2019 04:35:40 GMT\", \"Access-Control-Allow-Origin\"=>\"*\", \"Access-Control-Allow-Methods\"=>\"GET, POST, DELETE, PUT\", \"Access-Control-Allow-Headers\"=>\"Content-Type, api_key, Authorization\", \"Content-Type\"=>\"application/json\", \"Connection\"=>\"close\", \"Server\"=>\"Jetty(9.2.9.v20150224)\"}\nResponse body: {\"code\":1,\"type\":\"error\",\"message\":\"Pet not found\"}")
         expect(e.response_body).to eq('{"code":1,"type":"error","message":"Pet not found"}')
         expect(e.response_headers).to include('Content-Type')
@@ -156,7 +157,7 @@ describe "Pet" do
     it "should create a pet" do
       id = @pet_id + 1
 
-      pet = Petstore::Pet.new('id' => id, 'name' => "RUBY UNIT TESTING", 'photo_urls' => ['www.photo-url.test'])
+      pet = Petstore::Pet.new('id' => id, 'name' => "RUBY UNIT TESTING")
       result = @pet_api.add_pet(pet)
       # nothing is returned
       expect(result).to be_nil
@@ -164,7 +165,6 @@ describe "Pet" do
       pet = @pet_api.get_pet_by_id(id)
       expect(pet.id).to eq(id)
       expect(pet.name).to eq("RUBY UNIT TESTING")
-      expect(pet.photo_urls).to match_array(['www.photo-url.test'])
 
       @pet_api.delete_pet(id)
     end
@@ -182,12 +182,8 @@ describe "Pet" do
     end
 
     it "should implement eql? and hash" do
-      pet_hash = {
-        name: 'test_name',
-        photo_urls: ['www.photo-url.test']
-      }
-      pet1 = Petstore::Pet.new(pet_hash)
-      pet2 = Petstore::Pet.new(pet_hash)
+      pet1 = Petstore::Pet.new
+      pet2 = Petstore::Pet.new
       expect(pet1).to eq(pet2)
       expect(pet2).to eq(pet1)
       expect(pet1.eql?(pet2)).to eq(true)

@@ -26,18 +26,8 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class FooRef extends EntityRef implements FooRefOrValue {
 
+  @JsonProperty("foorefPropA")
   private String foorefPropA;
-
-  public FooRef() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public FooRef(String atType) {
-    super(atType);
-  }
 
   public FooRef foorefPropA(String foorefPropA) {
     this.foorefPropA = foorefPropA;
@@ -49,8 +39,7 @@ public class FooRef extends EntityRef implements FooRefOrValue {
    * @return foorefPropA
   */
   
-  @Schema(name = "foorefPropA", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("foorefPropA")
+  @Schema(name = "foorefPropA", required = false)
   public String getFoorefPropA() {
     return foorefPropA;
   }
@@ -59,41 +48,41 @@ public class FooRef extends EntityRef implements FooRefOrValue {
     this.foorefPropA = foorefPropA;
   }
 
-
   public FooRef name(String name) {
-    super.name(name);
+    super.setName(name);
     return this;
   }
 
   public FooRef atReferredType(String atReferredType) {
-    super.atReferredType(atReferredType);
+    super.setAtReferredType(atReferredType);
     return this;
   }
 
   public FooRef href(String href) {
-    super.href(href);
+    super.setHref(href);
     return this;
   }
 
   public FooRef id(String id) {
-    super.id(id);
+    super.setId(id);
     return this;
   }
 
   public FooRef atSchemaLocation(String atSchemaLocation) {
-    super.atSchemaLocation(atSchemaLocation);
+    super.setAtSchemaLocation(atSchemaLocation);
     return this;
   }
 
   public FooRef atBaseType(String atBaseType) {
-    super.atBaseType(atBaseType);
+    super.setAtBaseType(atBaseType);
     return this;
   }
 
   public FooRef atType(String atType) {
-    super.atType(atType);
+    super.setAtType(atType);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

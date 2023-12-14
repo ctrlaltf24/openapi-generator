@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.model.BigCatAllOf;
 import org.openapitools.model.Cat;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
@@ -67,21 +68,11 @@ public class BigCat extends Cat {
     }
   }
 
-  private Optional<KindEnum> kind = Optional.empty();
-
-  public BigCat() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public BigCat(String className) {
-    super(className);
-  }
+  @JsonProperty("kind")
+  private KindEnum kind;
 
   public BigCat kind(KindEnum kind) {
-    this.kind = Optional.of(kind);
+    this.kind = kind;
     return this;
   }
 
@@ -91,30 +82,29 @@ public class BigCat extends Cat {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("kind")
-  public Optional<KindEnum> getKind() {
+  public KindEnum getKind() {
     return kind;
   }
 
-  public void setKind(Optional<KindEnum> kind) {
+  public void setKind(KindEnum kind) {
     this.kind = kind;
   }
 
-
   public BigCat declawed(Boolean declawed) {
-    super.declawed(declawed);
+    super.setDeclawed(declawed);
     return this;
   }
 
   public BigCat className(String className) {
-    super.className(className);
+    super.setClassName(className);
     return this;
   }
 
   public BigCat color(String color) {
-    super.color(color);
+    super.setColor(color);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

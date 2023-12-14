@@ -26,7 +26,7 @@ class ModelClient {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ModelClient &&
-    other.client == client;
+     other.client == client;
 
   @override
   int get hashCode =>
@@ -37,13 +37,11 @@ class ModelClient {
   String toString() => 'ModelClient[client=$client]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.client != null) {
-      json[r'client'] = this.client;
-    } else {
-      json[r'client'] = null;
+    final _json = <String, dynamic>{};
+    if (client != null) {
+      _json[r'client'] = client;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [ModelClient] instance and imports its values from
@@ -71,7 +69,7 @@ class ModelClient {
     return null;
   }
 
-  static List<ModelClient> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<ModelClient>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <ModelClient>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -102,10 +100,12 @@ class ModelClient {
   static Map<String, List<ModelClient>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<ModelClient>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = ModelClient.listFromJson(entry.value, growable: growable,);
+        final value = ModelClient.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

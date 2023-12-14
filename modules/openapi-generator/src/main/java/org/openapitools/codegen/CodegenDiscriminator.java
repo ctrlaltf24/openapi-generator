@@ -1,6 +1,9 @@
 package org.openapitools.codegen;
 
-import java.util.*;
+import java.util.TreeSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * This class encapsulates the OpenAPI discriminator construct, as specified at
@@ -19,7 +22,6 @@ public class CodegenDiscriminator {
     private String propertyGetter;
     private String propertyType;
     private Map<String, String> mapping;
-    private boolean isEnum;
 
     // mappedModels is populated differently if legacyDiscriminatorBehavior is
     // True or False. When:
@@ -37,8 +39,6 @@ public class CodegenDiscriminator {
     // see the method createDiscriminator in DefaultCodegen.java
 
     private Set<MappedModel> mappedModels = new TreeSet<>();
-    private Map<String, Object> vendorExtensions = new HashMap<>();
-
 
     public String getPropertyName() {
         return propertyName;
@@ -88,22 +88,6 @@ public class CodegenDiscriminator {
         this.mappedModels = mappedModels;
     }
 
-    public boolean getIsEnum() {
-        return isEnum;
-    }
-
-    public void setIsEnum(boolean isEnum) {
-        this.isEnum = isEnum;
-    }
-
-    public Map<String, Object> getVendorExtensions() {
-        return vendorExtensions;
-    }
-
-    public void setVendorExtensions(Map<String, Object> vendorExtensions) {
-        this.vendorExtensions = vendorExtensions;
-    }
-
     /**
      * An object to hold discriminator mappings between payload values and schema names or
      * references.
@@ -121,18 +105,9 @@ public class CodegenDiscriminator {
         // is converted to a sanitized, internal representation within codegen.
         private String modelName;
 
-        private CodegenModel model;
-
-        private final boolean explicitMapping;
-
-        public MappedModel(String mappingName, String modelName, boolean explicitMapping) {
+        public MappedModel(String mappingName, String modelName) {
             this.mappingName = mappingName;
             this.modelName = modelName;
-            this.explicitMapping = explicitMapping;
-        }
-
-        public MappedModel(String mappingName, String modelName) {
-            this(mappingName, modelName, false);
         }
 
         @Override
@@ -144,14 +119,7 @@ public class CodegenDiscriminator {
             } else if (other.getMappingName() == null) {
                 return -1;
             }
-
-            // prioritize mappings based on mappings in the spec before any auto-generated
-            // so that during serialization the proper values are used in the json
-            if (explicitMapping != other.explicitMapping) {
-                return explicitMapping ? -1 : 1;
-            } else {
-                return getMappingName().compareTo(other.getMappingName());
-            }
+            return getMappingName().compareTo(other.getMappingName());
         }
 
         public String getMappingName() {
@@ -169,10 +137,6 @@ public class CodegenDiscriminator {
         public void setModelName(String modelName) {
             this.modelName = modelName;
         }
-
-        public CodegenModel getModel() { return model; }
-
-        public void setModel(CodegenModel model) { this.model = model; }
 
         @Override
         public boolean equals(Object o) {
@@ -197,14 +161,13 @@ public class CodegenDiscriminator {
         return Objects.equals(propertyName, that.propertyName) &&
                 Objects.equals(propertyBaseName, that.propertyBaseName) &&
                 Objects.equals(mapping, that.mapping) &&
-                Objects.equals(mappedModels, that.mappedModels) &&
-                Objects.equals(vendorExtensions, that.vendorExtensions);
+                Objects.equals(mappedModels, that.mappedModels);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(propertyName, propertyBaseName, mapping, mappedModels, vendorExtensions);
+        return Objects.hash(propertyName, propertyBaseName, mapping, mappedModels);
     }
 
     @Override
@@ -214,7 +177,6 @@ public class CodegenDiscriminator {
         sb.append(", propertyBaseName='").append(propertyBaseName).append('\'');
         sb.append(", mapping=").append(mapping);
         sb.append(", mappedModels=").append(mappedModels);
-        sb.append(", vendorExtensions=").append(vendorExtensions);
         sb.append('}');
         return sb.toString();
     }

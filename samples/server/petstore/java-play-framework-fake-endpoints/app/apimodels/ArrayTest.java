@@ -2,14 +2,12 @@ package apimodels;
 
 import apimodels.ReadOnlyFirst;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.*;
 import java.util.Set;
 import javax.validation.*;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 /**
  * ArrayTest
  */
@@ -28,7 +26,7 @@ public class ArrayTest   {
   @JsonProperty("array_array_of_model")
   @Valid
 
-  private List<List<@Valid ReadOnlyFirst>> arrayArrayOfModel = null;
+  private List<List<ReadOnlyFirst>> arrayArrayOfModel = null;
 
   public ArrayTest arrayOfString(List<String> arrayOfString) {
     this.arrayOfString = arrayOfString;
@@ -36,10 +34,10 @@ public class ArrayTest   {
   }
 
   public ArrayTest addArrayOfStringItem(String arrayOfStringItem) {
-    if (this.arrayOfString == null) {
-      this.arrayOfString = new ArrayList<>();
+    if (arrayOfString == null) {
+      arrayOfString = new ArrayList<>();
     }
-    this.arrayOfString.add(arrayOfStringItem);
+    arrayOfString.add(arrayOfStringItem);
     return this;
   }
 
@@ -61,10 +59,10 @@ public class ArrayTest   {
   }
 
   public ArrayTest addArrayArrayOfIntegerItem(List<Long> arrayArrayOfIntegerItem) {
-    if (this.arrayArrayOfInteger == null) {
-      this.arrayArrayOfInteger = new ArrayList<>();
+    if (arrayArrayOfInteger == null) {
+      arrayArrayOfInteger = new ArrayList<>();
     }
-    this.arrayArrayOfInteger.add(arrayArrayOfIntegerItem);
+    arrayArrayOfInteger.add(arrayArrayOfIntegerItem);
     return this;
   }
 
@@ -80,16 +78,16 @@ public class ArrayTest   {
     this.arrayArrayOfInteger = arrayArrayOfInteger;
   }
 
-  public ArrayTest arrayArrayOfModel(List<List<@Valid ReadOnlyFirst>> arrayArrayOfModel) {
+  public ArrayTest arrayArrayOfModel(List<List<ReadOnlyFirst>> arrayArrayOfModel) {
     this.arrayArrayOfModel = arrayArrayOfModel;
     return this;
   }
 
-  public ArrayTest addArrayArrayOfModelItem(List<@Valid ReadOnlyFirst> arrayArrayOfModelItem) {
-    if (this.arrayArrayOfModel == null) {
-      this.arrayArrayOfModel = new ArrayList<>();
+  public ArrayTest addArrayArrayOfModelItem(List<ReadOnlyFirst> arrayArrayOfModelItem) {
+    if (arrayArrayOfModel == null) {
+      arrayArrayOfModel = new ArrayList<>();
     }
-    this.arrayArrayOfModel.add(arrayArrayOfModelItem);
+    arrayArrayOfModel.add(arrayArrayOfModelItem);
     return this;
   }
 
@@ -97,11 +95,11 @@ public class ArrayTest   {
    * Get arrayArrayOfModel
    * @return arrayArrayOfModel
   **/
-  public List<List<@Valid ReadOnlyFirst>> getArrayArrayOfModel() {
+  public List<List<ReadOnlyFirst>> getArrayArrayOfModel() {
     return arrayArrayOfModel;
   }
 
-  public void setArrayArrayOfModel(List<List<@Valid ReadOnlyFirst>> arrayArrayOfModel) {
+  public void setArrayArrayOfModel(List<List<ReadOnlyFirst>> arrayArrayOfModel) {
     this.arrayArrayOfModel = arrayArrayOfModel;
   }
 

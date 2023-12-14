@@ -342,7 +342,7 @@ paths:
       - store
     get:
       description: For valid response try integer IDs with value <= 5 or > 10. Other
-        values will generate exceptions
+        values will generated exceptions
       operationId: getOrderById
       parameters:
       - description: ID of pet that needs to be fetched
@@ -1139,17 +1139,11 @@ components:
     Dog:
       allOf:
       - $ref: '#/components/schemas/Animal'
-      - properties:
-          breed:
-            type: string
-        type: object
+      - $ref: '#/components/schemas/Dog_allOf'
     Cat:
       allOf:
       - $ref: '#/components/schemas/Animal'
-      - properties:
-          declawed:
-            type: boolean
-        type: object
+      - $ref: '#/components/schemas/Cat_allOf'
     Animal:
       discriminator:
         propertyName: className
@@ -1475,7 +1469,6 @@ components:
         status:
           description: Updated status of the pet
           type: string
-      type: object
     uploadFile_request:
       properties:
         additionalMetadata:
@@ -1485,7 +1478,6 @@ components:
           description: file to upload
           format: binary
           type: string
-      type: object
     testEnumParameters_request:
       properties:
         enum_form_string:
@@ -1496,7 +1488,6 @@ components:
           - -efg
           - (xyz)
           type: string
-      type: object
     testEndpointParameters_request:
       properties:
         integer:
@@ -1569,7 +1560,6 @@ components:
       - double
       - number
       - pattern_without_delimiter
-      type: object
     testJsonFormData_request:
       properties:
         param:
@@ -1581,6 +1571,15 @@ components:
       required:
       - param
       - param2
+    Dog_allOf:
+      properties:
+        breed:
+          type: string
+      type: object
+    Cat_allOf:
+      properties:
+        declawed:
+          type: boolean
       type: object
   securitySchemes:
     petstore_auth:

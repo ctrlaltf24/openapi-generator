@@ -14,7 +14,7 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**updateUser**](UserApi.md#updateUser) | **PUT** /user/{username} | Updated user |
 
 
-<a id="createUser"></a>
+<a name="createUser"></a>
 # **createUser**
 > createUser(body)
 
@@ -56,7 +56,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="createUsersWithArrayInput"></a>
+<a name="createUsersWithArrayInput"></a>
 # **createUsersWithArrayInput**
 > createUsersWithArrayInput(body)
 
@@ -81,7 +81,7 @@ api.createUsersWithArrayInput()
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | [**List&lt;@Valid User&gt;**](User.md)| List of user object | |
+| **body** | [**List&lt;User&gt;**](User.md)| List of user object | |
 
 ### Return type
 
@@ -96,7 +96,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="createUsersWithListInput"></a>
+<a name="createUsersWithListInput"></a>
 # **createUsersWithListInput**
 > createUsersWithListInput(body)
 
@@ -121,7 +121,7 @@ api.createUsersWithListInput()
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **body** | [**List&lt;@Valid User&gt;**](User.md)| List of user object | |
+| **body** | [**List&lt;User&gt;**](User.md)| List of user object | |
 
 ### Return type
 
@@ -136,7 +136,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="deleteUser"></a>
+<a name="deleteUser"></a>
 # **deleteUser**
 > deleteUser(username)
 
@@ -178,7 +178,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="getUserByName"></a>
+<a name="getUserByName"></a>
 # **getUserByName**
 > User getUserByName(username)
 
@@ -218,7 +218,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/xml, application/json
 
-<a id="loginUser"></a>
+<a name="loginUser"></a>
 # **loginUser**
 > String loginUser(username, password)
 
@@ -260,7 +260,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: application/xml, application/json
 
-<a id="logoutUser"></a>
+<a name="logoutUser"></a>
 # **logoutUser**
 > logoutUser()
 
@@ -296,7 +296,7 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="updateUser"></a>
+<a name="updateUser"></a>
 # **updateUser**
 > updateUser(username, body)
 

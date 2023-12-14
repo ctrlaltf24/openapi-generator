@@ -87,15 +87,15 @@ public class JavaInheritanceTest {
     @Test(description = "composed model has the required attributes on the child")
     public void javaInheritanceWithRequiredAttributesOnAllOfObject() {
         Schema parent = new ObjectSchema()
-                .addProperty("a", new StringSchema())
-                .addProperty("b", new StringSchema())
+                .addProperties("a", new StringSchema())
+                .addProperties("b", new StringSchema())
                 .addRequiredItem("a")
                 .name("Parent");
         Schema child = new ComposedSchema()
                 .addAllOfItem(new Schema().$ref("Parent"))
                 .addAllOfItem(new ObjectSchema()
-                        .addProperty("c", new StringSchema())
-                        .addProperty("d", new StringSchema())
+                        .addProperties("c", new StringSchema())
+                        .addProperties("d", new StringSchema())
                         .addRequiredItem("a")
                         .addRequiredItem("c"))
                 .name("Child");
@@ -136,15 +136,15 @@ public class JavaInheritanceTest {
     @Test(description = "composed model has the required attributes for both parent & child")
     public void javaInheritanceWithRequiredAttributesOnComposedObject() {
         Schema parent = new ObjectSchema()
-                .addProperty("a", new StringSchema())
-                .addProperty("b", new StringSchema())
+                .addProperties("a", new StringSchema())
+                .addProperties("b", new StringSchema())
                 .addRequiredItem("a")
                 .name("Parent");
         Schema child = new ComposedSchema()
                 .addAllOfItem(new Schema().$ref("Parent"))
                 .addAllOfItem(new ObjectSchema()
-                        .addProperty("c", new StringSchema())
-                        .addProperty("d", new StringSchema()))
+                        .addProperties("c", new StringSchema())
+                        .addProperties("d", new StringSchema()))
                 .name("Child")
                 .addRequiredItem("a")
                 .addRequiredItem("c");

@@ -13,6 +13,7 @@
 
 import ApiClient from '../ApiClient';
 import Animal from './Animal';
+import CatAllOf from './CatAllOf';
 
 /**
  * The Cat model module.
@@ -25,10 +26,11 @@ class Cat {
      * @alias module:model/Cat
      * @extends module:model/Animal
      * @implements module:model/Animal
+     * @implements module:model/CatAllOf
      * @param className {String} 
      */
     constructor(className) { 
-        Animal.initialize(this, className);
+        Animal.initialize(this, className);CatAllOf.initialize(this);
         Cat.initialize(this, className);
     }
 
@@ -52,6 +54,7 @@ class Cat {
             obj = obj || new Cat();
             Animal.constructFromObject(data, obj);
             Animal.constructFromObject(data, obj);
+            CatAllOf.constructFromObject(data, obj);
 
             if (data.hasOwnProperty('declawed')) {
                 obj['declawed'] = ApiClient.convertToType(data['declawed'], 'Boolean');
@@ -60,26 +63,8 @@ class Cat {
         return obj;
     }
 
-    /**
-     * Validates the JSON data with respect to <code>Cat</code>.
-     * @param {Object} data The plain JavaScript object bearing properties of interest.
-     * @return {boolean} to indicate whether the JSON data is valid with respect to <code>Cat</code>.
-     */
-    static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of Cat.RequiredProperties) {
-            if (!data[property]) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
-
-        return true;
-    }
-
 
 }
-
-Cat.RequiredProperties = ["className"];
 
 /**
  * @member {Boolean} declawed
@@ -97,6 +82,11 @@ Animal.prototype['className'] = undefined;
  * @default 'red'
  */
 Animal.prototype['color'] = 'red';
+// Implement CatAllOf interface:
+/**
+ * @member {Boolean} declawed
+ */
+CatAllOf.prototype['declawed'] = undefined;
 
 
 

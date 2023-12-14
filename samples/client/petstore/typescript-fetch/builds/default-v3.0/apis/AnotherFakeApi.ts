@@ -14,13 +14,11 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  Client,
-} from '../models/index';
 import {
+    Client,
     ClientFromJSON,
     ClientToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface 123testSpecialTagsRequest {
     client: Client;

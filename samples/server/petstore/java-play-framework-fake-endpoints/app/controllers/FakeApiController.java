@@ -28,7 +28,6 @@ import openapitools.OpenAPIUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 import com.typesafe.config.Config;
 
 import openapitools.OpenAPIUtils.ApiAction;
@@ -328,7 +327,7 @@ public class FakeApiController extends Controller {
                 enumHeaderStringArray.add(curParam);
             }
         }
-        String valueenumHeaderString = request.header("enum_header_string").orElse(null);
+        String valueenumHeaderString = request.header("enum_header_string").get();
         String enumHeaderString;
         if (valueenumHeaderString != null) {
             enumHeaderString = valueenumHeaderString;
@@ -368,14 +367,14 @@ public class FakeApiController extends Controller {
         } else {
             int64Group = null;
         }
-        String valuerequiredBooleanGroup = request.header("required_boolean_group").orElse(null);
+        String valuerequiredBooleanGroup = request.header("required_boolean_group").get();
         Boolean requiredBooleanGroup;
         if (valuerequiredBooleanGroup != null) {
             requiredBooleanGroup = Boolean.valueOf(valuerequiredBooleanGroup);
         } else {
             throw new IllegalArgumentException("'required_boolean_group' parameter is required");
         }
-        String valuebooleanGroup = request.header("boolean_group").orElse(null);
+        String valuebooleanGroup = request.header("boolean_group").get();
         Boolean booleanGroup;
         if (valuebooleanGroup != null) {
             booleanGroup = Boolean.valueOf(valuebooleanGroup);

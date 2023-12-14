@@ -5,9 +5,7 @@ import org.openapitools.codegen.templating.TemplateManagerOptions;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,35 +45,29 @@ public class DryRunTemplateManager implements TemplateProcessor {
      */
     @Override
     public File write(Map<String, Object> data, String template, File target) throws IOException {
-        return writeToFile(target.getAbsolutePath(), "dummy".getBytes(StandardCharsets.UTF_8));
+        if (this.options.isSkipOverwrite() && target.exists()) {
+            dryRunStatusMap.put(target.toString(),
+                    new DryRunStatus(
+                            target.toPath(),
+                            DryRunStatus.State.SkippedOverwrite,
+                            "File exists and skip overwrite option is enabled."
+                    ));
+        }
+
+        return target;
     }
 
     @Override
     public File writeToFile(String filename, byte[] contents) throws IOException {
-        final Path path = Paths.get(filename);
-        final File outputFile = path.toFile();
+        Path path = java.nio.file.Paths.get(filename);
         DryRunStatus status = new DryRunStatus(path);
-
-        if (outputFile.exists()) {
-            if (this.options.isSkipOverwrite()) {
-                status = new DryRunStatus(
-                    path,
-                    DryRunStatus.State.SkippedOverwrite,
-                    "File exists and skip overwrite option is enabled."
-                );
-            } else if (this.options.isMinimalUpdate()) {
-                status.setState(DryRunStatus.State.WriteIfNewer);
-            } else {
-                status.setState(DryRunStatus.State.Write);
-            }
-        } else if (this.options.isMinimalUpdate()) {
+        if (this.options.isMinimalUpdate()) {
             status.setState(DryRunStatus.State.WriteIfNewer);
         } else {
             status.setState(DryRunStatus.State.Write);
         }
         dryRunStatusMap.put(filename, status);
-
-        return outputFile;
+        return path.toFile();
     }
 
     @Override
@@ -90,15 +82,26 @@ public class DryRunTemplateManager implements TemplateProcessor {
 
     @Override
     public void skip(Path path, String context) {
-        final DryRunStatus status = new DryRunStatus(path, DryRunStatus.State.Skipped, context);
         if (this.options.isSkipOverwrite() && path.toFile().exists()) {
-            status.setState(DryRunStatus.State.SkippedOverwrite);
+            dryRunStatusMap.put(path.toString(),
+                    new DryRunStatus(
+                            path,
+                            DryRunStatus.State.SkippedOverwrite,
+                            context
+                    ));
+            return;
         }
-        dryRunStatusMap.put(path.toString(), status);
+
+        dryRunStatusMap.put(path.toString(),
+                new DryRunStatus(
+                        path,
+                        DryRunStatus.State.Skipped,
+                        context
+                ));
     }
 
     @Override
     public void error(Path path, String context) {
-        dryRunStatusMap.put(path.toString(), new DryRunStatus(path, DryRunStatus.State.Error, context));
+        dryRunStatusMap.put(path.toString(), new DryRunStatus(path, DryRunStatus.State.Error));
     }
 }

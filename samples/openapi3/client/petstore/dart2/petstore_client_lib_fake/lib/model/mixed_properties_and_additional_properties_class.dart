@@ -38,9 +38,9 @@ class MixedPropertiesAndAdditionalPropertiesClass {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is MixedPropertiesAndAdditionalPropertiesClass &&
-    other.uuid == uuid &&
-    other.dateTime == dateTime &&
-    _deepEquality.equals(other.map, map);
+     other.uuid == uuid &&
+     other.dateTime == dateTime &&
+     other.map == map;
 
   @override
   int get hashCode =>
@@ -53,19 +53,15 @@ class MixedPropertiesAndAdditionalPropertiesClass {
   String toString() => 'MixedPropertiesAndAdditionalPropertiesClass[uuid=$uuid, dateTime=$dateTime, map=$map]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.uuid != null) {
-      json[r'uuid'] = this.uuid;
-    } else {
-      json[r'uuid'] = null;
+    final _json = <String, dynamic>{};
+    if (uuid != null) {
+      _json[r'uuid'] = uuid;
     }
-    if (this.dateTime != null) {
-      json[r'dateTime'] = this.dateTime!.toUtc().toIso8601String();
-    } else {
-      json[r'dateTime'] = null;
+    if (dateTime != null) {
+      _json[r'dateTime'] = dateTime!.toUtc().toIso8601String();
     }
-      json[r'map'] = this.map;
-    return json;
+      _json[r'map'] = map;
+    return _json;
   }
 
   /// Returns a new [MixedPropertiesAndAdditionalPropertiesClass] instance and imports its values from
@@ -88,14 +84,14 @@ class MixedPropertiesAndAdditionalPropertiesClass {
 
       return MixedPropertiesAndAdditionalPropertiesClass(
         uuid: mapValueOfType<String>(json, r'uuid'),
-        dateTime: mapDateTime(json, r'dateTime', r''),
-        map: Animal.mapFromJson(json[r'map']),
+        dateTime: mapDateTime(json, r'dateTime', ''),
+        map: Animal.mapFromJson(json[r'map']) ?? const {},
       );
     }
     return null;
   }
 
-  static List<MixedPropertiesAndAdditionalPropertiesClass> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<MixedPropertiesAndAdditionalPropertiesClass>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <MixedPropertiesAndAdditionalPropertiesClass>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -126,10 +122,12 @@ class MixedPropertiesAndAdditionalPropertiesClass {
   static Map<String, List<MixedPropertiesAndAdditionalPropertiesClass>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<MixedPropertiesAndAdditionalPropertiesClass>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = MixedPropertiesAndAdditionalPropertiesClass.listFromJson(entry.value, growable: growable,);
+        final value = MixedPropertiesAndAdditionalPropertiesClass.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

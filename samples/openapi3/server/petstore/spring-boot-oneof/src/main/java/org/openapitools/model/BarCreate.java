@@ -29,22 +29,14 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class BarCreate extends Entity {
 
+  @JsonProperty("barPropA")
   private String barPropA;
 
+  @JsonProperty("fooPropB")
   private String fooPropB;
 
+  @JsonProperty("foo")
   private FooRefOrValue foo;
-
-  public BarCreate() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public BarCreate(String atType) {
-    super(atType);
-  }
 
   public BarCreate barPropA(String barPropA) {
     this.barPropA = barPropA;
@@ -56,8 +48,7 @@ public class BarCreate extends Entity {
    * @return barPropA
   */
   
-  @Schema(name = "barPropA", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("barPropA")
+  @Schema(name = "barPropA", required = false)
   public String getBarPropA() {
     return barPropA;
   }
@@ -76,8 +67,7 @@ public class BarCreate extends Entity {
    * @return fooPropB
   */
   
-  @Schema(name = "fooPropB", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("fooPropB")
+  @Schema(name = "fooPropB", required = false)
   public String getFooPropB() {
     return fooPropB;
   }
@@ -96,8 +86,7 @@ public class BarCreate extends Entity {
    * @return foo
   */
   @Valid 
-  @Schema(name = "foo", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("foo")
+  @Schema(name = "foo", required = false)
   public FooRefOrValue getFoo() {
     return foo;
   }
@@ -106,31 +95,31 @@ public class BarCreate extends Entity {
     this.foo = foo;
   }
 
-
   public BarCreate href(String href) {
-    super.href(href);
+    super.setHref(href);
     return this;
   }
 
   public BarCreate id(String id) {
-    super.id(id);
+    super.setId(id);
     return this;
   }
 
   public BarCreate atSchemaLocation(String atSchemaLocation) {
-    super.atSchemaLocation(atSchemaLocation);
+    super.setAtSchemaLocation(atSchemaLocation);
     return this;
   }
 
   public BarCreate atBaseType(String atBaseType) {
-    super.atBaseType(atBaseType);
+    super.setAtBaseType(atBaseType);
     return this;
   }
 
   public BarCreate atType(String atType) {
-    super.atType(atType);
+    super.setAtType(atType);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

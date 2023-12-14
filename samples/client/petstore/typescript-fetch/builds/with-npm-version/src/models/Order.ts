@@ -69,15 +69,6 @@ export const OrderStatusEnum = {
 export type OrderStatusEnum = typeof OrderStatusEnum[keyof typeof OrderStatusEnum];
 
 
-/**
- * Check if a given object implements the Order interface.
- */
-export function instanceOfOrder(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
-}
-
 export function OrderFromJSON(json: any): Order {
     return OrderFromJSONTyped(json, false);
 }

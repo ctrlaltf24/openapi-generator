@@ -1141,7 +1141,6 @@ ul.nav-tabs {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-addPet-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-addPet-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-addPet-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-addPet-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-addPet-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-addPet-0-objc">Obj-C</a></li>
@@ -1220,23 +1219,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-addPet-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Pet pet = new Pet(); // Pet | 
-
-try {
-    final result = await api_instance.addPet(pet);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->addPet: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -1553,7 +1535,6 @@ $(document).ready(function() {
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -1618,7 +1599,6 @@ $(document).ready(function() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-deletePet-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-deletePet-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-deletePet-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-deletePet-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-deletePet-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-deletePet-0-objc">Obj-C</a></li>
@@ -1668,24 +1648,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-deletePet-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Long petId = new Long(); // Long | Pet id to delete
-final String apiKey = new String(); // String | 
-
-try {
-    final result = await api_instance.deletePet(petId, apiKey);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->deletePet: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -1999,7 +1961,6 @@ Pet id to delete
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-findPetsByStatus-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-findPetsByStatus-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-findPetsByStatus-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-findPetsByStatus-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-findPetsByStatus-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-findPetsByStatus-0-objc">Obj-C</a></li>
@@ -2050,23 +2011,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-findPetsByStatus-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final array[String] status = new array[String](); // array[String] | Status values that need to be considered for filter
-
-try {
-    final result = await api_instance.findPetsByStatus(status);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->findPetsByStatus: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -2362,7 +2306,6 @@ Status values that need to be considered for filter
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -2427,7 +2370,6 @@ Status values that need to be considered for filter
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-findPetsByTags-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-findPetsByTags-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-findPetsByTags-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-findPetsByTags-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-findPetsByTags-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-findPetsByTags-0-objc">Obj-C</a></li>
@@ -2478,23 +2420,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-findPetsByTags-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final array[String] tags = new array[String](); // array[String] | Tags to filter by
-
-try {
-    final result = await api_instance.findPetsByTags(tags);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->findPetsByTags: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -2790,7 +2715,6 @@ Tags to filter by
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -2855,7 +2779,6 @@ Tags to filter by
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-getPetById-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-getPetById-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-getPetById-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-getPetById-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-getPetById-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-getPetById-0-objc">Obj-C</a></li>
@@ -2908,23 +2831,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-getPetById-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Long petId = new Long(); // Long | ID of pet to return
-
-try {
-    final result = await api_instance.getPetById(petId);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->getPetById: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -3224,7 +3130,6 @@ ID of pet to return
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -3311,7 +3216,6 @@ ID of pet to return
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-updatePet-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-updatePet-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-updatePet-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-updatePet-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-updatePet-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-updatePet-0-objc">Obj-C</a></li>
@@ -3390,23 +3294,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-updatePet-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Pet pet = new Pet(); // Pet | 
-
-try {
-    final result = await api_instance.updatePet(pet);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->updatePet: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -3723,7 +3610,6 @@ $(document).ready(function() {
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -3832,7 +3718,6 @@ $(document).ready(function() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-updatePetWithForm-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-updatePetWithForm-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-updatePetWithForm-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-updatePetWithForm-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-updatePetWithForm-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-updatePetWithForm-0-objc">Obj-C</a></li>
@@ -3884,25 +3769,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-updatePetWithForm-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Long petId = new Long(); // Long | ID of pet that needs to be updated
-final String name = new String(); // String | Updated name of the pet
-final String status = new String(); // String | Updated status of the pet
-
-try {
-    final result = await api_instance.updatePetWithForm(petId, name, status);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->updatePetWithForm: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -4248,7 +4114,6 @@ Updated status of the pet
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Pet-uploadFile-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Pet-uploadFile-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Pet-uploadFile-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Pet-uploadFile-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Pet-uploadFile-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Pet-uploadFile-0-objc">Obj-C</a></li>
@@ -4302,25 +4167,6 @@ public class PetApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Pet-uploadFile-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Long petId = new Long(); // Long | ID of pet to update
-final String additionalMetadata = new String(); // String | Additional data to pass to server
-final File file = new File(); // File | file to upload
-
-try {
-    final result = await api_instance.uploadFile(petId, additionalMetadata, file);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->uploadFile: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -4683,7 +4529,6 @@ file to upload
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -4729,7 +4574,6 @@ file to upload
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Store-deleteOrder-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Store-deleteOrder-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Store-deleteOrder-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Store-deleteOrder-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Store-deleteOrder-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Store-deleteOrder-0-objc">Obj-C</a></li>
@@ -4772,23 +4616,6 @@ public class StoreApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Store-deleteOrder-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String orderId = new String(); // String | ID of the order that needs to be deleted
-
-try {
-    final result = await api_instance.deleteOrder(orderId);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->deleteOrder: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -5056,7 +4883,6 @@ ID of the order that needs to be deleted
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Store-getInventory-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Store-getInventory-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Store-getInventory-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Store-getInventory-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Store-getInventory-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Store-getInventory-0-objc">Obj-C</a></li>
@@ -5108,22 +4934,6 @@ public class StoreApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Store-getInventory-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-
-try {
-    final result = await api_instance.getInventory();
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->getInventory: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -5380,7 +5190,6 @@ pub fn main() {
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -5413,7 +5222,7 @@ pub fn main() {
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions</p>
+                        <p class="marked">For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions</p>
                         <p></p>
                         <br />
                         <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/store/order/{orderId}</span></code></pre>
@@ -5423,7 +5232,6 @@ pub fn main() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Store-getOrderById-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Store-getOrderById-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Store-getOrderById-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Store-getOrderById-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Store-getOrderById-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Store-getOrderById-0-objc">Obj-C</a></li>
@@ -5468,23 +5276,6 @@ public class StoreApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Store-getOrderById-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Long orderId = new Long(); // Long | ID of pet that needs to be fetched
-
-try {
-    final result = await api_instance.getOrderById(orderId);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->getOrderById: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -5752,7 +5543,6 @@ ID of pet that needs to be fetched
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -5839,7 +5629,6 @@ ID of pet that needs to be fetched
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-Store-placeOrder-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-Store-placeOrder-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Store-placeOrder-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-Store-placeOrder-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-Store-placeOrder-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-Store-placeOrder-0-objc">Obj-C</a></li>
@@ -5893,23 +5682,6 @@ public class StoreApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-Store-placeOrder-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final Order order = new Order(); // Order | 
-
-try {
-    final result = await api_instance.placeOrder(order);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->placeOrder: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -6191,7 +5963,6 @@ $(document).ready(function() {
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -6259,7 +6030,6 @@ $(document).ready(function() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-createUser-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-createUser-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-createUser-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-createUser-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-createUser-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-createUser-0-objc">Obj-C</a></li>
@@ -6321,23 +6091,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-createUser-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final User user = new User(); // User | 
-
-try {
-    final result = await api_instance.createUser(user);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->createUser: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -6632,7 +6385,6 @@ $(document).ready(function() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-createUsersWithArrayInput-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-createUsersWithArrayInput-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-createUsersWithArrayInput-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-createUsersWithArrayInput-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-createUsersWithArrayInput-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-createUsersWithArrayInput-0-objc">Obj-C</a></li>
@@ -6694,23 +6446,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-createUsersWithArrayInput-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final array[User] user = new array[User](); // array[User] | 
-
-try {
-    final result = await api_instance.createUsersWithArrayInput(user);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->createUsersWithArrayInput: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -7008,7 +6743,6 @@ $(document).ready(function() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-createUsersWithListInput-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-createUsersWithListInput-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-createUsersWithListInput-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-createUsersWithListInput-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-createUsersWithListInput-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-createUsersWithListInput-0-objc">Obj-C</a></li>
@@ -7070,23 +6804,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-createUsersWithListInput-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final array[User] user = new array[User](); // array[User] | 
-
-try {
-    final result = await api_instance.createUsersWithListInput(user);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->createUsersWithListInput: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -7384,7 +7101,6 @@ $(document).ready(function() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-deleteUser-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-deleteUser-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-deleteUser-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-deleteUser-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-deleteUser-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-deleteUser-0-objc">Obj-C</a></li>
@@ -7435,23 +7151,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-deleteUser-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String username = new String(); // String | The name that needs to be deleted
-
-try {
-    final result = await api_instance.deleteUser(username);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->deleteUser: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -7751,7 +7450,6 @@ The name that needs to be deleted
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-getUserByName-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-getUserByName-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-getUserByName-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-getUserByName-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-getUserByName-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-getUserByName-0-objc">Obj-C</a></li>
@@ -7796,23 +7494,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-getUserByName-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String username = new String(); // String | The name that needs to be fetched. Use user1 for testing.
-
-try {
-    final result = await api_instance.getUserByName(username);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->getUserByName: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -8077,7 +7758,6 @@ The name that needs to be fetched. Use user1 for testing.
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -8164,7 +7844,6 @@ The name that needs to be fetched. Use user1 for testing.
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-loginUser-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-loginUser-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-loginUser-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-loginUser-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-loginUser-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-loginUser-0-objc">Obj-C</a></li>
@@ -8210,24 +7889,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-loginUser-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String username = new String(); // String | The user name for login
-final String password = new String(); // String | The password for login in clear text
-
-try {
-    final result = await api_instance.loginUser(username, password);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->loginUser: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -8556,7 +8217,6 @@ The password for login in clear text
                                             if (schema.properties[item].$ref != null) {
                                               schema.properties[item] = defsParser.$refs.get(schema.properties[item].$ref);
                                             }
-                                          });
                                         } else if (schema.items != null && schema.items.$ref != null) {
                                             schema.items = defsParser.$refs.get(schema.items.$ref);
                                         } else {
@@ -8649,7 +8309,6 @@ The password for login in clear text
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-logoutUser-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-logoutUser-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-logoutUser-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-logoutUser-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-logoutUser-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-logoutUser-0-objc">Obj-C</a></li>
@@ -8699,22 +8358,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-logoutUser-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-
-try {
-    final result = await api_instance.logoutUser();
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->logoutUser: $e\n');
-}
-
 </code></pre>
                           </div>
 
@@ -8953,7 +8596,6 @@ pub fn main() {
                         <ul class="nav nav-tabs nav-tabs-examples">
                           <li class="active"><a href="#examples-User-updateUser-0-curl">Curl</a></li>
                           <li class=""><a href="#examples-User-updateUser-0-java">Java</a></li>
-                          <li class=""><a href="#examples-User-updateUser-0-dart">Dart</a></li>
                           <li class=""><a href="#examples-User-updateUser-0-android">Android</a></li>
                           <!--<li class=""><a href="#examples-User-updateUser-0-groovy">Groovy</a></li>-->
                           <li class=""><a href="#examples-User-updateUser-0-objc">Obj-C</a></li>
@@ -9016,24 +8658,6 @@ public class UserApiExample {
         }
     }
 }
-</code></pre>
-                          </div>
-
-                          <div class="tab-pane" id="examples-User-updateUser-0-dart">
-                            <pre class="prettyprint"><code class="language-dart">import 'package:openapi/api.dart';
-
-final api_instance = DefaultApi();
-
-final String username = new String(); // String | name that need to be deleted
-final User user = new User(); // User | 
-
-try {
-    final result = await api_instance.updateUser(username, user);
-    print(result);
-} catch (e) {
-    print('Exception when calling DefaultApi->updateUser: $e\n');
-}
-
 </code></pre>
                           </div>
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**getOrderById**](#getOrderById) | **GET** /store/order/{orderId} | Find purchase order by ID
 [**placeOrder**](#placeOrder) | **POST** /store/order | Place an order for a pet
 
-<a id="deleteOrder"></a>
+<a name="deleteOrder"></a>
 # **deleteOrder**
 ```java
 Mono<Object> StoreController.deleteOrder(orderId)
@@ -32,7 +32,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: Not defined
 
-<a id="getInventory"></a>
+<a name="getInventory"></a>
 # **getInventory**
 ```java
 Mono<Map<String, Integer>> StoreController.getInventory()
@@ -53,7 +53,7 @@ Returns a map of status codes to quantities
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: `application/json`
 
-<a id="getOrderById"></a>
+<a name="getOrderById"></a>
 # **getOrderById**
 ```java
 Mono<Order> StoreController.getOrderById(orderId)
@@ -61,7 +61,7 @@ Mono<Order> StoreController.getOrderById(orderId)
 
 Find purchase order by ID
 
-For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
 
 ### Parameters
 Name | Type | Description  | Notes
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
  - **Accepts Content-Type**: Not defined
  - **Produces Content-Type**: `application/xml`, `application/json`
 
-<a id="placeOrder"></a>
+<a name="placeOrder"></a>
 # **placeOrder**
 ```java
 Mono<Order> StoreController.placeOrder(order)

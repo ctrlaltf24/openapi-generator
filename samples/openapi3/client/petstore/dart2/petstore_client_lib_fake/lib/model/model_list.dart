@@ -26,7 +26,7 @@ class ModelList {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ModelList &&
-    other.n123list == n123list;
+     other.n123list == n123list;
 
   @override
   int get hashCode =>
@@ -37,13 +37,11 @@ class ModelList {
   String toString() => 'ModelList[n123list=$n123list]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.n123list != null) {
-      json[r'123-list'] = this.n123list;
-    } else {
-      json[r'123-list'] = null;
+    final _json = <String, dynamic>{};
+    if (n123list != null) {
+      _json[r'123-list'] = n123list;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [ModelList] instance and imports its values from
@@ -71,7 +69,7 @@ class ModelList {
     return null;
   }
 
-  static List<ModelList> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<ModelList>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <ModelList>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -102,10 +100,12 @@ class ModelList {
   static Map<String, List<ModelList>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<ModelList>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = ModelList.listFromJson(entry.value, growable: growable,);
+        final value = ModelList.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

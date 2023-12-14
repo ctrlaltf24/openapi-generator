@@ -47,12 +47,12 @@ micronaut:
       # TODO fill in api key for {{{name}}} authorization
       api-key:
   {{/isApiKey}}{{/authMethods}}
-  {{!basic authorization}}basic-auth:{{#authMethods}}{{#isBasicBasic}}
+  {{!basic authorization}}basic-auth:{{#authMethods}}{{#isBasic}}
     {{{name}}}:
       # TODO fill in credentials for {{{name}}} authorization
       username:
       password:
-    {{/isBasicBasic}}{{/authMethods}}{{/configureAuth}}
+    {{/isBasic}}{{/authMethods}}{{/configureAuth}}
 {{/client}}
 {{!SERVER CONFIGURATION}}
 {{#server}}

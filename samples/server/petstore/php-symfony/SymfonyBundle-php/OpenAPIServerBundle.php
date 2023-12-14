@@ -43,7 +43,7 @@ use OpenAPI\Server\DependencyInjection\Compiler\OpenAPIServerApiPass;
  */
 class OpenAPIServerBundle extends Bundle
 {
-    public function build(ContainerBuilder $container): void
+    public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new OpenAPIServerApiPass());
     }

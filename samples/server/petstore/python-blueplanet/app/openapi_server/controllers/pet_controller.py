@@ -1,4 +1,5 @@
 import connexion
+import six
 
 from app.openapi_server.models.api_response import ApiResponse  # noqa: E501
 from app.openapi_server.models.pet import Pet  # noqa: E501

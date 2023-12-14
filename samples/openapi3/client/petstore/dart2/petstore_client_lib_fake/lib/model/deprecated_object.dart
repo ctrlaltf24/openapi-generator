@@ -26,7 +26,7 @@ class DeprecatedObject {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is DeprecatedObject &&
-    other.name == name;
+     other.name == name;
 
   @override
   int get hashCode =>
@@ -37,13 +37,11 @@ class DeprecatedObject {
   String toString() => 'DeprecatedObject[name=$name]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.name != null) {
-      json[r'name'] = this.name;
-    } else {
-      json[r'name'] = null;
+    final _json = <String, dynamic>{};
+    if (name != null) {
+      _json[r'name'] = name;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [DeprecatedObject] instance and imports its values from
@@ -71,7 +69,7 @@ class DeprecatedObject {
     return null;
   }
 
-  static List<DeprecatedObject> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<DeprecatedObject>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <DeprecatedObject>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -102,10 +100,12 @@ class DeprecatedObject {
   static Map<String, List<DeprecatedObject>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<DeprecatedObject>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = DeprecatedObject.listFromJson(entry.value, growable: growable,);
+        final value = DeprecatedObject.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

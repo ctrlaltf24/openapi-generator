@@ -51,20 +51,10 @@ export interface Capitalization {
     sCAETHFlowPoints?: string;
     /**
      * Name of the pet
-     * 
      * @type {string}
      * @memberof Capitalization
      */
     aTTNAME?: string;
-}
-
-/**
- * Check if a given object implements the Capitalization interface.
- */
-export function instanceOfCapitalization(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
 }
 
 export function CapitalizationFromJSON(json: any): Capitalization {

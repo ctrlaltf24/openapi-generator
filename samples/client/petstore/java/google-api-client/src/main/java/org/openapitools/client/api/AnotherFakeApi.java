@@ -3,7 +3,6 @@ package org.openapitools.client.api;
 import org.openapitools.client.ApiClient;
 
 import org.openapitools.client.model.Client;
-import java.util.UUID;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.EmptyContent;
@@ -46,13 +45,12 @@ public class AnotherFakeApi {
     * To test special tags
     * To test special tags and operation ID starting with number
     * <p><b>200</b> - successful operation
-    * @param uuidTest to test uuid example value
     * @param body client model
     * @return Client
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Client call123testSpecialTags(UUID uuidTest, Client body) throws IOException {
-        HttpResponse response = call123testSpecialTagsForHttpResponse(uuidTest, body);
+    public Client call123testSpecialTags(Client body) throws IOException {
+        HttpResponse response = call123testSpecialTagsForHttpResponse(body);
         TypeReference<Client> typeRef = new TypeReference<Client>() {};
         return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     }
@@ -61,23 +59,19 @@ public class AnotherFakeApi {
     * To test special tags
     * To test special tags and operation ID starting with number
     * <p><b>200</b> - successful operation
-    * @param uuidTest to test uuid example value
     * @param body client model
     * @param params Map of query params. A collection will be interpreted as passing in multiple instances of the same query param.
     * @return Client
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Client call123testSpecialTags(UUID uuidTest, Client body, Map<String, Object> params) throws IOException {
-        HttpResponse response = call123testSpecialTagsForHttpResponse(uuidTest, body, params);
+    public Client call123testSpecialTags(Client body, Map<String, Object> params) throws IOException {
+        HttpResponse response = call123testSpecialTagsForHttpResponse(body, params);
         TypeReference<Client> typeRef = new TypeReference<Client>() {};
         return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     }
 
-    public HttpResponse call123testSpecialTagsForHttpResponse(UUID uuidTest, Client body) throws IOException {
-        // verify the required parameter 'uuidTest' is set
-        if (uuidTest == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'uuidTest' when calling call123testSpecialTags");
-        }// verify the required parameter 'body' is set
+    public HttpResponse call123testSpecialTagsForHttpResponse(Client body) throws IOException {
+        // verify the required parameter 'body' is set
         if (body == null) {
             throw new IllegalArgumentException("Missing the required parameter 'body' when calling call123testSpecialTags");
         }
@@ -90,11 +84,8 @@ public class AnotherFakeApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PATCH, genericUrl, content).execute();
     }
 
-      public HttpResponse call123testSpecialTagsForHttpResponse(UUID uuidTest, java.io.InputStream body, String mediaType) throws IOException {
-          // verify the required parameter 'uuidTest' is set
-              if (uuidTest == null) {
-              throw new IllegalArgumentException("Missing the required parameter 'uuidTest' when calling call123testSpecialTags");
-              }// verify the required parameter 'body' is set
+      public HttpResponse call123testSpecialTagsForHttpResponse(java.io.InputStream body, String mediaType) throws IOException {
+          // verify the required parameter 'body' is set
               if (body == null) {
               throw new IllegalArgumentException("Missing the required parameter 'body' when calling call123testSpecialTags");
               }
@@ -109,11 +100,8 @@ public class AnotherFakeApi {
               return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PATCH, genericUrl, content).execute();
       }
 
-    public HttpResponse call123testSpecialTagsForHttpResponse(UUID uuidTest, Client body, Map<String, Object> params) throws IOException {
-        // verify the required parameter 'uuidTest' is set
-        if (uuidTest == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'uuidTest' when calling call123testSpecialTags");
-        }// verify the required parameter 'body' is set
+    public HttpResponse call123testSpecialTagsForHttpResponse(Client body, Map<String, Object> params) throws IOException {
+        // verify the required parameter 'body' is set
         if (body == null) {
             throw new IllegalArgumentException("Missing the required parameter 'body' when calling call123testSpecialTags");
         }

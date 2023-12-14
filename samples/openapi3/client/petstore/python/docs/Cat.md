@@ -2,28 +2,14 @@
 
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**class_name** | **str** |  | 
 **declawed** | **bool** |  | [optional] 
+**color** | **str** |  | [optional]  if omitted the server will use the default value of "red"
+**tail** | **bool** |  | [optional] [readonly]  if omitted the server will use the default value of True
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
-## Example
-
-```python
-from petstore_api.models.cat import Cat
-
-# TODO update the JSON string below
-json = "{}"
-# create an instance of Cat from a JSON string
-cat_instance = Cat.from_json(json)
-# print the JSON string representation of the object
-print Cat.to_json()
-
-# convert the object into a dict
-cat_dict = cat_instance.to_dict()
-# create an instance of Cat from a dict
-cat_form_dict = cat.from_dict(cat_dict)
-```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

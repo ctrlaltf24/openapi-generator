@@ -24,8 +24,10 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Model200Response {
 
+  @JsonProperty("name")
   private Integer name;
 
+  @JsonProperty("class")
   private String propertyClass;
 
   public Model200Response name(Integer name) {
@@ -39,7 +41,6 @@ public class Model200Response {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("name")
   public Integer getName() {
     return name;
   }
@@ -59,7 +60,6 @@ public class Model200Response {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("class")
   public String getPropertyClass() {
     return propertyClass;
   }

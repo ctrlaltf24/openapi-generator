@@ -57,13 +57,22 @@ Class | Method | HTTP request | Description
  - [User](docs/User.md)
 
 
-<a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
 
 
-Authentication schemes defined for the API:
-<a id="petstore_auth"></a>
-### petstore_auth
+## api_key
+
+- **Type**: API key
+- **API key parameter name**: api_key
+- **Location**: HTTP header
+
+## auth_cookie
+
+- **Type**: API key
+- **API key parameter name**: AUTH_KEY
+- **Location**: 
+
+## petstore_auth
 
 - **Type**: OAuth
 - **Flow**: implicit
@@ -71,20 +80,6 @@ Authentication schemes defined for the API:
 - **Scopes**: 
  - **write:pets**: modify pets in your account
  - **read:pets**: read your pets
-
-<a id="api_key"></a>
-### api_key
-
-- **Type**: API key
-- **API key parameter name**: api_key
-- **Location**: HTTP header
-
-<a id="auth_cookie"></a>
-### auth_cookie
-
-- **Type**: API key
-- **API key parameter name**: AUTH_KEY
-- **Location**: 
 
 
 ## Author

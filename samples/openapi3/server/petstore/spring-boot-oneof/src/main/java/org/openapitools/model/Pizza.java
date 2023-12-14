@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.math.BigDecimal;
 import org.openapitools.model.Entity;
+import org.openapitools.model.PizzaSpeziale;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
@@ -35,18 +36,8 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Pizza extends Entity {
 
+  @JsonProperty("pizzaSize")
   private BigDecimal pizzaSize;
-
-  public Pizza() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Pizza(String atType) {
-    super(atType);
-  }
 
   public Pizza pizzaSize(BigDecimal pizzaSize) {
     this.pizzaSize = pizzaSize;
@@ -58,8 +49,7 @@ public class Pizza extends Entity {
    * @return pizzaSize
   */
   @Valid 
-  @Schema(name = "pizzaSize", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("pizzaSize")
+  @Schema(name = "pizzaSize", required = false)
   public BigDecimal getPizzaSize() {
     return pizzaSize;
   }
@@ -68,31 +58,31 @@ public class Pizza extends Entity {
     this.pizzaSize = pizzaSize;
   }
 
-
   public Pizza href(String href) {
-    super.href(href);
+    super.setHref(href);
     return this;
   }
 
   public Pizza id(String id) {
-    super.id(id);
+    super.setId(id);
     return this;
   }
 
   public Pizza atSchemaLocation(String atSchemaLocation) {
-    super.atSchemaLocation(atSchemaLocation);
+    super.setAtSchemaLocation(atSchemaLocation);
     return this;
   }
 
   public Pizza atBaseType(String atBaseType) {
-    super.atBaseType(atBaseType);
+    super.setAtBaseType(atBaseType);
     return this;
   }
 
   public Pizza atType(String atType) {
-    super.atType(atType);
+    super.setAtType(atType);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

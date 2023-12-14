@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -24,14 +23,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("Pet")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
-public class Pet  implements Serializable {
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")public class Pet  implements Serializable {
+  
   private @Valid Long id;
   private @Valid Category category;
   private @Valid String name;
   private @Valid Set<String> photoUrls = new LinkedHashSet<>();
-  private @Valid List<@Valid Tag> tags;
-  public enum StatusEnum {
+  private @Valid List<Tag> tags = new ArrayList<>();
+
+public enum StatusEnum {
 
     AVAILABLE(String.valueOf("available")), PENDING(String.valueOf("pending")), SOLD(String.valueOf("sold"));
 
@@ -50,21 +50,6 @@ public class Pet  implements Serializable {
     @JsonValue
     public String toString() {
         return String.valueOf(value);
-    }
-
-    /**
-     * Convert a String into String, as specified in the
-     * <a href="https://download.oracle.com/otndocs/jcp/jaxrs-2_0-fr-eval-spec/index.html">See JAX RS 2.0 Specification, section 3.2, p. 12</a>
-     */
-    public static StatusEnum fromString(String s) {
-        for (StatusEnum b : StatusEnum.values()) {
-            // using Objects.toString() to be safe if value type non-object type
-            // because types like 'int' etc. will be auto-boxed
-            if (java.util.Objects.toString(b.value).equals(s)) {
-                return b;
-            }
-        }
-        throw new IllegalArgumentException("Unexpected string value '" + s + "'");
     }
 
     @JsonCreator
@@ -88,6 +73,8 @@ public class Pet  implements Serializable {
   }
 
   
+
+  
   @ApiModelProperty(value = "")
   @JsonProperty("id")
   public Long getId() {
@@ -99,12 +86,14 @@ public class Pet  implements Serializable {
     this.id = id;
   }
 
-  /**
+/**
    **/
   public Pet category(Category category) {
     this.category = category;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -118,12 +107,14 @@ public class Pet  implements Serializable {
     this.category = category;
   }
 
-  /**
+/**
    **/
   public Pet name(String name) {
     this.name = name;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(example = "doggie", required = true, value = "")
@@ -138,12 +129,14 @@ public class Pet  implements Serializable {
     this.name = name;
   }
 
-  /**
+/**
    **/
   public Pet photoUrls(Set<String> photoUrls) {
     this.photoUrls = photoUrls;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(required = true, value = "")
@@ -175,12 +168,14 @@ public class Pet  implements Serializable {
 
     return this;
   }
-  /**
+/**
    **/
-  public Pet tags(List<@Valid Tag> tags) {
+  public Pet tags(List<Tag> tags) {
     this.tags = tags;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "")
@@ -190,7 +185,7 @@ public class Pet  implements Serializable {
   }
 
   @JsonProperty("tags")
-  public void setTags(List<@Valid Tag> tags) {
+  public void setTags(List<Tag> tags) {
     this.tags = tags;
   }
 
@@ -210,13 +205,15 @@ public class Pet  implements Serializable {
 
     return this;
   }
-  /**
+/**
    * pet status in the store
    **/
   public Pet status(StatusEnum status) {
     this.status = status;
     return this;
   }
+
+  
 
   
   @ApiModelProperty(value = "pet status in the store")

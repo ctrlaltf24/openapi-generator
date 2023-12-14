@@ -37,13 +37,11 @@ class DogAllOf {
   String toString() => 'DogAllOf[breed=$breed]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.breed != null) {
-      json[r'breed'] = this.breed;
-    } else {
-      json[r'breed'] = null;
+    final _json = <String, dynamic>{};
+    if (breed != null) {
+      _json[r'breed'] = breed;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [DogAllOf] instance and imports its values from
@@ -71,7 +69,7 @@ class DogAllOf {
     return null;
   }
 
-  static List<DogAllOf> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<DogAllOf>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <DogAllOf>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -102,10 +100,12 @@ class DogAllOf {
   static Map<String, List<DogAllOf>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<DogAllOf>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = DogAllOf.listFromJson(entry.value, growable: growable,);
+        final value = DogAllOf.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

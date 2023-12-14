@@ -1,14 +1,12 @@
 package org.openapitools.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.model.ModelFile;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 
 import io.swagger.annotations.ApiModelProperty;
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
@@ -20,7 +18,7 @@ public class FileSchemaTestClass  {
 
   @ApiModelProperty(value = "")
   @Valid
-  private List<@Valid ModelFile> files;
+  private List<ModelFile> files = null;
  /**
    * Get _file
    * @return _file
@@ -44,15 +42,15 @@ public class FileSchemaTestClass  {
    * @return files
   **/
   @JsonProperty("files")
-  public List<@Valid ModelFile> getFiles() {
+  public List<ModelFile> getFiles() {
     return files;
   }
 
-  public void setFiles(List<@Valid ModelFile> files) {
+  public void setFiles(List<ModelFile> files) {
     this.files = files;
   }
 
-  public FileSchemaTestClass files(List<@Valid ModelFile> files) {
+  public FileSchemaTestClass files(List<ModelFile> files) {
     this.files = files;
     return this;
   }
@@ -62,23 +60,24 @@ public class FileSchemaTestClass  {
     return this;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    FileSchemaTestClass fileSchemaTestClass = (FileSchemaTestClass) o;
-    return Objects.equals(_file, fileSchemaTestClass._file) &&
-        Objects.equals(files, fileSchemaTestClass.files);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(_file, files);
-  }
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      FileSchemaTestClass fileSchemaTestClass = (FileSchemaTestClass) o;
+      return Objects.equals(_file, fileSchemaTestClass._file) &&
+          Objects.equals(files, fileSchemaTestClass.files);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(_file, files);
+    }
 
   @Override
   public String toString() {

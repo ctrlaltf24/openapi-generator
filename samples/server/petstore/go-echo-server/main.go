@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/openapitools/petstore/handlers"
+	"github.com/GIT_USER_ID/GIT_REPO_ID/handlers"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -9,7 +9,7 @@ import (
 func main() {
 	e := echo.New()
 
-	//todo: handle the error!
+    //todo: handle the error!
 	c, _ := handlers.NewContainer()
 
 	// Middleware

@@ -50,7 +50,7 @@ main = do
   manager <- newManager tlsManagerSettings
 
   -- Create the client (all endpoint functions will be available)
-  let OpenAPIPetstoreBackend{..} = API.createOpenAPIPetstoreClient
+  OpenAPIPetstoreBackend{..} <- API.createOpenAPIPetstoreClient
 
   -- Any OpenAPIPetstore API call can go here, e.g. here we call `getSomeEndpoint`
   API.callOpenAPIPetstore (mkClientEnv manager url) getSomeEndpoint

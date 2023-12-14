@@ -6,7 +6,7 @@ import {
     PetRecordEntity,
     TagRecordEntity,
     UserRecordEntity,
-} from "./models/index"
+} from "./models"
 
 export const ApiEntitiesRecordProps = {
     recType: "ApiEntitiesRecord" as "ApiEntitiesRecord",

@@ -22,24 +22,32 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class User {
 
-  private Optional<Long> id = Optional.empty();
+  @JsonProperty("id")
+  private Long id;
 
-  private Optional<String> username = Optional.empty();
+  @JsonProperty("username")
+  private String username;
 
-  private Optional<String> firstName = Optional.empty();
+  @JsonProperty("firstName")
+  private String firstName;
 
-  private Optional<String> lastName = Optional.empty();
+  @JsonProperty("lastName")
+  private String lastName;
 
-  private Optional<String> email = Optional.empty();
+  @JsonProperty("email")
+  private String email;
 
-  private Optional<String> password = Optional.empty();
+  @JsonProperty("password")
+  private String password;
 
-  private Optional<String> phone = Optional.empty();
+  @JsonProperty("phone")
+  private String phone;
 
-  private Optional<Integer> userStatus = Optional.empty();
+  @JsonProperty("userStatus")
+  private Integer userStatus;
 
   public User id(Long id) {
-    this.id = Optional.of(id);
+    this.id = id;
     return this;
   }
 
@@ -49,17 +57,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("id")
-  public Optional<Long> getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Optional<Long> id) {
+  public void setId(Long id) {
     this.id = id;
   }
 
   public User username(String username) {
-    this.username = Optional.of(username);
+    this.username = username;
     return this;
   }
 
@@ -69,17 +76,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("username")
-  public Optional<String> getUsername() {
+  public String getUsername() {
     return username;
   }
 
-  public void setUsername(Optional<String> username) {
+  public void setUsername(String username) {
     this.username = username;
   }
 
   public User firstName(String firstName) {
-    this.firstName = Optional.of(firstName);
+    this.firstName = firstName;
     return this;
   }
 
@@ -89,17 +95,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("firstName")
-  public Optional<String> getFirstName() {
+  public String getFirstName() {
     return firstName;
   }
 
-  public void setFirstName(Optional<String> firstName) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
   public User lastName(String lastName) {
-    this.lastName = Optional.of(lastName);
+    this.lastName = lastName;
     return this;
   }
 
@@ -109,17 +114,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("lastName")
-  public Optional<String> getLastName() {
+  public String getLastName() {
     return lastName;
   }
 
-  public void setLastName(Optional<String> lastName) {
+  public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
   public User email(String email) {
-    this.email = Optional.of(email);
+    this.email = email;
     return this;
   }
 
@@ -129,17 +133,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("email")
-  public Optional<String> getEmail() {
+  public String getEmail() {
     return email;
   }
 
-  public void setEmail(Optional<String> email) {
+  public void setEmail(String email) {
     this.email = email;
   }
 
   public User password(String password) {
-    this.password = Optional.of(password);
+    this.password = password;
     return this;
   }
 
@@ -149,17 +152,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("password")
-  public Optional<String> getPassword() {
+  public String getPassword() {
     return password;
   }
 
-  public void setPassword(Optional<String> password) {
+  public void setPassword(String password) {
     this.password = password;
   }
 
   public User phone(String phone) {
-    this.phone = Optional.of(phone);
+    this.phone = phone;
     return this;
   }
 
@@ -169,17 +171,16 @@ public class User {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("phone")
-  public Optional<String> getPhone() {
+  public String getPhone() {
     return phone;
   }
 
-  public void setPhone(Optional<String> phone) {
+  public void setPhone(String phone) {
     this.phone = phone;
   }
 
   public User userStatus(Integer userStatus) {
-    this.userStatus = Optional.of(userStatus);
+    this.userStatus = userStatus;
     return this;
   }
 
@@ -189,12 +190,11 @@ public class User {
   */
   
   @ApiModelProperty(value = "User Status")
-  @JsonProperty("userStatus")
-  public Optional<Integer> getUserStatus() {
+  public Integer getUserStatus() {
     return userStatus;
   }
 
-  public void setUserStatus(Optional<Integer> userStatus) {
+  public void setUserStatus(Integer userStatus) {
     this.userStatus = userStatus;
   }
 

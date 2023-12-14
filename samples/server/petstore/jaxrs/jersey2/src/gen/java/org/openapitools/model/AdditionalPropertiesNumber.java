@@ -67,12 +67,13 @@ public class AdditionalPropertiesNumber extends HashMap<String, BigDecimal>  {
       return false;
     }
     AdditionalPropertiesNumber additionalPropertiesNumber = (AdditionalPropertiesNumber) o;
-    return super.equals(o) && Objects.equals(name, additionalPropertiesNumber.name);
+    return Objects.equals(this.name, additionalPropertiesNumber.name) &&
+        super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), name);
+    return Objects.hash(name, super.hashCode());
   }
 
   @Override

@@ -355,7 +355,7 @@ paths:
       summary: Find purchase order by ID
       description: >-
         For valid response try integer IDs with value <= 5 or > 10. Other values
-        will generate exceptions
+        will generated exceptions
       operationId: getOrderById
       parameters:
         - name: order_id
@@ -838,7 +838,7 @@ paths:
             format: int64
       responses:
         '400':
-          description: Something wrong
+          description: Someting wrong
   /fake/outer/number:
     post:
       tags:
@@ -957,27 +957,6 @@ paths:
               type: object
               additionalProperties:
                 type: string
-        description: request body
-        required: true
-  /fake/inline-freeform-additionalProperties:
-    post:
-      tags:
-        - fake
-      summary: test inline free-form additionalProperties
-      description: ''
-      operationId: testInlineFreeformAdditionalProperties
-      responses:
-        '200':
-          description: successful operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                someProperty:
-                  type: string
-              additionalProperties: true
         description: request body
         required: true
   /fake/body-with-query-params:

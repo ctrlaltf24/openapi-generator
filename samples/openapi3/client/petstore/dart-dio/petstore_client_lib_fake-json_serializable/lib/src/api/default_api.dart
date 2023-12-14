@@ -29,7 +29,7 @@ class DefaultApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [FooGetDefaultResponse] as data
-  /// Throws [DioException] if API call or serialization fails
+  /// Throws [DioError] if API call or serialization fails
   Future<Response<FooGetDefaultResponse>> fooGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -59,19 +59,17 @@ class DefaultApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    FooGetDefaultResponse? _responseData;
+    FooGetDefaultResponse _responseData;
 
     try {
-final rawData = _response.data;
-_responseData = rawData == null ? null : deserialize<FooGetDefaultResponse, FooGetDefaultResponse>(rawData, 'FooGetDefaultResponse', growable: true);
+_responseData = deserialize<FooGetDefaultResponse, FooGetDefaultResponse>(_response.data!, 'FooGetDefaultResponse', growable: true);
     } catch (error, stackTrace) {
-      throw DioException(
+      throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     return Response<FooGetDefaultResponse>(

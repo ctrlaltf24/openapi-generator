@@ -18,6 +18,7 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,7 +29,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.client.model.ChildSchemaAllOf;
 import org.openapitools.client.model.Parent;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.openapitools.client.JSON;
@@ -37,6 +40,7 @@ import org.openapitools.client.JSON;
 /**
  * A schema that does not have any special character.
  */
+@ApiModel(description = "A schema that does not have any special character.")
 @JsonPropertyOrder({
   ChildSchema.JSON_PROPERTY_PROP1
 })
@@ -64,6 +68,7 @@ public class ChildSchema extends Parent {
    * @return prop1
   **/
   @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_PROP1)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
@@ -92,7 +97,7 @@ public class ChildSchema extends Parent {
   @JsonAnySetter
   public ChildSchema putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<>();
+        this.additionalProperties = new HashMap<String, Object>();
     }
     this.additionalProperties.put(key, value);
     return this;
@@ -160,11 +165,11 @@ public class ChildSchema extends Parent {
     return o.toString().replace("\n", "\n    ");
   }
 
-  static {
-    // Initialize and register the discriminator mappings.
-    Map<String, Class<?>> mappings = new HashMap<>();
-    mappings.put("ChildSchema", ChildSchema.class);
-    JSON.registerDiscriminator(ChildSchema.class, "objectType", mappings);
-  }
+static {
+  // Initialize and register the discriminator mappings.
+  Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
+  mappings.put("ChildSchema", ChildSchema.class);
+  JSON.registerDiscriminator(ChildSchema.class, "objectType", mappings);
+}
 }
 

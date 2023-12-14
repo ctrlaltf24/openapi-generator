@@ -4,15 +4,15 @@ import java.net.URI;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.jackson.nullable.JsonNullable;
 import java.time.OffsetDateTime;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import io.swagger.v3.oas.annotations.media.Schema;
 
 
 import java.util.*;
@@ -25,10 +25,12 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class FileSchemaTestClass {
 
+  @JsonProperty("file")
   private File file;
 
+  @JsonProperty("files")
   @Valid
-  private List<@Valid File> files;
+  private List<File> files = null;
 
   public FileSchemaTestClass file(File file) {
     this.file = file;
@@ -40,8 +42,7 @@ public class FileSchemaTestClass {
    * @return file
   */
   @Valid 
-  @Schema(name = "file", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("file")
+  @ApiModelProperty(value = "")
   public File getFile() {
     return file;
   }
@@ -50,7 +51,7 @@ public class FileSchemaTestClass {
     this.file = file;
   }
 
-  public FileSchemaTestClass files(List<@Valid File> files) {
+  public FileSchemaTestClass files(List<File> files) {
     this.files = files;
     return this;
   }
@@ -68,13 +69,12 @@ public class FileSchemaTestClass {
    * @return files
   */
   @Valid 
-  @Schema(name = "files", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("files")
-  public List<@Valid File> getFiles() {
+  @ApiModelProperty(value = "")
+  public List<File> getFiles() {
     return files;
   }
 
-  public void setFiles(List<@Valid File> files) {
+  public void setFiles(List<File> files) {
     this.files = files;
   }
 

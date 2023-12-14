@@ -1,12 +1,10 @@
 #![allow(unused_qualifications)]
 
-use validator::Validate;
-
 use crate::models;
 #[cfg(any(feature = "client", feature = "server"))]
 use crate::header;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ANullableContainer {
     #[serde(rename = "NullableThing")]
@@ -20,13 +18,11 @@ pub struct ANullableContainer {
 
 }
 
-
 impl ANullableContainer {
-    #[allow(clippy::new_without_default)]
     pub fn new(required_nullable_thing: swagger::Nullable<String>, ) -> ANullableContainer {
         ANullableContainer {
             nullable_thing: None,
-            required_nullable_thing,
+            required_nullable_thing: required_nullable_thing,
         }
     }
 }
@@ -36,22 +32,18 @@ impl ANullableContainer {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for ANullableContainer {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
+        let mut params: Vec<String> = vec![];
 
-            self.nullable_thing.as_ref().map(|nullable_thing| {
-                [
-                    "NullableThing".to_string(),
-                    nullable_thing.as_ref().map_or("null".to_string(), |x| x.to_string()),
-                ].join(",")
-            }),
+        if let Some(ref nullable_thing) = self.nullable_thing {
+            params.push("NullableThing".to_string());
+            params.push(nullable_thing.as_ref().map_or("null".to_string(), |x| x.to_string()));
+        }
 
 
-            Some("RequiredNullableThing".to_string()),
-            Some(self.required_nullable_thing.as_ref().map_or("null".to_string(), |x| x.to_string())),
+        params.push("RequiredNullableThing".to_string());
+        params.push(self.required_nullable_thing.as_ref().map_or("null".to_string(), |x| x.to_string()));
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -62,9 +54,8 @@ impl std::str::FromStr for ANullableContainer {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
             pub nullable_thing: Vec<String>,
             pub required_nullable_thing: Vec<String>,
@@ -73,7 +64,7 @@ impl std::str::FromStr for ANullableContainer {
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -83,7 +74,6 @@ impl std::str::FromStr for ANullableContainer {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
                     "NullableThing" => return std::result::Result::Err("Parsing a nullable type in this style is not supported in ANullableContainer".to_string()),
                     "RequiredNullableThing" => return std::result::Result::Err("Parsing a nullable type in this style is not supported in ANullableContainer".to_string()),
@@ -193,26 +183,24 @@ impl ::std::str::FromStr for AdditionalPropertiesObject {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct AllOfObject {
     #[serde(rename = "sampleProperty")]
     #[serde(skip_serializing_if="Option::is_none")]
     pub sample_property: Option<String>,
 
-    #[serde(rename = "sampleBaseProperty")]
+    #[serde(rename = "sampleBasePropery")]
     #[serde(skip_serializing_if="Option::is_none")]
-    pub sample_base_property: Option<String>,
+    pub sample_base_propery: Option<String>,
 
 }
 
-
 impl AllOfObject {
-    #[allow(clippy::new_without_default)]
     pub fn new() -> AllOfObject {
         AllOfObject {
             sample_property: None,
-            sample_base_property: None,
+            sample_base_propery: None,
         }
     }
 }
@@ -222,26 +210,20 @@ impl AllOfObject {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for AllOfObject {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
+        let mut params: Vec<String> = vec![];
 
-            self.sample_property.as_ref().map(|sample_property| {
-                [
-                    "sampleProperty".to_string(),
-                    sample_property.to_string(),
-                ].join(",")
-            }),
+        if let Some(ref sample_property) = self.sample_property {
+            params.push("sampleProperty".to_string());
+            params.push(sample_property.to_string());
+        }
 
 
-            self.sample_base_property.as_ref().map(|sample_base_property| {
-                [
-                    "sampleBaseProperty".to_string(),
-                    sample_base_property.to_string(),
-                ].join(",")
-            }),
+        if let Some(ref sample_base_propery) = self.sample_base_propery {
+            params.push("sampleBasePropery".to_string());
+            params.push(sample_base_propery.to_string());
+        }
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -252,18 +234,17 @@ impl std::str::FromStr for AllOfObject {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
             pub sample_property: Vec<String>,
-            pub sample_base_property: Vec<String>,
+            pub sample_base_propery: Vec<String>,
         }
 
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -273,12 +254,9 @@ impl std::str::FromStr for AllOfObject {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
-                    #[allow(clippy::redundant_clone)]
-                    "sampleProperty" => intermediate_rep.sample_property.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
-                    #[allow(clippy::redundant_clone)]
-                    "sampleBaseProperty" => intermediate_rep.sample_base_property.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
+                    "sampleProperty" => intermediate_rep.sample_property.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
+                    "sampleBasePropery" => intermediate_rep.sample_base_propery.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
                     _ => return std::result::Result::Err("Unexpected key while parsing AllOfObject".to_string())
                 }
             }
@@ -290,7 +268,7 @@ impl std::str::FromStr for AllOfObject {
         // Use the intermediate representation to return the struct
         std::result::Result::Ok(AllOfObject {
             sample_property: intermediate_rep.sample_property.into_iter().next(),
-            sample_base_property: intermediate_rep.sample_base_property.into_iter().next(),
+            sample_base_propery: intermediate_rep.sample_base_propery.into_iter().next(),
         })
     }
 }
@@ -334,21 +312,19 @@ impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderVal
 }
 
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct BaseAllOf {
-    #[serde(rename = "sampleBaseProperty")]
+    #[serde(rename = "sampleBasePropery")]
     #[serde(skip_serializing_if="Option::is_none")]
-    pub sample_base_property: Option<String>,
+    pub sample_base_propery: Option<String>,
 
 }
 
-
 impl BaseAllOf {
-    #[allow(clippy::new_without_default)]
     pub fn new() -> BaseAllOf {
         BaseAllOf {
-            sample_base_property: None,
+            sample_base_propery: None,
         }
     }
 }
@@ -358,18 +334,14 @@ impl BaseAllOf {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for BaseAllOf {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
+        let mut params: Vec<String> = vec![];
 
-            self.sample_base_property.as_ref().map(|sample_base_property| {
-                [
-                    "sampleBaseProperty".to_string(),
-                    sample_base_property.to_string(),
-                ].join(",")
-            }),
+        if let Some(ref sample_base_propery) = self.sample_base_propery {
+            params.push("sampleBasePropery".to_string());
+            params.push(sample_base_propery.to_string());
+        }
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -380,17 +352,16 @@ impl std::str::FromStr for BaseAllOf {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
-            pub sample_base_property: Vec<String>,
+            pub sample_base_propery: Vec<String>,
         }
 
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -400,10 +371,8 @@ impl std::str::FromStr for BaseAllOf {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
-                    #[allow(clippy::redundant_clone)]
-                    "sampleBaseProperty" => intermediate_rep.sample_base_property.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
+                    "sampleBasePropery" => intermediate_rep.sample_base_propery.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
                     _ => return std::result::Result::Err("Unexpected key while parsing BaseAllOf".to_string())
                 }
             }
@@ -414,7 +383,7 @@ impl std::str::FromStr for BaseAllOf {
 
         // Use the intermediate representation to return the struct
         std::result::Result::Ok(BaseAllOf {
-            sample_base_property: intermediate_rep.sample_base_property.into_iter().next(),
+            sample_base_propery: intermediate_rep.sample_base_propery.into_iter().next(),
         })
     }
 }
@@ -458,7 +427,7 @@ impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderVal
 }
 
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct DummyPutRequest {
     #[serde(rename = "id")]
@@ -470,12 +439,10 @@ pub struct DummyPutRequest {
 
 }
 
-
 impl DummyPutRequest {
-    #[allow(clippy::new_without_default)]
     pub fn new(id: String, ) -> DummyPutRequest {
         DummyPutRequest {
-            id,
+            id: id,
             password: None,
         }
     }
@@ -486,22 +453,18 @@ impl DummyPutRequest {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for DummyPutRequest {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
+        let mut params: Vec<String> = vec![];
 
-            Some("id".to_string()),
-            Some(self.id.to_string()),
+        params.push("id".to_string());
+        params.push(self.id.to_string());
 
 
-            self.password.as_ref().map(|password| {
-                [
-                    "password".to_string(),
-                    password.to_string(),
-                ].join(",")
-            }),
+        if let Some(ref password) = self.password {
+            params.push("password".to_string());
+            params.push(password.to_string());
+        }
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -512,9 +475,8 @@ impl std::str::FromStr for DummyPutRequest {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
             pub id: Vec<String>,
             pub password: Vec<String>,
@@ -523,7 +485,7 @@ impl std::str::FromStr for DummyPutRequest {
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -533,12 +495,9 @@ impl std::str::FromStr for DummyPutRequest {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
-                    #[allow(clippy::redundant_clone)]
-                    "id" => intermediate_rep.id.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
-                    #[allow(clippy::redundant_clone)]
-                    "password" => intermediate_rep.password.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
+                    "id" => intermediate_rep.id.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
+                    "password" => intermediate_rep.password.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
                     _ => return std::result::Result::Err("Unexpected key while parsing DummyPutRequest".to_string())
                 }
             }
@@ -549,7 +508,7 @@ impl std::str::FromStr for DummyPutRequest {
 
         // Use the intermediate representation to return the struct
         std::result::Result::Ok(DummyPutRequest {
-            id: intermediate_rep.id.into_iter().next().ok_or_else(|| "id missing in DummyPutRequest".to_string())?,
+            id: intermediate_rep.id.into_iter().next().ok_or("id missing in DummyPutRequest".to_string())?,
             password: intermediate_rep.password.into_iter().next(),
         })
     }
@@ -595,7 +554,7 @@ impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderVal
 
 
 /// structured response
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct GetYamlResponse {
     /// Inner string
@@ -605,9 +564,7 @@ pub struct GetYamlResponse {
 
 }
 
-
 impl GetYamlResponse {
-    #[allow(clippy::new_without_default)]
     pub fn new() -> GetYamlResponse {
         GetYamlResponse {
             value: None,
@@ -620,18 +577,14 @@ impl GetYamlResponse {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for GetYamlResponse {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
+        let mut params: Vec<String> = vec![];
 
-            self.value.as_ref().map(|value| {
-                [
-                    "value".to_string(),
-                    value.to_string(),
-                ].join(",")
-            }),
+        if let Some(ref value) = self.value {
+            params.push("value".to_string());
+            params.push(value.to_string());
+        }
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -642,9 +595,8 @@ impl std::str::FromStr for GetYamlResponse {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
             pub value: Vec<String>,
         }
@@ -652,7 +604,7 @@ impl std::str::FromStr for GetYamlResponse {
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -662,10 +614,8 @@ impl std::str::FromStr for GetYamlResponse {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
-                    #[allow(clippy::redundant_clone)]
-                    "value" => intermediate_rep.value.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
+                    "value" => intermediate_rep.value.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
                     _ => return std::result::Result::Err("Unexpected key while parsing GetYamlResponse".to_string())
                 }
             }
@@ -721,7 +671,7 @@ impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderVal
 
 
 /// An object of objects
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ObjectOfObjects {
     #[serde(rename = "inner")]
@@ -730,9 +680,7 @@ pub struct ObjectOfObjects {
 
 }
 
-
 impl ObjectOfObjects {
-    #[allow(clippy::new_without_default)]
     pub fn new() -> ObjectOfObjects {
         ObjectOfObjects {
             inner: None,
@@ -745,12 +693,10 @@ impl ObjectOfObjects {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for ObjectOfObjects {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
-            // Skipping inner in query parameter serialization
+        let mut params: Vec<String> = vec![];
+        // Skipping inner in query parameter serialization
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -761,9 +707,8 @@ impl std::str::FromStr for ObjectOfObjects {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
             pub inner: Vec<models::ObjectOfObjectsInner>,
         }
@@ -771,7 +716,7 @@ impl std::str::FromStr for ObjectOfObjects {
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -781,10 +726,8 @@ impl std::str::FromStr for ObjectOfObjects {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
-                    #[allow(clippy::redundant_clone)]
-                    "inner" => intermediate_rep.inner.push(<models::ObjectOfObjectsInner as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
+                    "inner" => intermediate_rep.inner.push(<models::ObjectOfObjectsInner as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
                     _ => return std::result::Result::Err("Unexpected key while parsing ObjectOfObjects".to_string())
                 }
             }
@@ -839,7 +782,7 @@ impl std::convert::TryFrom<hyper::header::HeaderValue> for header::IntoHeaderVal
 }
 
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, validator::Validate)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 #[cfg_attr(feature = "conversion", derive(frunk::LabelledGeneric))]
 pub struct ObjectOfObjectsInner {
     #[serde(rename = "required_thing")]
@@ -847,16 +790,14 @@ pub struct ObjectOfObjectsInner {
 
     #[serde(rename = "optional_thing")]
     #[serde(skip_serializing_if="Option::is_none")]
-    pub optional_thing: Option<i32>,
+    pub optional_thing: Option<isize>,
 
 }
 
-
 impl ObjectOfObjectsInner {
-    #[allow(clippy::new_without_default)]
     pub fn new(required_thing: String, ) -> ObjectOfObjectsInner {
         ObjectOfObjectsInner {
-            required_thing,
+            required_thing: required_thing,
             optional_thing: None,
         }
     }
@@ -867,22 +808,18 @@ impl ObjectOfObjectsInner {
 /// Should be implemented in a serde serializer
 impl std::string::ToString for ObjectOfObjectsInner {
     fn to_string(&self) -> String {
-        let params: Vec<Option<String>> = vec![
+        let mut params: Vec<String> = vec![];
 
-            Some("required_thing".to_string()),
-            Some(self.required_thing.to_string()),
+        params.push("required_thing".to_string());
+        params.push(self.required_thing.to_string());
 
 
-            self.optional_thing.as_ref().map(|optional_thing| {
-                [
-                    "optional_thing".to_string(),
-                    optional_thing.to_string(),
-                ].join(",")
-            }),
+        if let Some(ref optional_thing) = self.optional_thing {
+            params.push("optional_thing".to_string());
+            params.push(optional_thing.to_string());
+        }
 
-        ];
-
-        params.into_iter().flatten().collect::<Vec<_>>().join(",")
+        params.join(",").to_string()
     }
 }
 
@@ -893,18 +830,17 @@ impl std::str::FromStr for ObjectOfObjectsInner {
     type Err = String;
 
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
-        /// An intermediate representation of the struct to use for parsing.
         #[derive(Default)]
-        #[allow(dead_code)]
+        // An intermediate representation of the struct to use for parsing.
         struct IntermediateRep {
             pub required_thing: Vec<String>,
-            pub optional_thing: Vec<i32>,
+            pub optional_thing: Vec<isize>,
         }
 
         let mut intermediate_rep = IntermediateRep::default();
 
         // Parse into intermediate representation
-        let mut string_iter = s.split(',');
+        let mut string_iter = s.split(',').into_iter();
         let mut key_result = string_iter.next();
 
         while key_result.is_some() {
@@ -914,12 +850,9 @@ impl std::str::FromStr for ObjectOfObjectsInner {
             };
 
             if let Some(key) = key_result {
-                #[allow(clippy::match_single_binding)]
                 match key {
-                    #[allow(clippy::redundant_clone)]
-                    "required_thing" => intermediate_rep.required_thing.push(<String as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
-                    #[allow(clippy::redundant_clone)]
-                    "optional_thing" => intermediate_rep.optional_thing.push(<i32 as std::str::FromStr>::from_str(val).map_err(|x| x.to_string())?),
+                    "required_thing" => intermediate_rep.required_thing.push(<String as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
+                    "optional_thing" => intermediate_rep.optional_thing.push(<isize as std::str::FromStr>::from_str(val).map_err(|x| format!("{}", x))?),
                     _ => return std::result::Result::Err("Unexpected key while parsing ObjectOfObjectsInner".to_string())
                 }
             }
@@ -930,7 +863,7 @@ impl std::str::FromStr for ObjectOfObjectsInner {
 
         // Use the intermediate representation to return the struct
         std::result::Result::Ok(ObjectOfObjectsInner {
-            required_thing: intermediate_rep.required_thing.into_iter().next().ok_or_else(|| "required_thing missing in ObjectOfObjectsInner".to_string())?,
+            required_thing: intermediate_rep.required_thing.into_iter().next().ok_or("required_thing missing in ObjectOfObjectsInner".to_string())?,
             optional_thing: intermediate_rep.optional_thing.into_iter().next(),
         })
     }

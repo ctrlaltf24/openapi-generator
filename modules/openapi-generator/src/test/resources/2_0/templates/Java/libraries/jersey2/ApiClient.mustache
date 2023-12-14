@@ -1233,8 +1233,8 @@ public class ApiClient{{#jsr310}} extends JavaTimeFormatter{{/jsr310}} {
     clientConfig = getDefaultClientConfig();
 
     ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-    clientBuilder = clientBuilder.withConfig(clientConfig);
     customizeClientBuilder(clientBuilder);
+    clientBuilder = clientBuilder.withConfig(clientConfig);
     return clientBuilder.build();
   }
 

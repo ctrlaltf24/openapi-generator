@@ -14,13 +14,11 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  Order,
-} from '../models/index';
 import {
+    Order,
     OrderFromJSON,
     OrderToJSON,
-} from '../models/index';
+} from '../models';
 
 export interface DeleteOrderRequest {
     orderId: string;
@@ -103,7 +101,7 @@ export class StoreApi extends runtime.BaseAPI {
     }
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * Find purchase order by ID
      */
     async getOrderByIdRaw(requestParameters: GetOrderByIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Order>> {
@@ -126,7 +124,7 @@ export class StoreApi extends runtime.BaseAPI {
     }
 
     /**
-     * For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions
+     * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
      * Find purchase order by ID
      */
     async getOrderById(orderId: number, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Order> {

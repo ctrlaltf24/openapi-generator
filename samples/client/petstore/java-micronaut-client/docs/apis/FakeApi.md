@@ -48,7 +48,7 @@ Note that the class needs to be annotated with one of Micronaut's [scope annotat
 
 More information can be found inside [Inversion of Control guide section](https://docs.micronaut.io/latest/guide/#ioc).
 
-<a id="createXmlItem"></a>
+<a name="createXmlItem"></a>
 # **createXmlItem**
 ```java
 Mono<Void> FakeApi.createXmlItem(xmlItem)
@@ -72,7 +72,7 @@ this route creates an XmlItem
  - **Content-Type**: `application/xml`, `application/xml; charset=utf-8`, `application/xml; charset=utf-16`, `text/xml`, `text/xml; charset=utf-8`, `text/xml; charset=utf-16`
  - **Accept**: Not defined
 
-<a id="fakeOuterBooleanSerialize"></a>
+<a name="fakeOuterBooleanSerialize"></a>
 # **fakeOuterBooleanSerialize**
 ```java
 Mono<Boolean> FakeApi.fakeOuterBooleanSerialize(_body)
@@ -97,7 +97,7 @@ Test serialization of outer boolean types
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="fakeOuterCompositeSerialize"></a>
+<a name="fakeOuterCompositeSerialize"></a>
 # **fakeOuterCompositeSerialize**
 ```java
 Mono<OuterComposite> FakeApi.fakeOuterCompositeSerialize(_body)
@@ -122,7 +122,7 @@ Test serialization of object with outer number type
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="fakeOuterNumberSerialize"></a>
+<a name="fakeOuterNumberSerialize"></a>
 # **fakeOuterNumberSerialize**
 ```java
 Mono<BigDecimal> FakeApi.fakeOuterNumberSerialize(_body)
@@ -147,7 +147,7 @@ Test serialization of outer number types
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="fakeOuterStringSerialize"></a>
+<a name="fakeOuterStringSerialize"></a>
 # **fakeOuterStringSerialize**
 ```java
 Mono<String> FakeApi.fakeOuterStringSerialize(_body)
@@ -172,7 +172,7 @@ Test serialization of outer string types
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="testBodyWithFileSchema"></a>
+<a name="testBodyWithFileSchema"></a>
 # **testBodyWithFileSchema**
 ```java
 Mono<Void> FakeApi.testBodyWithFileSchema(_body)
@@ -196,7 +196,7 @@ For this test, the body for this request much reference a schema named &#x60;Fil
  - **Content-Type**: `application/json`
  - **Accept**: Not defined
 
-<a id="testBodyWithQueryParams"></a>
+<a name="testBodyWithQueryParams"></a>
 # **testBodyWithQueryParams**
 ```java
 Mono<Void> FakeApi.testBodyWithQueryParams(query_body)
@@ -219,7 +219,7 @@ Mono<Void> FakeApi.testBodyWithQueryParams(query_body)
  - **Content-Type**: `application/json`
  - **Accept**: Not defined
 
-<a id="testClientModel"></a>
+<a name="testClientModel"></a>
 # **testClientModel**
 ```java
 Mono<ModelClient> FakeApi.testClientModel(_body)
@@ -244,7 +244,7 @@ To test \&quot;client\&quot; model
  - **Content-Type**: `application/json`
  - **Accept**: `application/json`
 
-<a id="testEndpointParameters"></a>
+<a name="testEndpointParameters"></a>
 # **testEndpointParameters**
 ```java
 Mono<Void> FakeApi.testEndpointParameters(number_doublepatternWithoutDelimiter_byteintegerint32int64_floatstringbinarydatedateTimepasswordparamCallback)
@@ -282,7 +282,7 @@ Fake endpoint for testing various parameters  假端點  偽のエンドポイ�
  - **Content-Type**: `application/x-www-form-urlencoded`
  - **Accept**: Not defined
 
-<a id="testEnumParameters"></a>
+<a name="testEnumParameters"></a>
 # **testEnumParameters**
 ```java
 Mono<Void> FakeApi.testEnumParameters(enumHeaderStringArrayenumHeaderStringenumQueryStringArrayenumQueryStringenumQueryIntegerenumQueryDoubleenumFormStringArrayenumFormString)
@@ -313,7 +313,7 @@ To test enum parameters
  - **Content-Type**: `application/x-www-form-urlencoded`
  - **Accept**: Not defined
 
-<a id="testGroupParameters"></a>
+<a name="testGroupParameters"></a>
 # **testGroupParameters**
 ```java
 Mono<Void> FakeApi.testGroupParameters(requiredStringGrouprequiredBooleanGrouprequiredInt64GroupstringGroupbooleanGroupint64Group)
@@ -342,7 +342,7 @@ Fake endpoint to test group parameters (optional)
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="testInlineAdditionalProperties"></a>
+<a name="testInlineAdditionalProperties"></a>
 # **testInlineAdditionalProperties**
 ```java
 Mono<Void> FakeApi.testInlineAdditionalProperties(param)
@@ -364,7 +364,7 @@ test inline additionalProperties
  - **Content-Type**: `application/json`
  - **Accept**: Not defined
 
-<a id="testJsonFormData"></a>
+<a name="testJsonFormData"></a>
 # **testJsonFormData**
 ```java
 Mono<Void> FakeApi.testJsonFormData(paramparam2)
@@ -387,7 +387,7 @@ test json serialization of form data
  - **Content-Type**: `application/x-www-form-urlencoded`
  - **Accept**: Not defined
 
-<a id="testQueryParameterCollectionFormat"></a>
+<a name="testQueryParameterCollectionFormat"></a>
 # **testQueryParameterCollectionFormat**
 ```java
 Mono<Void> FakeApi.testQueryParameterCollectionFormat(pipeioutilhttpurlcontext)

@@ -2,21 +2,17 @@
 /* eslint-disable */
 {{>licenseInfo}}
 
-import * as runtime from '../runtime{{importFileExtension}}';
+import * as runtime from '../runtime';
 {{#imports.0}}
-import type {
-  {{#imports}}
-  {{className}},
-  {{/imports}}
-} from '../models/index{{importFileExtension}}';
-{{^withoutRuntimeChecks}}
 import {
     {{#imports}}
+    {{className}},
+    {{^withoutRuntimeChecks}}
     {{className}}FromJSON,
     {{className}}ToJSON,
+    {{/withoutRuntimeChecks}}
     {{/imports}}
-} from '../models/index{{importFileExtension}}';
-{{/withoutRuntimeChecks}}
+} from '../models';
 {{/imports.0}}
 
 {{#operations}}
@@ -65,9 +61,6 @@ export interface {{classname}}Interface {
      {{#summary}}
      * {{&summary}}
      {{/summary}}
-     {{#isDeprecated}}
-     * @deprecated
-     {{/isDeprecated}}
      */
     {{^useSingleRequestParameter}}
     {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}>;
@@ -100,9 +93,6 @@ export class {{classname}} extends runtime.BaseAPI {
      {{#summary}}
      * {{&summary}}
      {{/summary}}
-     {{#isDeprecated}}
-     * @deprecated
-     {{/isDeprecated}}
      */
     async {{nickname}}Raw({{#allParams.0}}requestParameters: {{#prefixParameterInterfaces}}{{classname}}{{/prefixParameterInterfaces}}{{operationIdCamelCase}}Request, {{/allParams.0}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{{{returnType}}}{{^returnType}}void{{/returnType}}>> {
         {{#allParams}}
@@ -129,17 +119,17 @@ export class {{classname}} extends runtime.BaseAPI {
         {{/isArray}}
         {{^isArray}}
         if (requestParameters.{{paramName}} !== undefined) {
-            {{#isDateTimeType}}
+            {{#isDateTime}}
             queryParameters['{{baseName}}'] = (requestParameters.{{paramName}} as any).toISOString();
-            {{/isDateTimeType}}
-            {{^isDateTimeType}}
-            {{#isDateType}}
-            queryParameters['{{baseName}}'] = (requestParameters.{{paramName}} as any).toISOString().substring(0,10);
-            {{/isDateType}}
-            {{^isDateType}}
+            {{/isDateTime}}
+            {{^isDateTime}}
+            {{#isDate}}
+            queryParameters['{{baseName}}'] = (requestParameters.{{paramName}} as any).toISOString().substr(0,10);
+            {{/isDate}}
+            {{^isDate}}
             queryParameters['{{baseName}}'] = requestParameters.{{paramName}};
-            {{/isDateType}}
-            {{/isDateTimeType}}
+            {{/isDate}}
+            {{/isDateTime}}
         }
 
         {{/isArray}}
@@ -312,11 +302,7 @@ export class {{classname}} extends runtime.BaseAPI {
         return new runtime.JSONApiResponse<any>(response);
         {{/isArray}}
         {{#returnSimpleType}}
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<{{returnType}}>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+        return new runtime.TextApiResponse(response) as any;
         {{/returnSimpleType}}
         {{/returnTypeIsPrimitive}}
         {{^returnTypeIsPrimitive}}
@@ -346,9 +332,6 @@ export class {{classname}} extends runtime.BaseAPI {
      {{#summary}}
      * {{&summary}}
      {{/summary}}
-     {{#isDeprecated}}
-     * @deprecated
-     {{/isDeprecated}}
      */
     {{^useSingleRequestParameter}}
     async {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{dataType}}}{{#isNullable}} | null{{/isNullable}}{{/isEnum}}, {{/allParams}}initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{{{returnType}}}{{^returnType}}void{{/returnType}}> {

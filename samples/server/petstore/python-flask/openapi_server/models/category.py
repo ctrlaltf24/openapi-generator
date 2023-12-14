@@ -1,8 +1,11 @@
+# coding: utf-8
+
+from __future__ import absolute_import
 from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from openapi_server.models.base_model import Model
+from openapi_server.models.base_model_ import Model
 from openapi_server import util
 
 
@@ -45,7 +48,7 @@ class Category(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def id(self) -> int:
+    def id(self):
         """Gets the id of this Category.
 
 
@@ -55,7 +58,7 @@ class Category(Model):
         return self._id
 
     @id.setter
-    def id(self, id: int):
+    def id(self, id):
         """Sets the id of this Category.
 
 
@@ -66,7 +69,7 @@ class Category(Model):
         self._id = id
 
     @property
-    def name(self) -> str:
+    def name(self):
         """Gets the name of this Category.
 
 
@@ -76,7 +79,7 @@ class Category(Model):
         return self._name
 
     @name.setter
-    def name(self, name: str):
+    def name(self, name):
         """Sets the name of this Category.
 
 

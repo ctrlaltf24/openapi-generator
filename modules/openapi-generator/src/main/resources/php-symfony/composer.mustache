@@ -1,10 +1,5 @@
 {
-    {{#composerPackageName}}
-    "name": "{{{.}}}",
-    {{/composerPackageName}}
-    {{^composerPackageName}}
     "name": "{{gitUserId}}/{{gitRepoId}}",
-    {{/composerPackageName}}
     {{#artifactVersion}}
     "version": "{{.}}",
     {{/artifactVersion}}
@@ -15,12 +10,12 @@
         "sdk",
         "api"
     ],
-    "homepage": "{{{artifactUrl}}}",
-    "license": "{{{licenseName}}}",
+    "homepage": "https://github.com/openapitools/openapi-generator",
+    "license": "unlicense",
     "authors": [
         {
-            "name": "{{{developerOrganization}}}",
-            "homepage": "{{{developerOrganizationUrl}}}"
+            "name": "openapi-generator contributors",
+            "homepage": "https://github.com/openapitools/openapi-generator"
         }
     ],
     "require": {
@@ -41,7 +36,7 @@
     },
     "autoload": {
         "psr-4": {
-            "{{escapedInvokerPackage}}\\" : "{{relativeSrcBasePath}}"
+            "{{escapedInvokerPackage}}\\" : "{{srcBasePath}}/"
         }
     }
 }

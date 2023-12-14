@@ -44,15 +44,13 @@ import java.io.Writer;
 public class IndentedLambda implements Mustache.Lambda {
     private final int prefixSpaceCount;
     private final String prefix;
-    private final int spaceCode;
-    private final boolean indentFirstLine;
-    private final boolean skipEmptyLines;
+    private int spaceCode;
 
     /**
      * Constructs a new instance of {@link IndentedLambda}, with an indent count of 4 spaces
      */
     public IndentedLambda() {
-        this(4, " ", null, false, false);
+        this(4, " ", null);
     }
 
     /**
@@ -60,10 +58,9 @@ public class IndentedLambda implements Mustache.Lambda {
      *
      * @param prefixSpaceCount   The number of indented characters to apply as a prefix to a fragment.
      * @param indentionCharacter String representation of the character used in the indent (e.g. " ", "\t", ".").
-     * @param indentFirstLine    Whether to indent the first line or not. Usually this is handled by the template already.
      */
-    public IndentedLambda(int prefixSpaceCount, String indentionCharacter, boolean indentFirstLine, boolean skipEmptyLines) {
-        this(prefixSpaceCount, Character.codePointAt(indentionCharacter, 0), null, indentFirstLine, skipEmptyLines);
+    public IndentedLambda(int prefixSpaceCount, String indentionCharacter) {
+        this(prefixSpaceCount, Character.codePointAt(indentionCharacter, 0), null);
     }
 
     /**
@@ -72,10 +69,19 @@ public class IndentedLambda implements Mustache.Lambda {
      * @param prefixSpaceCount   The number of indented characters to apply as a prefix to a fragment.
      * @param indentionCharacter String representation of the character used in the indent (e.g. " ", "\t", ".").
      * @param prefix             An optional prefix to prepend before the line (useful for multi-line comments).
-     * @param indentFirstLine    Whether to indent the first line or not. Usually this is handled by the template already.
      */
-    public IndentedLambda(int prefixSpaceCount, String indentionCharacter, String prefix, boolean indentFirstLine, boolean skipEmptyLines) {
-        this(prefixSpaceCount, Character.codePointAt(indentionCharacter, 0), prefix, indentFirstLine, skipEmptyLines);
+    public IndentedLambda(int prefixSpaceCount, String indentionCharacter, String prefix) {
+        this(prefixSpaceCount, Character.codePointAt(indentionCharacter, 0), prefix);
+    }
+
+    /**
+     * Constructs a new instance of {@link IndentedLambda}
+     *
+     * @param prefixSpaceCount The number of indented characters to apply as a prefix to a fragment.
+     * @param indentionCodePoint Code point of the single character used for indentation.
+     */
+    private IndentedLambda(int prefixSpaceCount, int indentionCodePoint) {
+        this(prefixSpaceCount, indentionCodePoint, null);
     }
 
     /**
@@ -84,9 +90,8 @@ public class IndentedLambda implements Mustache.Lambda {
      * @param prefixSpaceCount The number of indented characters to apply as a prefix to a fragment.
      * @param indentionCodePoint Code point of the single character used for indentation.
      * @param prefix             An optional prefix to prepend before the line (useful for multi-line comments).
-     * @param indentFirstLine    Whether to indent the first line or not. Usually this is handled by the template already.
      */
-    private IndentedLambda(int prefixSpaceCount, int indentionCodePoint, String prefix, boolean indentFirstLine, boolean skipEmptyLines) {
+    private IndentedLambda(int prefixSpaceCount, int indentionCodePoint, String prefix) {
         if (prefixSpaceCount <= 0) {
             throw new IllegalArgumentException("prefixSpaceCount must be greater than 0");
         }
@@ -98,8 +103,6 @@ public class IndentedLambda implements Mustache.Lambda {
         this.prefixSpaceCount = prefixSpaceCount;
         this.spaceCode = indentionCodePoint;
         this.prefix = prefix;
-        this.indentFirstLine = indentFirstLine;
-        this.skipEmptyLines = skipEmptyLines;
     }
 
     @Override
@@ -111,24 +114,21 @@ public class IndentedLambda implements Mustache.Lambda {
 
         String prefixedIndention = StringUtils.repeat(new String(Character.toChars(spaceCode)), prefixSpaceCount);
         StringBuilder sb = new StringBuilder();
-        // use \n instead of System.lineSeparator (e.g. \r\n in Windows) as templates use \n
-        String[] lines = text.split("\n", -1);
+        String[] lines = text.split(System.lineSeparator());
         for (int i = 0; i < lines.length; i++) {
             String line = lines[i];
             // Mustache will apply correct indentation to the first line of a template (to match declaration location).
             // So, we want to skip the first line.
-            if (this.indentFirstLine || i > 0) {
-                if (!this.skipEmptyLines || line.trim().length() > 0) {
-                    sb.append(prefixedIndention);
-                }
+            if (i > 0) {
+                sb.append(prefixedIndention);
                 if (prefix != null) sb.append(prefix);
             }
 
             sb.append(line);
 
-            // We've split on \n. We don't want to add an additional trailing line.
+            // We've split on the system's line separator. We don't want to add an additional trailing line.
             if (i < lines.length - 1) {
-                sb.append("\n");
+                sb.append(System.lineSeparator());
             }
         }
         writer.write(sb.toString());

@@ -26,20 +26,11 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Foo extends Entity implements FooRefOrValue {
 
+  @JsonProperty("fooPropA")
   private String fooPropA;
 
+  @JsonProperty("fooPropB")
   private String fooPropB;
-
-  public Foo() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Foo(String atType) {
-    super(atType);
-  }
 
   public Foo fooPropA(String fooPropA) {
     this.fooPropA = fooPropA;
@@ -51,8 +42,7 @@ public class Foo extends Entity implements FooRefOrValue {
    * @return fooPropA
   */
   
-  @Schema(name = "fooPropA", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("fooPropA")
+  @Schema(name = "fooPropA", required = false)
   public String getFooPropA() {
     return fooPropA;
   }
@@ -71,8 +61,7 @@ public class Foo extends Entity implements FooRefOrValue {
    * @return fooPropB
   */
   
-  @Schema(name = "fooPropB", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-  @JsonProperty("fooPropB")
+  @Schema(name = "fooPropB", required = false)
   public String getFooPropB() {
     return fooPropB;
   }
@@ -81,31 +70,31 @@ public class Foo extends Entity implements FooRefOrValue {
     this.fooPropB = fooPropB;
   }
 
-
   public Foo href(String href) {
-    super.href(href);
+    super.setHref(href);
     return this;
   }
 
   public Foo id(String id) {
-    super.id(id);
+    super.setId(id);
     return this;
   }
 
   public Foo atSchemaLocation(String atSchemaLocation) {
-    super.atSchemaLocation(atSchemaLocation);
+    super.setAtSchemaLocation(atSchemaLocation);
     return this;
   }
 
   public Foo atBaseType(String atBaseType) {
-    super.atBaseType(atBaseType);
+    super.setAtBaseType(atBaseType);
     return this;
   }
 
   public Foo atType(String atType) {
-    super.atType(atType);
+    super.setAtType(atType);
     return this;
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

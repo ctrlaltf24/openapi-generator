@@ -39,15 +39,11 @@ export class PetService {
     public configuration = new Configuration();
     public encoder: HttpParameterCodec;
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string|string[], @Optional() configuration: Configuration) {
+    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
         if (configuration) {
             this.configuration = configuration;
         }
         if (typeof this.configuration.basePath !== 'string') {
-            if (Array.isArray(basePath) && basePath.length > 0) {
-                basePath = basePath[0];
-            }
-
             if (typeof basePath !== 'string') {
                 basePath = this.basePath;
             }
@@ -70,7 +66,6 @@ export class PetService {
         return false;
     }
 
-    // @ts-ignore
     private addToHttpParams(httpParams: HttpParams, value: any, key?: string): HttpParams {
         if (typeof value === "object" && value instanceof Date === false) {
             httpParams = this.addToHttpParamsRecursive(httpParams, value);
@@ -90,7 +85,7 @@ export class PetService {
                 (value as any[]).forEach( elem => httpParams = this.addToHttpParamsRecursive(httpParams, elem, key));
             } else if (value instanceof Date) {
                 if (key != null) {
-                    httpParams = httpParams.append(key, (value as Date).toISOString().substring(0, 10));
+                    httpParams = httpParams.append(key, (value as Date).toISOString().substr(0, 10));
                 } else {
                    throw Error("key may not be null if value is Date");
                 }
@@ -170,11 +165,10 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet`;
-        return this.httpClient.request<Pet>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.post<Pet>(`${this.configuration.basePath}/pet`,
+            pet,
             {
                 context: localVarHttpContext,
-                body: pet,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -240,8 +234,7 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet/${this.configuration.encodeParam({name: "petId", value: petId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<any>('delete', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.delete<any>(`${this.configuration.basePath}/pet/${encodeURIComponent(String(petId))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -271,7 +264,7 @@ export class PetService {
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (status) {
             localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-                [...status].join(COLLECTION_FORMATS['csv']), 'status');
+                status.join(COLLECTION_FORMATS['csv']), 'status');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -313,8 +306,7 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet/findByStatus`;
-        return this.httpClient.request<Array<Pet>>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.get<Array<Pet>>(`${this.configuration.basePath}/pet/findByStatus`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -346,7 +338,7 @@ export class PetService {
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (tags) {
             localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
-                [...tags].join(COLLECTION_FORMATS['csv']), 'tags');
+                tags.join(COLLECTION_FORMATS['csv']), 'tags');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -388,8 +380,7 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet/findByTags`;
-        return this.httpClient.request<Array<Pet>>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.get<Array<Pet>>(`${this.configuration.basePath}/pet/findByTags`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -456,8 +447,7 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet/${this.configuration.encodeParam({name: "petId", value: petId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<Pet>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.get<Pet>(`${this.configuration.basePath}/pet/${encodeURIComponent(String(petId))}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -533,11 +523,10 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet`;
-        return this.httpClient.request<Pet>('put', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.put<Pet>(`${this.configuration.basePath}/pet`,
+            pet,
             {
                 context: localVarHttpContext,
-                body: pet,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -623,11 +612,10 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet/${this.configuration.encodeParam({name: "petId", value: petId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.post<any>(`${this.configuration.basePath}/pet/${encodeURIComponent(String(petId))}`,
+            localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
             {
                 context: localVarHttpContext,
-                body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -717,11 +705,10 @@ export class PetService {
             }
         }
 
-        let localVarPath = `/pet/${this.configuration.encodeParam({name: "petId", value: petId, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}/uploadImage`;
-        return this.httpClient.request<ApiResponse>('post', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.post<ApiResponse>(`${this.configuration.basePath}/pet/${encodeURIComponent(String(petId))}/uploadImage`,
+            localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
             {
                 context: localVarHttpContext,
-                body: localVarConvertFormParamsToString ? localVarFormParams.toString() : localVarFormParams,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

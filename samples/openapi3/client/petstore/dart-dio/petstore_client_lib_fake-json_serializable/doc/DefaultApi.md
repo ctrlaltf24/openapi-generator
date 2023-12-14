@@ -26,7 +26,7 @@ final api = Openapi().getDefaultApi();
 try {
     final response = api.fooGet();
     print(response);
-} catch on DioException (e) {
+} catch on DioError (e) {
     print('Exception when calling DefaultApi->fooGet: $e\n');
 }
 ```

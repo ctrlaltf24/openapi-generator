@@ -1,4 +1,4 @@
-# PSPetstore.PSPetstore\Api.PSPetApi
+# PSPetstore.PSPetstore/Api.PSPetApi
 
 All URIs are relative to *http://petstore.swagger.io:80/v2*
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**Invoke-PSUploadFileWithRequiredFile**](PSPetApi.md#Invoke-PSUploadFileWithRequiredFile) | **POST** /fake/{petId}/uploadImageWithRequiredFile | uploads an image (required)
 
 
-<a id="Add-PSPet"></a>
+<a name="Add-PSPet"></a>
 # **Add-PSPet**
 > void Add-PSPet<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Pet] <PSCustomObject><br>
@@ -28,9 +28,9 @@ Add a new pet to the store
 ```powershell
 # general setting of the PowerShell module, e.g. base URL, authentication, etc
 $Configuration = Get-Configuration
-# Configure OAuth2 access token for authorization: petstore_auth
-$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
-
+# Configure HTTP basic authorization: http_signature_test
+$Configuration.Username = "YOUR_USERNAME"
+$Configuration.Password = "YOUR_PASSWORD"
 # Configure HttpSignature for authorization :http_signature_test
 $httpSigningParams = @{
     KeyId = "xxxxxx1776876789ac747/xxxxxxx564612d31a62c01/xxxxxxxa1d7564612d31a66ee8"
@@ -39,6 +39,9 @@ $httpSigningParams = @{
     HashAlgorithm = "sha256"
 }
 Set-ConfigurationHttpSigning $httpSigningParams
+
+# Configure OAuth2 access token for authorization: petstore_auth
+$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
 
 $Category = Initialize-Category -Id 0 -Name "MyName"
 $Tag = Initialize-Tag -Id 0 -Name "MyName"
@@ -65,7 +68,7 @@ void (empty response body)
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth), [http_signature_test](../README.md#http_signature_test)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -74,7 +77,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="remove-pet"></a>
+<a name="remove-pet"></a>
 # **Remove-Pet**
 > void Remove-Pet<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-PetId] <Int64><br>
@@ -125,7 +128,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Find-PSPetsByStatus"></a>
+<a name="Find-PSPetsByStatus"></a>
 # **Find-PSPetsByStatus**
 > Pet[] Find-PSPetsByStatus<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Status] <String[]><br>
@@ -138,9 +141,9 @@ Multiple status values can be provided with comma separated strings
 ```powershell
 # general setting of the PowerShell module, e.g. base URL, authentication, etc
 $Configuration = Get-Configuration
-# Configure OAuth2 access token for authorization: petstore_auth
-$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
-
+# Configure HTTP basic authorization: http_signature_test
+$Configuration.Username = "YOUR_USERNAME"
+$Configuration.Password = "YOUR_PASSWORD"
 # Configure HttpSignature for authorization :http_signature_test
 $httpSigningParams = @{
     KeyId = "xxxxxx1776876789ac747/xxxxxxx564612d31a62c01/xxxxxxxa1d7564612d31a66ee8"
@@ -149,6 +152,9 @@ $httpSigningParams = @{
     HashAlgorithm = "sha256"
 }
 Set-ConfigurationHttpSigning $httpSigningParams
+
+# Configure OAuth2 access token for authorization: petstore_auth
+$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
 
 $Status = "available" # String[] | Status values that need to be considered for filter
 
@@ -173,7 +179,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth), [http_signature_test](../README.md#http_signature_test)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -182,7 +188,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Find-PSPetsByTags"></a>
+<a name="Find-PSPetsByTags"></a>
 # **Find-PSPetsByTags**
 > Pet[] Find-PSPetsByTags<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Tags] <String[]><br>
@@ -195,9 +201,9 @@ Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
 ```powershell
 # general setting of the PowerShell module, e.g. base URL, authentication, etc
 $Configuration = Get-Configuration
-# Configure OAuth2 access token for authorization: petstore_auth
-$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
-
+# Configure HTTP basic authorization: http_signature_test
+$Configuration.Username = "YOUR_USERNAME"
+$Configuration.Password = "YOUR_PASSWORD"
 # Configure HttpSignature for authorization :http_signature_test
 $httpSigningParams = @{
     KeyId = "xxxxxx1776876789ac747/xxxxxxx564612d31a62c01/xxxxxxxa1d7564612d31a66ee8"
@@ -206,6 +212,9 @@ $httpSigningParams = @{
     HashAlgorithm = "sha256"
 }
 Set-ConfigurationHttpSigning $httpSigningParams
+
+# Configure OAuth2 access token for authorization: petstore_auth
+$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
 
 $Tags = "MyTags" # String[] | Tags to filter by
 
@@ -230,7 +239,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth), [http_signature_test](../README.md#http_signature_test)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -239,7 +248,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Get-PSPetById"></a>
+<a name="Get-PSPetById"></a>
 # **Get-PSPetById**
 > Pet Get-PSPetById<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-PetId] <Int64><br>
@@ -253,9 +262,9 @@ Returns a single pet
 # general setting of the PowerShell module, e.g. base URL, authentication, etc
 $Configuration = Get-Configuration
 # Configure API key authorization: api_key
-$Configuration.ApiKey.api_key_name = "YOUR_API_KEY"
+$Configuration.ApiKey.api_key = "YOUR_API_KEY"
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-#$Configuration.ApiKeyPrefix.api_key_name = "Bearer"
+#$Configuration.ApiKeyPrefix.api_key = "Bearer"
 
 $PetId = 789 # Int64 | ID of pet to return
 
@@ -289,7 +298,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Update-PSPet"></a>
+<a name="Update-PSPet"></a>
 # **Update-PSPet**
 > void Update-PSPet<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-Pet] <PSCustomObject><br>
@@ -302,9 +311,9 @@ Update an existing pet
 ```powershell
 # general setting of the PowerShell module, e.g. base URL, authentication, etc
 $Configuration = Get-Configuration
-# Configure OAuth2 access token for authorization: petstore_auth
-$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
-
+# Configure HTTP basic authorization: http_signature_test
+$Configuration.Username = "YOUR_USERNAME"
+$Configuration.Password = "YOUR_PASSWORD"
 # Configure HttpSignature for authorization :http_signature_test
 $httpSigningParams = @{
     KeyId = "xxxxxx1776876789ac747/xxxxxxx564612d31a62c01/xxxxxxxa1d7564612d31a66ee8"
@@ -313,6 +322,9 @@ $httpSigningParams = @{
     HashAlgorithm = "sha256"
 }
 Set-ConfigurationHttpSigning $httpSigningParams
+
+# Configure OAuth2 access token for authorization: petstore_auth
+$Configuration.AccessToken = "YOUR_ACCESS_TOKEN"
 
 $Category = Initialize-Category -Id 0 -Name "MyName"
 $Tag = Initialize-Tag -Id 0 -Name "MyName"
@@ -339,7 +351,7 @@ void (empty response body)
 
 ### Authorization
 
-[petstore_auth](../README.md#petstore_auth), [http_signature_test](../README.md#http_signature_test)
+[http_signature_test](../README.md#http_signature_test), [petstore_auth](../README.md#petstore_auth)
 
 ### HTTP request headers
 
@@ -348,7 +360,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Update-PSPetWithForm"></a>
+<a name="Update-PSPetWithForm"></a>
 # **Update-PSPetWithForm**
 > void Update-PSPetWithForm<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-PetId] <Int64><br>
@@ -402,7 +414,7 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Invoke-PSUploadFile"></a>
+<a name="Invoke-PSUploadFile"></a>
 # **Invoke-PSUploadFile**
 > ApiResponse Invoke-PSUploadFile<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-PetId] <Int64><br>
@@ -456,7 +468,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a id="Invoke-PSUploadFileWithRequiredFile"></a>
+<a name="Invoke-PSUploadFileWithRequiredFile"></a>
 # **Invoke-PSUploadFileWithRequiredFile**
 > ApiResponse Invoke-PSUploadFileWithRequiredFile<br>
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[-PetId] <Int64><br>

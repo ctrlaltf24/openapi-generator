@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/order.dart';
 
 class StoreApi {
@@ -32,7 +31,7 @@ class StoreApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future]
-  /// Throws [DioException] if API call or serialization fails
+  /// Throws [DioError] if API call or serialization fails
   Future<Response<void>> deleteOrder({ 
     required String orderId,
     CancelToken? cancelToken,
@@ -42,7 +41,7 @@ class StoreApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/store/order/{order_id}'.replaceAll('{' r'order_id' '}', encodeQueryParameter(_serializers, orderId, const FullType(String)).toString());
+    final _path = r'/store/order/{order_id}'.replaceAll('{' r'order_id' '}', orderId.toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -78,7 +77,7 @@ class StoreApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltMap<String, int>] as data
-  /// Throws [DioException] if API call or serialization fails
+  /// Throws [DioError] if API call or serialization fails
   Future<Response<BuiltMap<String, int>>> getInventory({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -115,23 +114,22 @@ class StoreApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltMap<String, int>? _responseData;
+    BuiltMap<String, int> _responseData;
 
     try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltMap, [FullType(String), FullType(int)]),
+      const _responseType = FullType(BuiltMap, [FullType(String), FullType(int)]);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
       ) as BuiltMap<String, int>;
 
     } catch (error, stackTrace) {
-      throw DioException(
+      throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     return Response<BuiltMap<String, int>>(
@@ -147,7 +145,7 @@ class StoreApi {
   }
 
   /// Find purchase order by ID
-  /// For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions
+  /// For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions
   ///
   /// Parameters:
   /// * [orderId] - ID of pet that needs to be fetched
@@ -159,7 +157,7 @@ class StoreApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [Order] as data
-  /// Throws [DioException] if API call or serialization fails
+  /// Throws [DioError] if API call or serialization fails
   Future<Response<Order>> getOrderById({ 
     required int orderId,
     CancelToken? cancelToken,
@@ -169,7 +167,7 @@ class StoreApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/store/order/{order_id}'.replaceAll('{' r'order_id' '}', encodeQueryParameter(_serializers, orderId, const FullType(int)).toString());
+    final _path = r'/store/order/{order_id}'.replaceAll('{' r'order_id' '}', orderId.toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -190,23 +188,22 @@ class StoreApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Order? _responseData;
+    Order _responseData;
 
     try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(Order),
+      const _responseType = FullType(Order);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
       ) as Order;
 
     } catch (error, stackTrace) {
-      throw DioException(
+      throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     return Response<Order>(
@@ -234,7 +231,7 @@ class StoreApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [Order] as data
-  /// Throws [DioException] if API call or serialization fails
+  /// Throws [DioError] if API call or serialization fails
   Future<Response<Order>> placeOrder({ 
     required Order order,
     CancelToken? cancelToken,
@@ -265,15 +262,14 @@ class StoreApi {
       _bodyData = _serializers.serialize(order, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioException(
+      throw DioError(
          requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     final _response = await _dio.request<Object>(
@@ -285,23 +281,22 @@ class StoreApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Order? _responseData;
+    Order _responseData;
 
     try {
-      final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(Order),
+      const _responseType = FullType(Order);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
       ) as Order;
 
     } catch (error, stackTrace) {
-      throw DioException(
+      throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioExceptionType.unknown,
+        type: DioErrorType.other,
         error: error,
-        stackTrace: stackTrace,
-      );
+      )..stackTrace = stackTrace;
     }
 
     return Response<Order>(

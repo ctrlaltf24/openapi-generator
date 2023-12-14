@@ -47,10 +47,10 @@ class ObjectWithDeprecatedFields {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ObjectWithDeprecatedFields &&
-    other.uuid == uuid &&
-    other.id == id &&
-    other.deprecatedRef == deprecatedRef &&
-    _deepEquality.equals(other.bars, bars);
+     other.uuid == uuid &&
+     other.id == id &&
+     other.deprecatedRef == deprecatedRef &&
+     other.bars == bars;
 
   @override
   int get hashCode =>
@@ -64,24 +64,18 @@ class ObjectWithDeprecatedFields {
   String toString() => 'ObjectWithDeprecatedFields[uuid=$uuid, id=$id, deprecatedRef=$deprecatedRef, bars=$bars]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.uuid != null) {
-      json[r'uuid'] = this.uuid;
-    } else {
-      json[r'uuid'] = null;
+    final _json = <String, dynamic>{};
+    if (uuid != null) {
+      _json[r'uuid'] = uuid;
     }
-    if (this.id != null) {
-      json[r'id'] = this.id;
-    } else {
-      json[r'id'] = null;
+    if (id != null) {
+      _json[r'id'] = id;
     }
-    if (this.deprecatedRef != null) {
-      json[r'deprecatedRef'] = this.deprecatedRef;
-    } else {
-      json[r'deprecatedRef'] = null;
+    if (deprecatedRef != null) {
+      _json[r'deprecatedRef'] = deprecatedRef;
     }
-      json[r'bars'] = this.bars;
-    return json;
+      _json[r'bars'] = bars;
+    return _json;
   }
 
   /// Returns a new [ObjectWithDeprecatedFields] instance and imports its values from
@@ -104,17 +98,19 @@ class ObjectWithDeprecatedFields {
 
       return ObjectWithDeprecatedFields(
         uuid: mapValueOfType<String>(json, r'uuid'),
-        id: num.parse('${json[r'id']}'),
+        id: json[r'id'] == null
+            ? null
+            : num.parse(json[r'id'].toString()),
         deprecatedRef: DeprecatedObject.fromJson(json[r'deprecatedRef']),
-        bars: json[r'bars'] is Iterable
-            ? (json[r'bars'] as Iterable).cast<String>().toList(growable: false)
+        bars: json[r'bars'] is List
+            ? (json[r'bars'] as List).cast<String>()
             : const [],
       );
     }
     return null;
   }
 
-  static List<ObjectWithDeprecatedFields> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<ObjectWithDeprecatedFields>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <ObjectWithDeprecatedFields>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -145,10 +141,12 @@ class ObjectWithDeprecatedFields {
   static Map<String, List<ObjectWithDeprecatedFields>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<ObjectWithDeprecatedFields>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = ObjectWithDeprecatedFields.listFromJson(entry.value, growable: growable,);
+        final value = ObjectWithDeprecatedFields.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

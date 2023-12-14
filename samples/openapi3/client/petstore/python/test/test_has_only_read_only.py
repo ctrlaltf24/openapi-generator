@@ -10,14 +10,12 @@
 """
 
 
-from __future__ import absolute_import
-
+import sys
 import unittest
-import datetime
 
 import petstore_api
-from petstore_api.models.has_only_read_only import HasOnlyReadOnly  # noqa: E501
-from petstore_api.rest import ApiException
+from petstore_api.model.has_only_read_only import HasOnlyReadOnly
+
 
 class TestHasOnlyReadOnly(unittest.TestCase):
     """HasOnlyReadOnly unit test stubs"""
@@ -28,25 +26,12 @@ class TestHasOnlyReadOnly(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def make_instance(self, include_optional):
-        """Test HasOnlyReadOnly
-            include_option is a boolean, when False only required
-            params are included, when True both required and
-            optional params are included """
-        # model = petstore_api.models.has_only_read_only.HasOnlyReadOnly()  # noqa: E501
-        if include_optional :
-            return HasOnlyReadOnly(
-                bar = '', 
-                foo = ''
-            )
-        else :
-            return HasOnlyReadOnly(
-        )
-
     def testHasOnlyReadOnly(self):
         """Test HasOnlyReadOnly"""
-        inst_req_only = self.make_instance(include_optional=False)
-        inst_req_and_optional = self.make_instance(include_optional=True)
+        # FIXME: construct object with mandatory attributes with example values
+        # model = HasOnlyReadOnly()  # noqa: E501
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()

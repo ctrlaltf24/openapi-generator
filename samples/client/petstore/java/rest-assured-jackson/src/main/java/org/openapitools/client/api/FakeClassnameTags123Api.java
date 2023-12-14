@@ -26,9 +26,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.http.Method;
 import io.restassured.response.Response;
-
-import javax.validation.constraints.*;
-import javax.validation.Valid;
+import io.swagger.annotations.*;
 
 import java.lang.reflect.Type;
 import java.util.function.Consumer;
@@ -36,6 +34,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import static io.restassured.http.Method.*;
 
+@Api(value = "FakeClassnameTags123")
 public class FakeClassnameTags123Api {
 
     private Supplier<RequestSpecBuilder> reqSpecSupplier;
@@ -63,6 +62,12 @@ public class FakeClassnameTags123Api {
         );
     }
 
+    @ApiOperation(value = "To test class name in snake case",
+            notes = "To test class name in snake case",
+            nickname = "testClassname",
+            tags = { "fake_classname_tags 123#$%^" })
+    @ApiResponses(value = { 
+            @ApiResponse(code = 200, message = "successful operation")  })
     public TestClassnameOper testClassname() {
         return new TestClassnameOper(createReqSpec());
     }

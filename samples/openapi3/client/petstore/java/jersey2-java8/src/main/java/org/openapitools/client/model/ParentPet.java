@@ -18,6 +18,7 @@ import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -28,7 +29,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.openapitools.client.model.ChildCat;
 import org.openapitools.client.model.GrandparentAnimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.openapitools.client.JSON;
@@ -66,7 +69,7 @@ public class ParentPet extends GrandparentAnimal {
   @JsonAnySetter
   public ParentPet putAdditionalProperty(String key, Object value) {
     if (this.additionalProperties == null) {
-        this.additionalProperties = new HashMap<>();
+        this.additionalProperties = new HashMap<String, Object>();
     }
     this.additionalProperties.put(key, value);
     return this;
@@ -130,12 +133,12 @@ public class ParentPet extends GrandparentAnimal {
     return o.toString().replace("\n", "\n    ");
   }
 
-  static {
-    // Initialize and register the discriminator mappings.
-    Map<String, Class<?>> mappings = new HashMap<>();
-    mappings.put("ChildCat", ChildCat.class);
-    mappings.put("ParentPet", ParentPet.class);
-    JSON.registerDiscriminator(ParentPet.class, "pet_type", mappings);
-  }
+static {
+  // Initialize and register the discriminator mappings.
+  Map<String, Class<?>> mappings = new HashMap<String, Class<?>>();
+  mappings.put("ChildCat", ChildCat.class);
+  mappings.put("ParentPet", ParentPet.class);
+  JSON.registerDiscriminator(ParentPet.class, "pet_type", mappings);
+}
 }
 

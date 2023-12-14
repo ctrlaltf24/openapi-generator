@@ -33,17 +33,6 @@ export interface Part {
     name: string;
 }
 
-/**
- * Check if a given object implements the Part interface.
- */
-export function instanceOfPart(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "name" in value;
-
-    return isInstance;
-}
-
 export function PartFromJSON(json: any): Part {
     return PartFromJSONTyped(json, false);
 }

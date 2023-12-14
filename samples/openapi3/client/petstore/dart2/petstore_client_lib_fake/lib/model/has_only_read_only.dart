@@ -35,8 +35,8 @@ class HasOnlyReadOnly {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is HasOnlyReadOnly &&
-    other.bar == bar &&
-    other.foo == foo;
+     other.bar == bar &&
+     other.foo == foo;
 
   @override
   int get hashCode =>
@@ -48,18 +48,14 @@ class HasOnlyReadOnly {
   String toString() => 'HasOnlyReadOnly[bar=$bar, foo=$foo]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.bar != null) {
-      json[r'bar'] = this.bar;
-    } else {
-      json[r'bar'] = null;
+    final _json = <String, dynamic>{};
+    if (bar != null) {
+      _json[r'bar'] = bar;
     }
-    if (this.foo != null) {
-      json[r'foo'] = this.foo;
-    } else {
-      json[r'foo'] = null;
+    if (foo != null) {
+      _json[r'foo'] = foo;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [HasOnlyReadOnly] instance and imports its values from
@@ -88,7 +84,7 @@ class HasOnlyReadOnly {
     return null;
   }
 
-  static List<HasOnlyReadOnly> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<HasOnlyReadOnly>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <HasOnlyReadOnly>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -119,10 +115,12 @@ class HasOnlyReadOnly {
   static Map<String, List<HasOnlyReadOnly>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<HasOnlyReadOnly>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = HasOnlyReadOnly.listFromJson(entry.value, growable: growable,);
+        final value = HasOnlyReadOnly.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

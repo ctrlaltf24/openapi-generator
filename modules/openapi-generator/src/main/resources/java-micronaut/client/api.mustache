@@ -17,14 +17,15 @@ import io.micronaut.http.HttpResponse;
 {{#imports}}
 import {{import}};
 {{/imports}}
-import {{javaxPackage}}.annotation.Generated;
+import javax.annotation.Generated;
+{{^fullJavaUtil}}
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-{{#useBeanValidation}}
-import {{javaxPackage}}.validation.Valid;
-import {{javaxPackage}}.validation.constraints.*;
+{{/fullJavaUtil}}{{#useBeanValidation}}
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 {{/useBeanValidation}}
 {{#generateSwagger1Annotations}}
 import io.swagger.annotations.*;
@@ -40,13 +41,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 {{/generateSwagger2Annotations}}
 
-{{#additionalClientTypeAnnotations}}
-    {{{.}}}
-{{/additionalClientTypeAnnotations}}
 {{>common/generatedAnnotation}}
-@Client({{#configureClientId}}
-  id = "{{clientId}}",
-  path = {{/configureClientId}}"${{openbrace}}{{{applicationName}}}{{basePathSeparator}}base-path{{closebrace}}")
+@Client("${{openbrace}}{{{applicationName}}}-base-path{{closebrace}}")
 public interface {{classname}} {
 {{#operations}}
     {{#operation}}

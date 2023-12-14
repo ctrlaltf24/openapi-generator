@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface as SymfonyValidator
 
 class SymfonyValidator implements ValidatorInterface
 {
-    protected SymfonyValidatorInterface $validator;
+    protected $validator;
 
     public function __construct(SymfonyValidatorInterface $validator)
     {

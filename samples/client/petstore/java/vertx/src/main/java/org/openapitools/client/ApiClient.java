@@ -85,11 +85,10 @@ public class ApiClient extends JavaTimeFormatter {
 
         // Setup authentications (key: authentication name, value: authentication).
         this.authentications = new HashMap<>();
-        authentications.put("petstore_auth", new OAuth());
         authentications.put("api_key", new ApiKeyAuth("header", "api_key"));
         authentications.put("api_key_query", new ApiKeyAuth("query", "api_key_query"));
         authentications.put("http_basic_test", new HttpBasicAuth());
-        authentications.put("bearer_test", new HttpBearerAuth("bearer"));
+        authentications.put("petstore_auth", new OAuth());
         // Prevent the authentications from being modified.
         this.authentications = Collections.unmodifiableMap(authentications);
 
@@ -671,12 +670,6 @@ public class ApiClient extends JavaTimeFormatter {
 
         private final Map<String, Authentication> authentications = new LinkedHashMap<>();
 
-        public void addPetstore_authAuthentication(String accessToken) {
-           OAuth auth = new OAuth();
-           auth.setAccessToken(accessToken);
-           authentications.put("petstore_auth", auth);
-        }
-
         public void addApi_keyAuthentication(String apikey, String apiKeyPrefix) {
            ApiKeyAuth auth = new ApiKeyAuth("header","api_key");
            auth.setApiKey(apikey);
@@ -698,17 +691,10 @@ public class ApiClient extends JavaTimeFormatter {
             authentications.put("http_basic_test", auth);
         }
 
-        public void addBearer_testAuthentication(String bearerToken) {
-           HttpBearerAuth auth = new
-           HttpBearerAuth("bearer");
-           auth.setBearerToken(bearerToken);
-           authentications.put("bearer_test", auth);
-        }
-
-        public static AuthInfo forPetstore_authAuthentication(String accessToken) {
-            AuthInfo authInfo = new AuthInfo();
-            authInfo.addPetstore_authAuthentication(accessToken);
-            return authInfo;
+        public void addPetstore_authAuthentication(String accessToken) {
+           OAuth auth = new OAuth();
+           auth.setAccessToken(accessToken);
+           authentications.put("petstore_auth", auth);
         }
 
         public static AuthInfo forApi_keyAuthentication(String apikey, String apiKeyPrefix) {
@@ -729,9 +715,9 @@ public class ApiClient extends JavaTimeFormatter {
             return authInfo;
         }
 
-        public static AuthInfo forBearer_testAuthentication(String bearerToken) {
+        public static AuthInfo forPetstore_authAuthentication(String accessToken) {
             AuthInfo authInfo = new AuthInfo();
-            authInfo.addBearer_testAuthentication(bearerToken);
+            authInfo.addPetstore_authAuthentication(accessToken);
             return authInfo;
         }
     }

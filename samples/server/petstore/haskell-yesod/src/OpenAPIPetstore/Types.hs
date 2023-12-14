@@ -8,14 +8,12 @@ module OpenAPIPetstore.Types (
   Category (..),
   Order (..),
   Pet (..),
-  SpecialCharacters (..),
   Tag (..),
   User (..),
   ) where
 
 import ClassyPrelude.Yesod
 import Data.Foldable (foldl)
-import qualified Data.List as List
 import Data.Maybe (fromMaybe)
 import Data.Aeson (Value, FromJSON(..), ToJSON(..), genericToJSON, genericParseJSON)
 import Data.Aeson.Types (Options(..), defaultOptions)
@@ -23,6 +21,7 @@ import qualified Data.Char as Char
 import qualified Data.Text as T
 import qualified Data.Map as Map
 import GHC.Generics (Generic)
+import Data.Function ((&))
 
 
 -- | Describes the result of uploading an image resource
@@ -33,22 +32,9 @@ data ApiResponse = ApiResponse
   } deriving (Show, Eq, Generic)
 
 instance FromJSON ApiResponse where
-  parseJSON = genericParseJSON optionsApiResponse
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "apiResponse")
 instance ToJSON ApiResponse where
-  toJSON = genericToJSON optionsApiResponse
-
-optionsApiResponse :: Options
-optionsApiResponse =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
-    }
-  where
-    table =
-      [ ("apiResponseCode", "code")
-      , ("apiResponseType", "type")
-      , ("apiResponseMessage", "message")
-      ]
+  toJSON = genericToJSON (removeFieldLabelPrefix False "apiResponse")
 
 
 -- | A category for a pet
@@ -58,21 +44,9 @@ data Category = Category
   } deriving (Show, Eq, Generic)
 
 instance FromJSON Category where
-  parseJSON = genericParseJSON optionsCategory
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "category")
 instance ToJSON Category where
-  toJSON = genericToJSON optionsCategory
-
-optionsCategory :: Options
-optionsCategory =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
-    }
-  where
-    table =
-      [ ("categoryId", "id")
-      , ("categoryName", "name")
-      ]
+  toJSON = genericToJSON (removeFieldLabelPrefix False "category")
 
 
 -- | An order for a pets from the pet store
@@ -86,25 +60,9 @@ data Order = Order
   } deriving (Show, Eq, Generic)
 
 instance FromJSON Order where
-  parseJSON = genericParseJSON optionsOrder
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "order")
 instance ToJSON Order where
-  toJSON = genericToJSON optionsOrder
-
-optionsOrder :: Options
-optionsOrder =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
-    }
-  where
-    table =
-      [ ("orderId", "id")
-      , ("orderPetId", "petId")
-      , ("orderQuantity", "quantity")
-      , ("orderShipDate", "shipDate")
-      , ("orderStatus", "status")
-      , ("orderComplete", "complete")
-      ]
+  toJSON = genericToJSON (removeFieldLabelPrefix False "order")
 
 
 -- | A pet for sale in the pet store
@@ -118,49 +76,9 @@ data Pet = Pet
   } deriving (Show, Eq, Generic)
 
 instance FromJSON Pet where
-  parseJSON = genericParseJSON optionsPet
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "pet")
 instance ToJSON Pet where
-  toJSON = genericToJSON optionsPet
-
-optionsPet :: Options
-optionsPet =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
-    }
-  where
-    table =
-      [ ("petId", "id")
-      , ("petCategory", "category")
-      , ("petName", "name")
-      , ("petPhotoUrls", "photoUrls")
-      , ("petTags", "tags")
-      , ("petStatus", "status")
-      ]
-
-
--- | description
-data SpecialCharacters = SpecialCharacters
-  { specialCharactersDoubleQuote :: Text -- ^ double quote
-  , specialCharactersBackSlash :: Text -- ^ backslash
-  } deriving (Show, Eq, Generic)
-
-instance FromJSON SpecialCharacters where
-  parseJSON = genericParseJSON optionsSpecialCharacters
-instance ToJSON SpecialCharacters where
-  toJSON = genericToJSON optionsSpecialCharacters
-
-optionsSpecialCharacters :: Options
-optionsSpecialCharacters =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
-    }
-  where
-    table =
-      [ ("specialCharactersDoubleQuote", "\"")
-      , ("specialCharactersBackSlash", "\\")
-      ]
+  toJSON = genericToJSON (removeFieldLabelPrefix False "pet")
 
 
 -- | A tag for a pet
@@ -170,21 +88,9 @@ data Tag = Tag
   } deriving (Show, Eq, Generic)
 
 instance FromJSON Tag where
-  parseJSON = genericParseJSON optionsTag
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "tag")
 instance ToJSON Tag where
-  toJSON = genericToJSON optionsTag
-
-optionsTag :: Options
-optionsTag =
-  defaultOptions
-    { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
-    }
-  where
-    table =
-      [ ("tagId", "id")
-      , ("tagName", "name")
-      ]
+  toJSON = genericToJSON (removeFieldLabelPrefix False "tag")
 
 
 -- | A User who is purchasing from the pet store
@@ -200,25 +106,69 @@ data User = User
   } deriving (Show, Eq, Generic)
 
 instance FromJSON User where
-  parseJSON = genericParseJSON optionsUser
+  parseJSON = genericParseJSON (removeFieldLabelPrefix True "user")
 instance ToJSON User where
-  toJSON = genericToJSON optionsUser
+  toJSON = genericToJSON (removeFieldLabelPrefix False "user")
 
-optionsUser :: Options
-optionsUser =
+
+uncapitalize :: String -> String
+uncapitalize (c : cs) = Char.toLower c : cs
+uncapitalize [] = []
+
+-- | Remove a field label prefix during JSON parsing.
+--   Also perform any replacements for special characters.
+--   The @forParsing@ parameter is to distinguish between the cases in which we're using this
+--   to power a @FromJSON@ or a @ToJSON@ instance. In the first case we're parsing, and we want
+--   to replace special characters with their quoted equivalents (because we cannot have special
+--   chars in identifier names), while we want to do vice versa when sending data instead.
+removeFieldLabelPrefix :: Bool -> String -> Options
+removeFieldLabelPrefix forParsing prefix =
   defaultOptions
     { omitNothingFields  = True
-    , fieldLabelModifier = \s -> fromMaybe ("did not find JSON field name for " ++ show s) $ List.lookup s table
+    , fieldLabelModifier = uncapitalize . fromMaybe (error ("did not find prefix " ++ prefix)) . stripPrefix prefix . replaceSpecialChars
     }
   where
-    table =
-      [ ("userId", "id")
-      , ("userUsername", "username")
-      , ("userFirstName", "firstName")
-      , ("userLastName", "lastName")
-      , ("userEmail", "email")
-      , ("userPassword", "password")
-      , ("userPhone", "phone")
-      , ("userUserStatus", "userStatus")
+    replaceSpecialChars field = foldl (&) field (map mkCharReplacement specialChars)
+    specialChars =
+      [ ("$", "'Dollar")
+      , ("^", "'Caret")
+      , ("|", "'Pipe")
+      , ("=", "'Equal")
+      , ("*", "'Star")
+      , ("-", "'Dash")
+      , ("&", "'Ampersand")
+      , ("%", "'Percent")
+      , ("#", "'Hash")
+      , ("@", "'At")
+      , ("!", "'Exclamation")
+      , ("+", "'Plus")
+      , (":", "'Colon")
+      , (";", "'Semicolon")
+      , (">", "'GreaterThan")
+      , ("<", "'LessThan")
+      , (".", "'Period")
+      , ("_", "'Underscore")
+      , ("?", "'Question_Mark")
+      , (",", "'Comma")
+      , ("'", "'Quote")
+      , ("/", "'Slash")
+      , ("(", "'Left_Parenthesis")
+      , (")", "'Right_Parenthesis")
+      , ("{", "'Left_Curly_Bracket")
+      , ("}", "'Right_Curly_Bracket")
+      , ("[", "'Left_Square_Bracket")
+      , ("]", "'Right_Square_Bracket")
+      , ("~", "'Tilde")
+      , ("`", "'Backtick")
+      , ("<=", "'Less_Than_Or_Equal_To")
+      , (">=", "'Greater_Than_Or_Equal_To")
+      , ("!=", "'Not_Equal")
+      , ("~=", "'Tilde_Equal")
+      , ("\\", "'Back_Slash")
+      , ("\"", "'Double_Quote")
       ]
-
+    mkCharReplacement (replaceStr, searchStr) = T.unpack . replacer (T.pack searchStr) (T.pack replaceStr) . T.pack
+    replacer =
+      if forParsing
+        then flip T.replace
+        else T.replace

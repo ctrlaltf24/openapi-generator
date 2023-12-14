@@ -32,7 +32,6 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
-    #[allow(unused_mut)]
     let mut service =
         ping_bearer_auth::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -107,6 +106,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         &self,
         context: &C) -> Result<PingGetResponse, ApiError>
     {
+        let context = context.clone();
         info!("ping_get() - X-Span-ID: {:?}", context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }

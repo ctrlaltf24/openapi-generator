@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("UnstableApiUsage")
+
 package org.openapitools.generator.gradle.plugin.tasks
 
 import io.swagger.parser.OpenAPIParser
@@ -43,7 +45,7 @@ import org.openapitools.codegen.validations.oas.RuleConfiguration
  *
  *   ./gradlew openApiValidate --input=/path/to/file
  *
- * build.gradle.kts:
+ * build.gradle:
  *
  *   openApiMeta {
  *      inputSpec = "path/to/spec.yaml"
@@ -58,8 +60,9 @@ open class ValidateTask : DefaultTask() {
 
     @Optional
     @Input
-    val recommend = project.objects.property<Boolean>().convention(true)
+    val recommend = project.objects.property<Boolean?>()
 
+    @Suppress("unused")
     @get:Internal
     @set:Option(option = "input", description = "The input specification.")
     var input: String? = null
@@ -67,6 +70,7 @@ open class ValidateTask : DefaultTask() {
             inputSpec.set(value)
         }
 
+    @Suppress("unused")
     @TaskAction
     fun doWork() {
         val logger = Logging.getLogger(javaClass)
@@ -101,6 +105,7 @@ open class ValidateTask : DefaultTask() {
         }
 
         if (messages.isNotEmpty() || validationResult.errors.isNotEmpty()) {
+
             out.withStyle(StyledTextOutput.Style.Error)
             out.println("\nSpec is invalid.\nIssues:\n")
 

@@ -33,7 +33,7 @@ use {{invokerPackage}}\DependencyInjection\Compiler\{{bundleName}}ApiPass;
  */
 class {{bundleClassName}} extends Bundle
 {
-    public function build(ContainerBuilder $container): void
+    public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new {{bundleName}}ApiPass());
     }

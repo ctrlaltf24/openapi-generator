@@ -79,27 +79,27 @@ public:
 private:
     void initializeModel();
 
-    qint64 m_id;
+    qint64 id;
     bool m_id_isSet;
     bool m_id_isValid;
 
-    PFXCategory m_category;
+    PFXCategory category;
     bool m_category_isSet;
     bool m_category_isValid;
 
-    QString m_name;
+    QString name;
     bool m_name_isSet;
     bool m_name_isValid;
 
-    QList<QString> m_photo_urls;
+    QList<QString> photo_urls;
     bool m_photo_urls_isSet;
     bool m_photo_urls_isValid;
 
-    QList<PFXTag> m_tags;
+    QList<PFXTag> tags;
     bool m_tags_isSet;
     bool m_tags_isValid;
 
-    QString m_status;
+    QString status;
     bool m_status_isSet;
     bool m_status_isValid;
 };

@@ -3,65 +3,60 @@ package org.openapitools.client.infrastructure
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.HttpClientEngine
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.JsonSerializer
+import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.FormDataContent
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.header
 import io.ktor.client.request.parameter
 import io.ktor.client.statement.HttpResponse
-import io.ktor.http.ContentType
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.client.utils.EmptyContent
 import io.ktor.http.*
+import io.ktor.http.content.OutgoingContent
 import io.ktor.http.content.PartData
-import io.ktor.http.contentType
 import kotlin.Unit
 import kotlinx.serialization.json.Json
 
+import org.openapitools.client.apis.*
+import org.openapitools.client.models.*
 import org.openapitools.client.auth.*
 
 open class ApiClient(
-        private val baseUrl: String
-) {
-
-    private lateinit var client: HttpClient
-
-    constructor(
-        baseUrl: String,
+        private val baseUrl: String,
         httpClientEngine: HttpClientEngine?,
         httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-        jsonBlock: Json,
-    ) : this(baseUrl = baseUrl) {
-        val clientConfig: (HttpClientConfig<*>) -> Unit by lazy {
-            {
-                it.install(ContentNegotiation) { json(jsonBlock) }
-                httpClientConfig?.invoke(it)
-            }
-        }
+        private val json: Json
+) {
 
-        client = httpClientEngine?.let { HttpClient(it, clientConfig) } ?: HttpClient(clientConfig)
+    private val serializer: JsonSerializer by lazy {
+        KotlinxSerializer(json).ignoreOutgoingContent()
     }
 
-    constructor(
-        baseUrl: String,
-        httpClient: HttpClient
-    ): this(baseUrl = baseUrl) {
-        this.client = httpClient
+    private val clientConfig: (HttpClientConfig<*>) -> Unit by lazy {
+        {
+            // Hold a reference to the serializer to avoid freezing the entire ApiClient instance
+            // when the JsonFeature is configured.
+            val serializerReference = serializer
+            it.install(JsonFeature) { serializer = serializerReference }
+            httpClientConfig?.invoke(it)
+        }
+    }
+
+    private val client: HttpClient by lazy {
+        httpClientEngine?.let { HttpClient(it, clientConfig) } ?: HttpClient(clientConfig)
     }
 
     private val authentications: kotlin.collections.Map<String, Authentication> by lazy {
         mapOf(
-                "petstore_auth" to OAuth(), 
-                "api_key" to ApiKeyAuth("header", "api_key"))
+                "api_key" to ApiKeyAuth("header", "api_key"), 
+                "petstore_auth" to OAuth())
     }
 
     companion object {
         const val BASE_URL = "http://petstore.swagger.io/v2"
-        val JSON_DEFAULT = Json {
-          ignoreUnknownKeys = true
-          prettyPrint = true
-          isLenient = true
-        }
+        val JSON_DEFAULT = Json { ignoreUnknownKeys = true }
         protected val UNSAFE_HEADERS = listOf(HttpHeaders.ContentType)
     }
 
@@ -141,13 +136,18 @@ open class ApiClient(
         return request(requestConfig, FormDataContent(body ?: Parameters.Empty), authNames)
     }
 
-    protected suspend fun <T: Any?> jsonRequest(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse = request(requestConfig, body, authNames)
+    protected suspend fun <T: Any?> jsonRequest(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
+        val contentType = (requestConfig.headers[HttpHeaders.ContentType]?.let { ContentType.parse(it) }
+                ?: ContentType.Application.Json)
+        return if (body != null) request(requestConfig, serializer.write(body, contentType), authNames)
+        else request(requestConfig, authNames = authNames)
+    }
 
-    protected suspend fun <T: Any?> request(requestConfig: RequestConfig<T>, body: Any? = null, authNames: kotlin.collections.List<String>): HttpResponse {
+    protected suspend fun <T: Any?> request(requestConfig: RequestConfig<T>, body: OutgoingContent = EmptyContent, authNames: kotlin.collections.List<String>): HttpResponse {
         requestConfig.updateForAuth<T>(authNames)
         val headers = requestConfig.headers
 
-        return client.request {
+        return client.request<HttpResponse> {
             this.url {
                 this.takeFrom(URLBuilder(baseUrl))
                 appendPath(requestConfig.path.trimStart('/').split('/'))
@@ -159,12 +159,9 @@ open class ApiClient(
             }
             this.method = requestConfig.method.httpMethod
             headers.filter { header -> !UNSAFE_HEADERS.contains(header.key) }.forEach { header -> this.header(header.key, header.value) }
-            if (requestConfig.method in listOf(RequestMethod.PUT, RequestMethod.POST, RequestMethod.PATCH)) {
-                val contentType = (requestConfig.headers[HttpHeaders.ContentType]?.let { ContentType.parse(it) }
-                    ?: ContentType.Application.Json)
-                this.contentType(contentType)
-                this.setBody(body)
-            }
+            if (requestConfig.method in listOf(RequestMethod.PUT, RequestMethod.POST, RequestMethod.PATCH))
+                this.body = body
+
         }
     }
 
@@ -189,4 +186,14 @@ open class ApiClient(
             RequestMethod.POST -> HttpMethod.Post
             RequestMethod.OPTIONS -> HttpMethod.Options
         }
+}
+
+// https://github.com/ktorio/ktor/issues/851
+private fun JsonSerializer.ignoreOutgoingContent() = IgnoreOutgoingContentJsonSerializer(this)
+
+private class IgnoreOutgoingContentJsonSerializer(private val delegate: JsonSerializer) : JsonSerializer by delegate {
+    override fun write(data: Any): OutgoingContent {
+        if (data is OutgoingContent) return data
+        return delegate.write(data)
+    }
 }

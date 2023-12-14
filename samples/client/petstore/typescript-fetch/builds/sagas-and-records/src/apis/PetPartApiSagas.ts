@@ -13,7 +13,7 @@
  */
 
 
-import {Api} from './index';
+import {Api} from './';
 import {List} from 'immutable';
 import {all, fork, put, takeLatest} from "redux-saga/effects";
 import {apiCall, createSagaAction as originalCreateSagaAction, BaseEntitySupportPayloadApiAction, BasePayloadApiAction, NormalizedRecordEntities, normalizedEntities} from "../runtimeSagasAndRecords";
@@ -28,7 +28,7 @@ import {
     getPetPartTypeResponseRecordUtils,
     MatchingPartsRecord,
     PetPartType,
-} from '../models/index';
+} from '../models';
 
 const createSagaAction = <T>(type: string) => originalCreateSagaAction<T>(type, {namespace: "api_petPartApi"});
 

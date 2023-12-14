@@ -29,8 +29,8 @@ class Category {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Category &&
-    other.id == id &&
-    other.name == name;
+     other.id == id &&
+     other.name == name;
 
   @override
   int get hashCode =>
@@ -42,14 +42,12 @@ class Category {
   String toString() => 'Category[id=$id, name=$name]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.id != null) {
-      json[r'id'] = this.id;
-    } else {
-      json[r'id'] = null;
+    final _json = <String, dynamic>{};
+    if (id != null) {
+      _json[r'id'] = id;
     }
-      json[r'name'] = this.name;
-    return json;
+      _json[r'name'] = name;
+    return _json;
   }
 
   /// Returns a new [Category] instance and imports its values from
@@ -78,7 +76,7 @@ class Category {
     return null;
   }
 
-  static List<Category> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Category>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <Category>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -109,10 +107,12 @@ class Category {
   static Map<String, List<Category>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<Category>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = Category.listFromJson(entry.value, growable: growable,);
+        final value = Category.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

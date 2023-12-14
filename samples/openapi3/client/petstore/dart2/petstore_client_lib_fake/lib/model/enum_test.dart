@@ -59,14 +59,14 @@ class EnumTest {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is EnumTest &&
-    other.enumString == enumString &&
-    other.enumStringRequired == enumStringRequired &&
-    other.enumInteger == enumInteger &&
-    other.enumNumber == enumNumber &&
-    other.outerEnum == outerEnum &&
-    other.outerEnumInteger == outerEnumInteger &&
-    other.outerEnumDefaultValue == outerEnumDefaultValue &&
-    other.outerEnumIntegerDefaultValue == outerEnumIntegerDefaultValue;
+     other.enumString == enumString &&
+     other.enumStringRequired == enumStringRequired &&
+     other.enumInteger == enumInteger &&
+     other.enumNumber == enumNumber &&
+     other.outerEnum == outerEnum &&
+     other.outerEnumInteger == outerEnumInteger &&
+     other.outerEnumDefaultValue == outerEnumDefaultValue &&
+     other.outerEnumIntegerDefaultValue == outerEnumIntegerDefaultValue;
 
   @override
   int get hashCode =>
@@ -84,44 +84,30 @@ class EnumTest {
   String toString() => 'EnumTest[enumString=$enumString, enumStringRequired=$enumStringRequired, enumInteger=$enumInteger, enumNumber=$enumNumber, outerEnum=$outerEnum, outerEnumInteger=$outerEnumInteger, outerEnumDefaultValue=$outerEnumDefaultValue, outerEnumIntegerDefaultValue=$outerEnumIntegerDefaultValue]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.enumString != null) {
-      json[r'enum_string'] = this.enumString;
-    } else {
-      json[r'enum_string'] = null;
+    final _json = <String, dynamic>{};
+    if (enumString != null) {
+      _json[r'enum_string'] = enumString;
     }
-      json[r'enum_string_required'] = this.enumStringRequired;
-    if (this.enumInteger != null) {
-      json[r'enum_integer'] = this.enumInteger;
-    } else {
-      json[r'enum_integer'] = null;
+      _json[r'enum_string_required'] = enumStringRequired;
+    if (enumInteger != null) {
+      _json[r'enum_integer'] = enumInteger;
     }
-    if (this.enumNumber != null) {
-      json[r'enum_number'] = this.enumNumber;
-    } else {
-      json[r'enum_number'] = null;
+    if (enumNumber != null) {
+      _json[r'enum_number'] = enumNumber;
     }
-    if (this.outerEnum != null) {
-      json[r'outerEnum'] = this.outerEnum;
-    } else {
-      json[r'outerEnum'] = null;
+    if (outerEnum != null) {
+      _json[r'outerEnum'] = outerEnum;
     }
-    if (this.outerEnumInteger != null) {
-      json[r'outerEnumInteger'] = this.outerEnumInteger;
-    } else {
-      json[r'outerEnumInteger'] = null;
+    if (outerEnumInteger != null) {
+      _json[r'outerEnumInteger'] = outerEnumInteger;
     }
-    if (this.outerEnumDefaultValue != null) {
-      json[r'outerEnumDefaultValue'] = this.outerEnumDefaultValue;
-    } else {
-      json[r'outerEnumDefaultValue'] = null;
+    if (outerEnumDefaultValue != null) {
+      _json[r'outerEnumDefaultValue'] = outerEnumDefaultValue;
     }
-    if (this.outerEnumIntegerDefaultValue != null) {
-      json[r'outerEnumIntegerDefaultValue'] = this.outerEnumIntegerDefaultValue;
-    } else {
-      json[r'outerEnumIntegerDefaultValue'] = null;
+    if (outerEnumIntegerDefaultValue != null) {
+      _json[r'outerEnumIntegerDefaultValue'] = outerEnumIntegerDefaultValue;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [EnumTest] instance and imports its values from
@@ -156,7 +142,7 @@ class EnumTest {
     return null;
   }
 
-  static List<EnumTest> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<EnumTest>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <EnumTest>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -187,10 +173,12 @@ class EnumTest {
   static Map<String, List<EnumTest>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<EnumTest>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = EnumTest.listFromJson(entry.value, growable: growable,);
+        final value = EnumTest.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;
@@ -228,7 +216,7 @@ class EnumTestEnumStringEnum {
 
   static EnumTestEnumStringEnum? fromJson(dynamic value) => EnumTestEnumStringEnumTypeTransformer().decode(value);
 
-  static List<EnumTestEnumStringEnum> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<EnumTestEnumStringEnum>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <EnumTestEnumStringEnum>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -261,7 +249,7 @@ class EnumTestEnumStringEnumTypeTransformer {
   /// and users are still using an old app with the old code.
   EnumTestEnumStringEnum? decode(dynamic data, {bool allowNull = true}) {
     if (data != null) {
-      switch (data) {
+      switch (data.toString()) {
         case r'UPPER': return EnumTestEnumStringEnum.UPPER;
         case r'lower': return EnumTestEnumStringEnum.lower;
         case r'': return EnumTestEnumStringEnum.empty;
@@ -305,7 +293,7 @@ class EnumTestEnumStringRequiredEnum {
 
   static EnumTestEnumStringRequiredEnum? fromJson(dynamic value) => EnumTestEnumStringRequiredEnumTypeTransformer().decode(value);
 
-  static List<EnumTestEnumStringRequiredEnum> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<EnumTestEnumStringRequiredEnum>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <EnumTestEnumStringRequiredEnum>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -338,7 +326,7 @@ class EnumTestEnumStringRequiredEnumTypeTransformer {
   /// and users are still using an old app with the old code.
   EnumTestEnumStringRequiredEnum? decode(dynamic data, {bool allowNull = true}) {
     if (data != null) {
-      switch (data) {
+      switch (data.toString()) {
         case r'UPPER': return EnumTestEnumStringRequiredEnum.UPPER;
         case r'lower': return EnumTestEnumStringRequiredEnum.lower;
         case r'': return EnumTestEnumStringRequiredEnum.empty;
@@ -380,7 +368,7 @@ class EnumTestEnumIntegerEnum {
 
   static EnumTestEnumIntegerEnum? fromJson(dynamic value) => EnumTestEnumIntegerEnumTypeTransformer().decode(value);
 
-  static List<EnumTestEnumIntegerEnum> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<EnumTestEnumIntegerEnum>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <EnumTestEnumIntegerEnum>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -413,7 +401,7 @@ class EnumTestEnumIntegerEnumTypeTransformer {
   /// and users are still using an old app with the old code.
   EnumTestEnumIntegerEnum? decode(dynamic data, {bool allowNull = true}) {
     if (data != null) {
-      switch (data) {
+      switch (data.toString()) {
         case 1: return EnumTestEnumIntegerEnum.number1;
         case -1: return EnumTestEnumIntegerEnum.numberNegative1;
         default:
@@ -454,7 +442,7 @@ class EnumTestEnumNumberEnum {
 
   static EnumTestEnumNumberEnum? fromJson(dynamic value) => EnumTestEnumNumberEnumTypeTransformer().decode(value);
 
-  static List<EnumTestEnumNumberEnum> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<EnumTestEnumNumberEnum>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <EnumTestEnumNumberEnum>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -487,7 +475,7 @@ class EnumTestEnumNumberEnumTypeTransformer {
   /// and users are still using an old app with the old code.
   EnumTestEnumNumberEnum? decode(dynamic data, {bool allowNull = true}) {
     if (data != null) {
-      switch (data) {
+      switch (data.toString()) {
         case '1.1': return EnumTestEnumNumberEnum.number1Period1;
         case '-1.2': return EnumTestEnumNumberEnum.numberNegative1Period2;
         default:

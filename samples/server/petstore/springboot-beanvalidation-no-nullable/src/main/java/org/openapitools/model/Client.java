@@ -21,6 +21,7 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Client {
 
+  @JsonProperty("client")
   private String client;
 
   public Client client(String client) {
@@ -34,7 +35,6 @@ public class Client {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("client")
   public String getClient() {
     return client;
   }

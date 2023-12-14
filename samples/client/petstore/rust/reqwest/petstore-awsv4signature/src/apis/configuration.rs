@@ -9,6 +9,8 @@
  */
 
 
+use reqwest;
+
 use std::time::SystemTime;
 use aws_sigv4::http_request::{sign, SigningSettings, SigningParams, SignableRequest};
 use http;
@@ -18,7 +20,7 @@ use secrecy::{SecretString, ExposeSecret};
 pub struct Configuration {
     pub base_path: String,
     pub user_agent: Option<String>,
-    pub client: reqwest::blocking::Client,
+    pub client: reqwest::Client,
     pub basic_auth: Option<BasicAuth>,
     pub oauth_access_token: Option<String>,
     pub bearer_access_token: Option<String>,
@@ -83,7 +85,7 @@ impl Default for Configuration {
         Configuration {
             base_path: "http://petstore.swagger.io/v2".to_owned(),
             user_agent: Some("OpenAPI-Generator/1.0.0/rust".to_owned()),
-            client: reqwest::blocking::Client::new(),
+            client: reqwest::Client::new(),
             basic_auth: None,
             oauth_access_token: None,
             bearer_access_token: None,

@@ -1,34 +1,18 @@
 # Pet
 
+Pet object that needs to be added to the store
 
 ## Properties
-
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**name** | **str** |  | 
+**photo_urls** | **[str]** |  | 
 **id** | **int** |  | [optional] 
 **category** | [**Category**](Category.md) |  | [optional] 
-**name** | **str** |  | 
-**photo_urls** | **List[str]** |  | 
-**tags** | [**List[Tag]**](Tag.md) |  | [optional] 
+**tags** | [**[Tag]**](Tag.md) |  | [optional] 
 **status** | **str** | pet status in the store | [optional] 
+**any string name** | **bool, date, datetime, dict, float, int, list, str, none_type** | any string name can be used but the value must be the correct type | [optional]
 
-## Example
-
-```python
-from petstore_api.models.pet import Pet
-
-# TODO update the JSON string below
-json = "{}"
-# create an instance of Pet from a JSON string
-pet_instance = Pet.from_json(json)
-# print the JSON string representation of the object
-print Pet.to_json()
-
-# convert the object into a dict
-pet_dict = pet_instance.to_dict()
-# create an instance of Pet from a dict
-pet_form_dict = pet.from_dict(pet_dict)
-```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
 

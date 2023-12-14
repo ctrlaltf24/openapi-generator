@@ -30,6 +30,7 @@ import java.util.Map;
 
 public class JavaMSF4JServerCodegen extends AbstractJavaJAXRSServerCodegen {
 
+    protected static final String LIBRARY_JERSEY1 = "jersey1";
     protected static final String LIBRARY_JERSEY2 = "jersey2";
 
 
@@ -49,6 +50,7 @@ public class JavaMSF4JServerCodegen extends AbstractJavaJAXRSServerCodegen {
         apiDocTemplateFiles.remove("api_doc.mustache");
         embeddedTemplateDir = templateDir = "java-msf4j-server";
         CliOption library = new CliOption(CodegenConstants.LIBRARY, CodegenConstants.LIBRARY_DESC);
+        supportedLibraries.put(LIBRARY_JERSEY1, "Jersey core 1.x");
         supportedLibraries.put(LIBRARY_JERSEY2, "Jersey core 2.x");
         library.setEnum(supportedLibraries);
         library.setDefault(DEFAULT_MSF4J_LIBRARY);

@@ -32,7 +32,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import static org.openapitools.codegen.utils.CamelizeOption.LOWERCASE_FIRST_LETTER;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 import static org.openapitools.codegen.utils.StringUtils.underscore;
 
@@ -289,7 +288,6 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
         typeMapping.put("UUID", "char");
         typeMapping.put("URI", "char");
         typeMapping.put("array", "list");
-        typeMapping.put("set", "list");
         typeMapping.put("map", "list_t*");
         typeMapping.put("date-time", "char");
 
@@ -427,7 +425,7 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
             }
         } else if (ModelUtils.isStringSchema(p)) {
             if (p.getDefault() != null) {
-                return "'" + escapeText(String.valueOf(p.getDefault())) + "'";
+                return "'" + escapeText((String) p.getDefault()) + "'";
             }
         }
 
@@ -445,7 +443,7 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
         }
         // correct "&#39;"s into "'"s after toString()
         if (ModelUtils.isStringSchema(schema) && schema.getDefault() != null) {
-            example = String.valueOf(schema.getDefault());
+            example = (String) schema.getDefault();
         }
         if (StringUtils.isNotBlank(example) && !"null".equals(example)) {
             if (ModelUtils.isStringSchema(schema)) {
@@ -560,11 +558,6 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
 
     @Override
     public String toVarName(String name) {
-        // obtain the name from nameMapping directly if provided
-        if (nameMapping.containsKey(name)) {
-            return nameMapping.get(name);
-        }
-
         // sanitize name
         name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
         // if it's all upper case, convert to lower case
@@ -584,11 +577,6 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
 
     @Override
     public String toParamName(String name) {
-        // obtain the name from parameterNameMapping directly if provided
-        if (parameterNameMapping.containsKey(name)) {
-            return parameterNameMapping.get(name);
-        }
-
         // should be the same as variable name
         if (isReservedWord(name) || name.matches("^\\d.*")) {
             name = escapeReservedWord(name);
@@ -599,11 +587,6 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
 
     @Override
     public String toModelName(String name) {
-        // obtain the name from modelNameMapping directly if provided
-        if (modelNameMapping.containsKey(name)) {
-            return modelNameMapping.get(name);
-        }
-
         name = sanitizeName(name); // FIXME: a parameter should not be assigned. Also declare the methods parameters as 'final'.
 
         if (!StringUtils.isEmpty(modelNamePrefix)) {
@@ -750,19 +733,19 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
 
         // method name cannot use reserved keyword, e.g. return
         if (isReservedWord(operationId)) {
-            String newOperationId = camelize(sanitizeName("call_" + operationId), LOWERCASE_FIRST_LETTER);
+            String newOperationId = camelize(sanitizeName("call_" + operationId), true);
             LOGGER.warn("{} (reserved word) cannot be used as method name. Renamed to {}", operationId, newOperationId);
             return newOperationId;
         }
 
         // operationId starts with a number
         if (operationId.matches("^\\d.*")) {
-            String newOperationId = camelize(sanitizeName("call_" + operationId), LOWERCASE_FIRST_LETTER);
+            String newOperationId = camelize(sanitizeName("call_" + operationId), true);
             LOGGER.warn("{} (starting with a number) cannot be used as method name. Renamed to {}", operationId, newOperationId);
             return newOperationId;
         }
 
-        return camelize(sanitizeName(operationId), LOWERCASE_FIRST_LETTER);
+        return camelize(sanitizeName(operationId), true);
     }
 
     @Override
@@ -869,8 +852,8 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
     }
 
     @Override
-    public CodegenProperty fromProperty(String name, Schema p, boolean required) {
-        CodegenProperty cm = super.fromProperty(name, p, required);
+    public CodegenProperty fromProperty(String name, Schema p) {
+        CodegenProperty cm = super.fromProperty(name, p);
         Schema ref = ModelUtils.getReferencedSchema(openAPI, p);
         if (ref != null) {
             if (ref.getEnum() != null) {
@@ -940,7 +923,5 @@ public class CLibcurlClientCodegen extends DefaultCodegen implements CodegenConf
     }
 
     @Override
-    public GeneratorLanguage generatorLanguage() {
-        return GeneratorLanguage.C;
-    }
+    public GeneratorLanguage generatorLanguage() { return GeneratorLanguage.C; }
 }

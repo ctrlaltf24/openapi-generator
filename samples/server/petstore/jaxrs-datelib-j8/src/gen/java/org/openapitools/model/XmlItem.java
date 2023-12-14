@@ -20,7 +20,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
@@ -81,7 +80,7 @@ public class XmlItem  implements Serializable {
 
   public static final String JSON_PROPERTY_WRAPPED_ARRAY = "wrapped_array";
   @JsonProperty(JSON_PROPERTY_WRAPPED_ARRAY)
-  private List<Integer> wrappedArray;
+  private List<Integer> wrappedArray = null;
 
   public static final String JSON_PROPERTY_NAME_STRING = "name_string";
   @JsonProperty(JSON_PROPERTY_NAME_STRING)
@@ -101,11 +100,11 @@ public class XmlItem  implements Serializable {
 
   public static final String JSON_PROPERTY_NAME_ARRAY = "name_array";
   @JsonProperty(JSON_PROPERTY_NAME_ARRAY)
-  private List<Integer> nameArray;
+  private List<Integer> nameArray = null;
 
   public static final String JSON_PROPERTY_NAME_WRAPPED_ARRAY = "name_wrapped_array";
   @JsonProperty(JSON_PROPERTY_NAME_WRAPPED_ARRAY)
-  private List<Integer> nameWrappedArray;
+  private List<Integer> nameWrappedArray = null;
 
   public static final String JSON_PROPERTY_PREFIX_STRING = "prefix_string";
   @JsonProperty(JSON_PROPERTY_PREFIX_STRING)
@@ -125,11 +124,11 @@ public class XmlItem  implements Serializable {
 
   public static final String JSON_PROPERTY_PREFIX_ARRAY = "prefix_array";
   @JsonProperty(JSON_PROPERTY_PREFIX_ARRAY)
-  private List<Integer> prefixArray;
+  private List<Integer> prefixArray = null;
 
   public static final String JSON_PROPERTY_PREFIX_WRAPPED_ARRAY = "prefix_wrapped_array";
   @JsonProperty(JSON_PROPERTY_PREFIX_WRAPPED_ARRAY)
-  private List<Integer> prefixWrappedArray;
+  private List<Integer> prefixWrappedArray = null;
 
   public static final String JSON_PROPERTY_NAMESPACE_STRING = "namespace_string";
   @JsonProperty(JSON_PROPERTY_NAMESPACE_STRING)
@@ -149,11 +148,11 @@ public class XmlItem  implements Serializable {
 
   public static final String JSON_PROPERTY_NAMESPACE_ARRAY = "namespace_array";
   @JsonProperty(JSON_PROPERTY_NAMESPACE_ARRAY)
-  private List<Integer> namespaceArray;
+  private List<Integer> namespaceArray = null;
 
   public static final String JSON_PROPERTY_NAMESPACE_WRAPPED_ARRAY = "namespace_wrapped_array";
   @JsonProperty(JSON_PROPERTY_NAMESPACE_WRAPPED_ARRAY)
-  private List<Integer> namespaceWrappedArray;
+  private List<Integer> namespaceWrappedArray = null;
 
   public static final String JSON_PROPERTY_PREFIX_NS_STRING = "prefix_ns_string";
   @JsonProperty(JSON_PROPERTY_PREFIX_NS_STRING)
@@ -173,11 +172,11 @@ public class XmlItem  implements Serializable {
 
   public static final String JSON_PROPERTY_PREFIX_NS_ARRAY = "prefix_ns_array";
   @JsonProperty(JSON_PROPERTY_PREFIX_NS_ARRAY)
-  private List<Integer> prefixNsArray;
+  private List<Integer> prefixNsArray = null;
 
   public static final String JSON_PROPERTY_PREFIX_NS_WRAPPED_ARRAY = "prefix_ns_wrapped_array";
   @JsonProperty(JSON_PROPERTY_PREFIX_NS_WRAPPED_ARRAY)
-  private List<Integer> prefixNsWrappedArray;
+  private List<Integer> prefixNsWrappedArray = null;
 
   public XmlItem attributeString(String attributeString) {
     this.attributeString = attributeString;
@@ -841,35 +840,35 @@ public class XmlItem  implements Serializable {
       return false;
     }
     XmlItem xmlItem = (XmlItem) o;
-    return Objects.equals(attributeString, xmlItem.attributeString) &&
-        Objects.equals(attributeNumber, xmlItem.attributeNumber) &&
-        Objects.equals(attributeInteger, xmlItem.attributeInteger) &&
-        Objects.equals(attributeBoolean, xmlItem.attributeBoolean) &&
-        Objects.equals(wrappedArray, xmlItem.wrappedArray) &&
-        Objects.equals(nameString, xmlItem.nameString) &&
-        Objects.equals(nameNumber, xmlItem.nameNumber) &&
-        Objects.equals(nameInteger, xmlItem.nameInteger) &&
-        Objects.equals(nameBoolean, xmlItem.nameBoolean) &&
-        Objects.equals(nameArray, xmlItem.nameArray) &&
-        Objects.equals(nameWrappedArray, xmlItem.nameWrappedArray) &&
-        Objects.equals(prefixString, xmlItem.prefixString) &&
-        Objects.equals(prefixNumber, xmlItem.prefixNumber) &&
-        Objects.equals(prefixInteger, xmlItem.prefixInteger) &&
-        Objects.equals(prefixBoolean, xmlItem.prefixBoolean) &&
-        Objects.equals(prefixArray, xmlItem.prefixArray) &&
-        Objects.equals(prefixWrappedArray, xmlItem.prefixWrappedArray) &&
-        Objects.equals(namespaceString, xmlItem.namespaceString) &&
-        Objects.equals(namespaceNumber, xmlItem.namespaceNumber) &&
-        Objects.equals(namespaceInteger, xmlItem.namespaceInteger) &&
-        Objects.equals(namespaceBoolean, xmlItem.namespaceBoolean) &&
-        Objects.equals(namespaceArray, xmlItem.namespaceArray) &&
-        Objects.equals(namespaceWrappedArray, xmlItem.namespaceWrappedArray) &&
-        Objects.equals(prefixNsString, xmlItem.prefixNsString) &&
-        Objects.equals(prefixNsNumber, xmlItem.prefixNsNumber) &&
-        Objects.equals(prefixNsInteger, xmlItem.prefixNsInteger) &&
-        Objects.equals(prefixNsBoolean, xmlItem.prefixNsBoolean) &&
-        Objects.equals(prefixNsArray, xmlItem.prefixNsArray) &&
-        Objects.equals(prefixNsWrappedArray, xmlItem.prefixNsWrappedArray);
+    return Objects.equals(this.attributeString, xmlItem.attributeString) &&
+        Objects.equals(this.attributeNumber, xmlItem.attributeNumber) &&
+        Objects.equals(this.attributeInteger, xmlItem.attributeInteger) &&
+        Objects.equals(this.attributeBoolean, xmlItem.attributeBoolean) &&
+        Objects.equals(this.wrappedArray, xmlItem.wrappedArray) &&
+        Objects.equals(this.nameString, xmlItem.nameString) &&
+        Objects.equals(this.nameNumber, xmlItem.nameNumber) &&
+        Objects.equals(this.nameInteger, xmlItem.nameInteger) &&
+        Objects.equals(this.nameBoolean, xmlItem.nameBoolean) &&
+        Objects.equals(this.nameArray, xmlItem.nameArray) &&
+        Objects.equals(this.nameWrappedArray, xmlItem.nameWrappedArray) &&
+        Objects.equals(this.prefixString, xmlItem.prefixString) &&
+        Objects.equals(this.prefixNumber, xmlItem.prefixNumber) &&
+        Objects.equals(this.prefixInteger, xmlItem.prefixInteger) &&
+        Objects.equals(this.prefixBoolean, xmlItem.prefixBoolean) &&
+        Objects.equals(this.prefixArray, xmlItem.prefixArray) &&
+        Objects.equals(this.prefixWrappedArray, xmlItem.prefixWrappedArray) &&
+        Objects.equals(this.namespaceString, xmlItem.namespaceString) &&
+        Objects.equals(this.namespaceNumber, xmlItem.namespaceNumber) &&
+        Objects.equals(this.namespaceInteger, xmlItem.namespaceInteger) &&
+        Objects.equals(this.namespaceBoolean, xmlItem.namespaceBoolean) &&
+        Objects.equals(this.namespaceArray, xmlItem.namespaceArray) &&
+        Objects.equals(this.namespaceWrappedArray, xmlItem.namespaceWrappedArray) &&
+        Objects.equals(this.prefixNsString, xmlItem.prefixNsString) &&
+        Objects.equals(this.prefixNsNumber, xmlItem.prefixNsNumber) &&
+        Objects.equals(this.prefixNsInteger, xmlItem.prefixNsInteger) &&
+        Objects.equals(this.prefixNsBoolean, xmlItem.prefixNsBoolean) &&
+        Objects.equals(this.prefixNsArray, xmlItem.prefixNsArray) &&
+        Objects.equals(this.prefixNsWrappedArray, xmlItem.prefixNsWrappedArray);
   }
 
   @Override

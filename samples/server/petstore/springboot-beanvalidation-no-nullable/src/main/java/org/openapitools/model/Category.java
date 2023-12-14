@@ -21,20 +21,11 @@ import javax.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class Category {
 
+  @JsonProperty("id")
   private Long id;
 
+  @JsonProperty("name")
   private String name = "default-name";
-
-  public Category() {
-    super();
-  }
-
-  /**
-   * Constructor with only required parameters
-   */
-  public Category(String name) {
-    this.name = name;
-  }
 
   public Category id(Long id) {
     this.id = id;
@@ -47,7 +38,6 @@ public class Category {
   */
   
   @ApiModelProperty(value = "")
-  @JsonProperty("id")
   public Long getId() {
     return id;
   }
@@ -67,7 +57,6 @@ public class Category {
   */
   @NotNull 
   @ApiModelProperty(required = true, value = "")
-  @JsonProperty("name")
   public String getName() {
     return name;
   }

@@ -86,9 +86,11 @@ Class | Method | HTTP request | Description
 {{/models}}
 
 ## Authorization
-{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
-{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
+{{^authMethods}}
+All endpoints do not require authorization.
+{{/authMethods}}
 {{#authMethods}}
+{{#last}} Authentication schemes defined for the API:{{/last}}
 ### {{{name}}}
 {{#isApiKey}}
 
@@ -106,10 +108,6 @@ Class | Method | HTTP request | Description
 
 - **Type**: Bearer authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
 {{/isBasicBearer}}
-{{#isHttpSignature}}
-
-- **Type**: HTTP signature authentication
-{{/isHttpSignature}}
 {{/isBasic}}
 {{#isOAuth}}
 

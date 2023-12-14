@@ -22,8 +22,4 @@
 | SOMEOBJIDENTIFIER | &quot;SomeObjIdentifier&quot; |
 
 
-## Implemented Interfaces
-
-* Serializable
-
 

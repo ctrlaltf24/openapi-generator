@@ -20,19 +20,20 @@ create_user(Ctx, PetstoreUser) ->
 -spec create_user(ctx:ctx(), petstore_user:petstore_user(), maps:map()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 create_user(Ctx, PetstoreUser, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = post,
-    Path = [?BASE_URL, "/user"],
+    Path = [<<"/user">>],
     QS = [],
     Headers = [],
     Body1 = PetstoreUser,
     ContentTypeHeader = petstore_utils:select_header_content_type([<<"application/json">>]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Creates list of users with given input array
+%% 
 -spec create_users_with_array_input(ctx:ctx(), list()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 create_users_with_array_input(Ctx, PetstoreUserArray) ->
     create_users_with_array_input(Ctx, PetstoreUserArray, #{}).
@@ -40,19 +41,20 @@ create_users_with_array_input(Ctx, PetstoreUserArray) ->
 -spec create_users_with_array_input(ctx:ctx(), list(), maps:map()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 create_users_with_array_input(Ctx, PetstoreUserArray, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = post,
-    Path = [?BASE_URL, "/user/createWithArray"],
+    Path = [<<"/user/createWithArray">>],
     QS = [],
     Headers = [],
     Body1 = PetstoreUserArray,
     ContentTypeHeader = petstore_utils:select_header_content_type([<<"application/json">>]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Creates list of users with given input array
+%% 
 -spec create_users_with_list_input(ctx:ctx(), list()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 create_users_with_list_input(Ctx, PetstoreUserArray) ->
     create_users_with_list_input(Ctx, PetstoreUserArray, #{}).
@@ -60,17 +62,17 @@ create_users_with_list_input(Ctx, PetstoreUserArray) ->
 -spec create_users_with_list_input(ctx:ctx(), list(), maps:map()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 create_users_with_list_input(Ctx, PetstoreUserArray, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = post,
-    Path = [?BASE_URL, "/user/createWithList"],
+    Path = [<<"/user/createWithList">>],
     QS = [],
     Headers = [],
     Body1 = PetstoreUserArray,
     ContentTypeHeader = petstore_utils:select_header_content_type([<<"application/json">>]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Delete user
 %% This can only be done by the logged in user.
@@ -81,19 +83,20 @@ delete_user(Ctx, Username) ->
 -spec delete_user(ctx:ctx(), binary(), maps:map()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 delete_user(Ctx, Username, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = delete,
-    Path = [?BASE_URL, "/user/", Username, ""],
+    Path = [<<"/user/", Username, "">>],
     QS = [],
     Headers = [],
     Body1 = [],
     ContentTypeHeader = petstore_utils:select_header_content_type([]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Get user by user name
+%% 
 -spec get_user_by_name(ctx:ctx(), binary()) -> {ok, petstore_user:petstore_user(), petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 get_user_by_name(Ctx, Username) ->
     get_user_by_name(Ctx, Username, #{}).
@@ -101,19 +104,20 @@ get_user_by_name(Ctx, Username) ->
 -spec get_user_by_name(ctx:ctx(), binary(), maps:map()) -> {ok, petstore_user:petstore_user(), petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 get_user_by_name(Ctx, Username, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = get,
-    Path = [?BASE_URL, "/user/", Username, ""],
+    Path = [<<"/user/", Username, "">>],
     QS = [],
     Headers = [],
     Body1 = [],
     ContentTypeHeader = petstore_utils:select_header_content_type([]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Logs user into the system
+%% 
 -spec login_user(ctx:ctx(), binary(), binary()) -> {ok, binary(), petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 login_user(Ctx, Username, Password) ->
     login_user(Ctx, Username, Password, #{}).
@@ -121,19 +125,20 @@ login_user(Ctx, Username, Password) ->
 -spec login_user(ctx:ctx(), binary(), binary(), maps:map()) -> {ok, binary(), petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 login_user(Ctx, Username, Password, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = get,
-    Path = [?BASE_URL, "/user/login"],
+    Path = [<<"/user/login">>],
     QS = lists:flatten([{<<"username">>, Username}, {<<"password">>, Password}])++petstore_utils:optional_params([], _OptionalParams),
     Headers = [],
     Body1 = [],
     ContentTypeHeader = petstore_utils:select_header_content_type([]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Logs out current logged in user session
+%% 
 -spec logout_user(ctx:ctx()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 logout_user(Ctx) ->
     logout_user(Ctx, #{}).
@@ -141,17 +146,17 @@ logout_user(Ctx) ->
 -spec logout_user(ctx:ctx(), maps:map()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 logout_user(Ctx, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = get,
-    Path = [?BASE_URL, "/user/logout"],
+    Path = [<<"/user/logout">>],
     QS = [],
     Headers = [],
     Body1 = [],
     ContentTypeHeader = petstore_utils:select_header_content_type([]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 %% @doc Updated user
 %% This can only be done by the logged in user.
@@ -162,16 +167,16 @@ update_user(Ctx, Username, PetstoreUser) ->
 -spec update_user(ctx:ctx(), binary(), petstore_user:petstore_user(), maps:map()) -> {ok, [], petstore_utils:response_info()} | {ok, hackney:client_ref()} | {error, term(), petstore_utils:response_info()}.
 update_user(Ctx, Username, PetstoreUser, Optional) ->
     _OptionalParams = maps:get(params, Optional, #{}),
-    Cfg = maps:get(cfg, Optional, application:get_env(petstore_api, config, #{})),
+    Cfg = maps:get(cfg, Optional, application:get_env(kuberl, config, #{})),
 
     Method = put,
-    Path = [?BASE_URL, "/user/", Username, ""],
+    Path = [<<"/user/", Username, "">>],
     QS = [],
     Headers = [],
     Body1 = PetstoreUser,
     ContentTypeHeader = petstore_utils:select_header_content_type([<<"application/json">>]),
     Opts = maps:get(hackney_opts, Optional, []),
 
-    petstore_utils:request(Ctx, Method, Path, QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
+    petstore_utils:request(Ctx, Method, [?BASE_URL, Path], QS, ContentTypeHeader++Headers, Body1, Opts, Cfg).
 
 

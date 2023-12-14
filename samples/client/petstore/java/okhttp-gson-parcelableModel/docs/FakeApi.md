@@ -20,7 +20,7 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**testQueryParameterCollectionFormat**](FakeApi.md#testQueryParameterCollectionFormat) | **PUT** /fake/test-query-parameters |  |
 
 
-<a id="createXmlItem"></a>
+<a name="createXmlItem"></a>
 # **createXmlItem**
 > createXmlItem(xmlItem)
 
@@ -81,7 +81,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="fakeOuterBooleanSerialize"></a>
+<a name="fakeOuterBooleanSerialize"></a>
 # **fakeOuterBooleanSerialize**
 > Boolean fakeOuterBooleanSerialize(body)
 
@@ -143,7 +143,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output boolean |  -  |
 
-<a id="fakeOuterCompositeSerialize"></a>
+<a name="fakeOuterCompositeSerialize"></a>
 # **fakeOuterCompositeSerialize**
 > OuterComposite fakeOuterCompositeSerialize(body)
 
@@ -205,7 +205,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output composite |  -  |
 
-<a id="fakeOuterNumberSerialize"></a>
+<a name="fakeOuterNumberSerialize"></a>
 # **fakeOuterNumberSerialize**
 > BigDecimal fakeOuterNumberSerialize(body)
 
@@ -267,7 +267,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output number |  -  |
 
-<a id="fakeOuterStringSerialize"></a>
+<a name="fakeOuterStringSerialize"></a>
 # **fakeOuterStringSerialize**
 > String fakeOuterStringSerialize(body)
 
@@ -329,7 +329,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Output string |  -  |
 
-<a id="testBodyWithFileSchema"></a>
+<a name="testBodyWithFileSchema"></a>
 # **testBodyWithFileSchema**
 > testBodyWithFileSchema(body)
 
@@ -390,7 +390,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 
-<a id="testBodyWithQueryParams"></a>
+<a name="testBodyWithQueryParams"></a>
 # **testBodyWithQueryParams**
 > testBodyWithQueryParams(query, body)
 
@@ -451,7 +451,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 
-<a id="testClientModel"></a>
+<a name="testClientModel"></a>
 # **testClientModel**
 > Client testClientModel(body)
 
@@ -513,7 +513,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="testEndpointParameters"></a>
+<a name="testEndpointParameters"></a>
 # **testEndpointParameters**
 > testEndpointParameters(number, _double, patternWithoutDelimiter, _byte, integer, int32, int64, _float, string, binary, date, dateTime, password, paramCallback)
 
@@ -607,7 +607,7 @@ null (empty response body)
 | **400** | Invalid username supplied |  -  |
 | **404** | User not found |  -  |
 
-<a id="testEnumParameters"></a>
+<a name="testEnumParameters"></a>
 # **testEnumParameters**
 > testEnumParameters(enumHeaderStringArray, enumHeaderString, enumQueryStringArray, enumQueryString, enumQueryInteger, enumQueryDouble, enumFormStringArray, enumFormString)
 
@@ -683,7 +683,7 @@ No authorization required
 | **400** | Invalid request |  -  |
 | **404** | Not found |  -  |
 
-<a id="testGroupParameters"></a>
+<a name="testGroupParameters"></a>
 # **testGroupParameters**
 > testGroupParameters(requiredStringGroup, requiredBooleanGroup, requiredInt64Group).stringGroup(stringGroup).booleanGroup(booleanGroup).int64Group(int64Group).execute();
 
@@ -756,9 +756,9 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **400** | Something wrong |  -  |
+| **400** | Someting wrong |  -  |
 
-<a id="testInlineAdditionalProperties"></a>
+<a name="testInlineAdditionalProperties"></a>
 # **testInlineAdditionalProperties**
 > testInlineAdditionalProperties(param)
 
@@ -817,7 +817,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="testJsonFormData"></a>
+<a name="testJsonFormData"></a>
 # **testJsonFormData**
 > testJsonFormData(param, param2)
 
@@ -878,7 +878,7 @@ No authorization required
 |-------------|-------------|------------------|
 | **200** | successful operation |  -  |
 
-<a id="testQueryParameterCollectionFormat"></a>
+<a name="testQueryParameterCollectionFormat"></a>
 # **testQueryParameterCollectionFormat**
 > testQueryParameterCollectionFormat(pipe, ioutil, http, url, context)
 

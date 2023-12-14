@@ -12,11 +12,7 @@ package petstore
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the Whale type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Whale{}
 
 // Whale struct for Whale
 type Whale struct {
@@ -48,7 +44,7 @@ func NewWhaleWithDefaults() *Whale {
 
 // GetHasBaleen returns the HasBaleen field value if set, zero value otherwise.
 func (o *Whale) GetHasBaleen() bool {
-	if o == nil || IsNil(o.HasBaleen) {
+	if o == nil || o.HasBaleen == nil {
 		var ret bool
 		return ret
 	}
@@ -58,7 +54,7 @@ func (o *Whale) GetHasBaleen() bool {
 // GetHasBaleenOk returns a tuple with the HasBaleen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Whale) GetHasBaleenOk() (*bool, bool) {
-	if o == nil || IsNil(o.HasBaleen) {
+	if o == nil || o.HasBaleen == nil {
 		return nil, false
 	}
 	return o.HasBaleen, true
@@ -66,7 +62,7 @@ func (o *Whale) GetHasBaleenOk() (*bool, bool) {
 
 // HasHasBaleen returns a boolean if a field has been set.
 func (o *Whale) HasHasBaleen() bool {
-	if o != nil && !IsNil(o.HasBaleen) {
+	if o != nil && o.HasBaleen != nil {
 		return true
 	}
 
@@ -80,7 +76,7 @@ func (o *Whale) SetHasBaleen(v bool) {
 
 // GetHasTeeth returns the HasTeeth field value if set, zero value otherwise.
 func (o *Whale) GetHasTeeth() bool {
-	if o == nil || IsNil(o.HasTeeth) {
+	if o == nil || o.HasTeeth == nil {
 		var ret bool
 		return ret
 	}
@@ -90,7 +86,7 @@ func (o *Whale) GetHasTeeth() bool {
 // GetHasTeethOk returns a tuple with the HasTeeth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Whale) GetHasTeethOk() (*bool, bool) {
-	if o == nil || IsNil(o.HasTeeth) {
+	if o == nil || o.HasTeeth == nil {
 		return nil, false
 	}
 	return o.HasTeeth, true
@@ -98,7 +94,7 @@ func (o *Whale) GetHasTeethOk() (*bool, bool) {
 
 // HasHasTeeth returns a boolean if a field has been set.
 func (o *Whale) HasHasTeeth() bool {
-	if o != nil && !IsNil(o.HasTeeth) {
+	if o != nil && o.HasTeeth != nil {
 		return true
 	}
 
@@ -135,61 +131,30 @@ func (o *Whale) SetClassName(v string) {
 }
 
 func (o Whale) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o Whale) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.HasBaleen) {
+	if o.HasBaleen != nil {
 		toSerialize["hasBaleen"] = o.HasBaleen
 	}
-	if !IsNil(o.HasTeeth) {
+	if o.HasTeeth != nil {
 		toSerialize["hasTeeth"] = o.HasTeeth
 	}
-	toSerialize["className"] = o.ClassName
+	if true {
+		toSerialize["className"] = o.ClassName
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return toSerialize, nil
+	return json.Marshal(toSerialize)
 }
 
 func (o *Whale) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"className",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varWhale := _Whale{}
 
-	err = json.Unmarshal(bytes, &varWhale)
-
-	if err != nil {
-		return err
+	if err = json.Unmarshal(bytes, &varWhale); err == nil {
+		*o = Whale(varWhale)
 	}
-
-	*o = Whale(varWhale)
 
 	additionalProperties := make(map[string]interface{})
 

@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | Option<**i64**> |  | [optional]
-**username** | **String** |  | 
+**username** | Option<**String**> |  | [optional]
 **first_name** | Option<**String**> |  | [optional]
-**last_name** | **String** |  | 
+**last_name** | Option<**String**> |  | [optional]
 **email** | Option<**String**> |  | [optional]
 **password** | Option<**String**> |  | [optional]
 **phone** | Option<**String**> |  | [optional]

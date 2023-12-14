@@ -1323,6 +1323,12 @@ class JsonCacheImpl implements JsonCache.Root {
     }
 
     @Override
+    protected void finalize() throws Throwable {
+        // TODO Auto-generated method stub
+        super.finalize();
+    }
+
+    @Override
     public Number getNumber(JsonPointer ptr) {
         return root == null ? null : root.at(ptr).numberValue();
     }

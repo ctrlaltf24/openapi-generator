@@ -31,7 +31,6 @@ namespace OpenAPI\Server\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\Annotation\Accessor;
 use JMS\Serializer\Annotation\SerializedName;
 
 /**
@@ -42,7 +41,6 @@ use JMS\Serializer\Annotation\SerializedName;
  * @package OpenAPI\Server\Model
  * @author  OpenAPI Generator team
  */
-
 class ApiResponse 
 {
         /**
@@ -51,7 +49,7 @@ class ApiResponse
      * @Assert\Type("int")
      * @Type("int")
      */
-    protected ?int $code = null;
+    protected $code;
 
     /**
      * @var string|null
@@ -59,7 +57,7 @@ class ApiResponse
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $type = null;
+    protected $type;
 
     /**
      * @var string|null
@@ -67,19 +65,17 @@ class ApiResponse
      * @Assert\Type("string")
      * @Type("string")
      */
-    protected ?string $message = null;
+    protected $message;
 
     /**
      * Constructor
-     * @param array|null $data Associated array of property values initializing the model
+     * @param mixed[] $data Associated array of property values initializing the model
      */
     public function __construct(array $data = null)
     {
-        if (is_array($data)) {
-            $this->code = array_key_exists('code', $data) ? $data['code'] : $this->code;
-            $this->type = array_key_exists('type', $data) ? $data['type'] : $this->type;
-            $this->message = array_key_exists('message', $data) ? $data['message'] : $this->message;
-        }
+        $this->code = isset($data['code']) ? $data['code'] : null;
+        $this->type = isset($data['type']) ? $data['type'] : null;
+        $this->message = isset($data['message']) ? $data['message'] : null;
     }
 
     /**
@@ -87,12 +83,10 @@ class ApiResponse
      *
      * @return int|null
      */
-    public function getCode(): ?int
+    public function getCode()
     {
         return $this->code;
     }
-
-
 
     /**
      * Sets code.
@@ -101,7 +95,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setCode(?int $code = null): self
+    public function setCode($code = null)
     {
         $this->code = $code;
 
@@ -113,12 +107,10 @@ class ApiResponse
      *
      * @return string|null
      */
-    public function getType(): ?string
+    public function getType()
     {
         return $this->type;
     }
-
-
 
     /**
      * Sets type.
@@ -127,7 +119,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setType(?string $type = null): self
+    public function setType($type = null)
     {
         $this->type = $type;
 
@@ -139,12 +131,10 @@ class ApiResponse
      *
      * @return string|null
      */
-    public function getMessage(): ?string
+    public function getMessage()
     {
         return $this->message;
     }
-
-
 
     /**
      * Sets message.
@@ -153,7 +143,7 @@ class ApiResponse
      *
      * @return $this
      */
-    public function setMessage(?string $message = null): self
+    public function setMessage($message = null)
     {
         $this->message = $message;
 

@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.openapitools.model.Category;
 import org.openapitools.model.Tag;
 import javax.validation.constraints.*;
-import javax.validation.Valid;
 
 /**
  * A pet for sale in the pet store
@@ -31,12 +29,12 @@ public class Pet   {
 
   private List<String> photoUrls = new ArrayList<>();
 
-  private List<@Valid Tag> tags;
+  private List<Tag> tags = null;
 
 
 public enum StatusEnum {
 
-    @JsonProperty("available") AVAILABLE(String.valueOf("available")), @JsonProperty("pending") PENDING(String.valueOf("pending")), @JsonProperty("sold") SOLD(String.valueOf("sold"));
+    AVAILABLE(String.valueOf("available")), PENDING(String.valueOf("pending")), SOLD(String.valueOf("sold"));
 
 
     private String value;
@@ -65,6 +63,7 @@ public enum StatusEnum {
 }
 
   private StatusEnum status;
+
 
   /**
    **/
@@ -140,9 +139,6 @@ public enum StatusEnum {
   }
 
   public Pet addPhotoUrlsItem(String photoUrlsItem) {
-    if (this.photoUrls == null) {
-      this.photoUrls = new ArrayList<>();
-    }
     this.photoUrls.add(photoUrlsItem);
     return this;
   }
@@ -150,7 +146,7 @@ public enum StatusEnum {
 
   /**
    **/
-  public Pet tags(List<@Valid Tag> tags) {
+  public Pet tags(List<Tag> tags) {
     this.tags = tags;
     return this;
   }
@@ -158,10 +154,10 @@ public enum StatusEnum {
   
   @ApiModelProperty(value = "")
   @JsonProperty("tags")
-  public List<@Valid Tag> getTags() {
+  public List<Tag> getTags() {
     return tags;
   }
-  public void setTags(List<@Valid Tag> tags) {
+  public void setTags(List<Tag> tags) {
     this.tags = tags;
   }
 

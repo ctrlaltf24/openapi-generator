@@ -26,7 +26,7 @@ class NumberOnly {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is NumberOnly &&
-    other.justNumber == justNumber;
+     other.justNumber == justNumber;
 
   @override
   int get hashCode =>
@@ -37,13 +37,11 @@ class NumberOnly {
   String toString() => 'NumberOnly[justNumber=$justNumber]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.justNumber != null) {
-      json[r'JustNumber'] = this.justNumber;
-    } else {
-      json[r'JustNumber'] = null;
+    final _json = <String, dynamic>{};
+    if (justNumber != null) {
+      _json[r'JustNumber'] = justNumber;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [NumberOnly] instance and imports its values from
@@ -65,13 +63,15 @@ class NumberOnly {
       }());
 
       return NumberOnly(
-        justNumber: num.parse('${json[r'JustNumber']}'),
+        justNumber: json[r'JustNumber'] == null
+            ? null
+            : num.parse(json[r'JustNumber'].toString()),
       );
     }
     return null;
   }
 
-  static List<NumberOnly> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<NumberOnly>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <NumberOnly>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -102,10 +102,12 @@ class NumberOnly {
   static Map<String, List<NumberOnly>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<NumberOnly>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = NumberOnly.listFromJson(entry.value, growable: growable,);
+        final value = NumberOnly.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

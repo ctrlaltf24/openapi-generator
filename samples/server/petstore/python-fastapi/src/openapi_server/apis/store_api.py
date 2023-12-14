@@ -1,11 +1,6 @@
 # coding: utf-8
 
 from typing import Dict, List  # noqa: F401
-import importlib
-import pkgutil
-
-from openapi_server.apis.store_api_base import BaseStoreApi
-import openapi_server.impl
 
 from fastapi import (  # noqa: F401
     APIRouter,
@@ -27,10 +22,6 @@ from openapi_server.security_api import get_token_api_key
 
 router = APIRouter()
 
-ns_pkg = openapi_server.impl
-for _, name, _ in pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + "."):
-    importlib.import_module(name)
-
 
 @router.delete(
     "/store/order/{orderId}",
@@ -46,7 +37,7 @@ async def delete_order(
     orderId: str = Path(None, description="ID of the order that needs to be deleted"),
 ) -> None:
     """For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors"""
-    return BaseStoreApi.subclasses[0]().delete_order(orderId)
+    ...
 
 
 @router.get(
@@ -64,7 +55,7 @@ async def get_inventory(
     ),
 ) -> Dict[str, int]:
     """Returns a map of status codes to quantities"""
-    return BaseStoreApi.subclasses[0]().get_inventory()
+    ...
 
 
 @router.get(
@@ -81,8 +72,8 @@ async def get_inventory(
 async def get_order_by_id(
     orderId: int = Path(None, description="ID of pet that needs to be fetched", ge=1, le=5),
 ) -> Order:
-    """For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions"""
-    return BaseStoreApi.subclasses[0]().get_order_by_id(orderId)
+    """For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generated exceptions"""
+    ...
 
 
 @router.post(
@@ -99,4 +90,4 @@ async def place_order(
     order: Order = Body(None, description="order placed for purchasing the pet"),
 ) -> Order:
     """"""
-    return BaseStoreApi.subclasses[0]().place_order(order)
+    ...

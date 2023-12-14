@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 **id** | **kotlin.Long** |  |  [optional]
 **petId** | **kotlin.Long** |  |  [optional]
 **quantity** | **kotlin.Int** |  |  [optional]
-**shipDate** | [**kotlinx.datetime.Instant**](kotlinx.datetime.Instant.md) |  |  [optional]
+**shipDate** | **kotlin.String** |  |  [optional]
 **status** | [**inline**](#Status) | Order Status |  [optional]
 **complete** | **kotlin.Boolean** |  |  [optional]
 
 
-<a id="Status"></a>
+<a name="Status"></a>
 ## Enum: status
 Name | Value
 ---- | -----

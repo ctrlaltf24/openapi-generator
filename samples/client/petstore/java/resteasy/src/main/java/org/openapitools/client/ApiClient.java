@@ -31,7 +31,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -82,11 +81,10 @@ public class ApiClient extends JavaTimeFormatter {
 
     // Setup authentications (key: authentication name, value: authentication).
     authentications = new HashMap<String, Authentication>();
-    authentications.put("petstore_auth", new OAuth());
     authentications.put("api_key", new ApiKeyAuth("header", "api_key"));
     authentications.put("api_key_query", new ApiKeyAuth("query", "api_key_query"));
     authentications.put("http_basic_test", new HttpBasicAuth());
-    authentications.put("bearer_test", new HttpBearerAuth("bearer"));
+    authentications.put("petstore_auth", new OAuth());
     // Prevent the authentications from being modified.
     authentications = Collections.unmodifiableMap(authentications);
   }
@@ -493,16 +491,15 @@ public class ApiClient extends JavaTimeFormatter {
         if (param.getValue() instanceof File) {
           File file = (File) param.getValue();
           try {
-            multipart.addFormData(param.getKey(),new FileInputStream(file),MediaType.APPLICATION_OCTET_STREAM_TYPE);
+            multipart.addFormData(param.getValue().toString(),new FileInputStream(file),MediaType.APPLICATION_OCTET_STREAM_TYPE);
           } catch (FileNotFoundException e) {
             throw new ApiException("Could not serialize multipart/form-data "+e.getMessage());
           }
         } else {
-          multipart.addFormData(param.getKey(),param.getValue().toString(),MediaType.APPLICATION_OCTET_STREAM_TYPE);
+          multipart.addFormData(param.getValue().toString(),param.getValue().toString(),MediaType.APPLICATION_OCTET_STREAM_TYPE);
         }
       }
-      GenericEntity<MultipartFormDataOutput> genericEntity = new GenericEntity<MultipartFormDataOutput>(multipart) { };
-      entity = Entity.entity(genericEntity, MediaType.MULTIPART_FORM_DATA_TYPE);
+      entity = Entity.entity(multipart.getFormData(), MediaType.MULTIPART_FORM_DATA_TYPE);
     } else if (contentType.startsWith("application/x-www-form-urlencoded")) {
       Form form = new Form();
       for (Entry<String, Object> param: formParams.entrySet()) {
@@ -669,38 +666,6 @@ public class ApiClient extends JavaTimeFormatter {
 
     Entity<?> entity = serialize(body, formParams, contentType);
 
-    try (Response response = invoke(invocationBuilder, method, entity)) {
-      statusCode = response.getStatusInfo().getStatusCode();
-      responseHeaders = buildResponseHeaders(response);
-
-      if (response.getStatus() == Status.NO_CONTENT.getStatusCode()) {
-        return null;
-      } else if (response.getStatusInfo().getFamily().equals(Status.Family.SUCCESSFUL)) {
-        if (returnType == null)
-          return null;
-        else
-          return deserialize(response, returnType);
-      } else {
-        String message = "error";
-        String respBody = null;
-        if (response.hasEntity()) {
-          try {
-            respBody = String.valueOf(response.readEntity(String.class));
-            message = respBody;
-          } catch (RuntimeException e) {
-            // e.printStackTrace();
-          }
-        }
-        throw new ApiException(
-          response.getStatus(),
-          message,
-          buildResponseHeaders(response),
-          respBody);
-      }
-    }
-  }
-
-  private Response invoke(Invocation.Builder invocationBuilder, String method, Entity<?> entity) throws ApiException {
     Response response = null;
 
     if ("GET".equals(method)) {
@@ -723,10 +688,36 @@ public class ApiClient extends JavaTimeFormatter {
       throw new ApiException(500, "unknown method type " + method);
     }
 
-    return response;
+    statusCode = response.getStatusInfo().getStatusCode();
+    responseHeaders = buildResponseHeaders(response);
+
+    if (response.getStatus() == Status.NO_CONTENT.getStatusCode()) {
+      return null;
+    } else if (response.getStatusInfo().getFamily().equals(Status.Family.SUCCESSFUL)) {
+      if (returnType == null)
+        return null;
+      else
+        return deserialize(response, returnType);
+    } else {
+      String message = "error";
+      String respBody = null;
+      if (response.hasEntity()) {
+        try {
+          respBody = String.valueOf(response.readEntity(String.class));
+          message = respBody;
+        } catch (RuntimeException e) {
+          // e.printStackTrace();
+        }
+      }
+      throw new ApiException(
+        response.getStatus(),
+        message,
+        buildResponseHeaders(response),
+        respBody);
+    }
   }
 
-  /**
+   /**
    * Build the Client used to make HTTP requests.
    */
   private Client buildHttpClient(boolean debugging) {

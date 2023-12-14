@@ -32,9 +32,9 @@ class Dog {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Dog &&
-    other.className == className &&
-    other.color == color &&
-    other.breed == breed;
+     other.className == className &&
+     other.color == color &&
+     other.breed == breed;
 
   @override
   int get hashCode =>
@@ -47,15 +47,13 @@ class Dog {
   String toString() => 'Dog[className=$className, color=$color, breed=$breed]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-      json[r'className'] = this.className;
-      json[r'color'] = this.color;
-    if (this.breed != null) {
-      json[r'breed'] = this.breed;
-    } else {
-      json[r'breed'] = null;
+    final _json = <String, dynamic>{};
+      _json[r'className'] = className;
+      _json[r'color'] = color;
+    if (breed != null) {
+      _json[r'breed'] = breed;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [Dog] instance and imports its values from
@@ -85,7 +83,7 @@ class Dog {
     return null;
   }
 
-  static List<Dog> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Dog>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <Dog>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -116,10 +114,12 @@ class Dog {
   static Map<String, List<Dog>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<Dog>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = Dog.listFromJson(entry.value, growable: growable,);
+        final value = Dog.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

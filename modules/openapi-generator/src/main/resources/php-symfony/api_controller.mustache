@@ -97,10 +97,10 @@ class {{controllerName}} extends Controller
         $security{{name}} = $request->cookies->get('{{keyParamName}}');
         {{/isKeyInCookie}}
         {{/isApiKey}}
-        {{#isBasicBasic}}
+        {{#isBasic}}
         // HTTP basic authentication required
         $security{{name}} = $request->headers->get('authorization');
-        {{/isBasicBasic}}
+        {{/isBasic}}
         {{#isOAuth}}
         // Oauth required
         $security{{name}} = $request->headers->get('authorization');
@@ -109,17 +109,17 @@ class {{controllerName}} extends Controller
 
         // Read out all input parameter values into variables
         {{#queryParams}}
-        ${{paramName}} = $request->query->get('{{paramName}}'{{#defaultValue}}, {{{.}}}{{/defaultValue}});
+        ${{paramName}} = $request->query->get('{{paramName}}');
         {{/queryParams}}
         {{#headerParams}}
-        ${{paramName}} = $request->headers->get('{{baseName}}'{{#defaultValue}}, {{{.}}}{{/defaultValue}});
+        ${{paramName}} = $request->headers->get('{{baseName}}');
         {{/headerParams}}
         {{#formParams}}
         {{#isFile}}
-        ${{paramName}} = $request->files->get('{{paramName}}'{{#defaultValue}}, {{{.}}}{{/defaultValue}});
+        ${{paramName}} = $request->files->get('{{paramName}}');
         {{/isFile}}
         {{^isFile}}
-        ${{paramName}} = $request->request->get('{{paramName}}'{{#defaultValue}}, {{{.}}}{{/defaultValue}});
+        ${{paramName}} = $request->request->get('{{paramName}}');
         {{/isFile}}
         {{/formParams}}
         {{#bodyParams}}
@@ -149,10 +149,10 @@ class {{controllerName}} extends Controller
             {{^isFile}}
             {{#isBodyParam}}
             $inputFormat = $request->getMimeType($request->getContentType());
-            ${{paramName}} = $this->deserialize(${{paramName}}, '{{#isContainer}}{{#items}}array<{{dataType}}>{{/items}}{{/isContainer}}{{^isContainer}}{{#isEnumRef}}\{{modelPackage}}\{{dataType}}{{/isEnumRef}}{{^isEnumRef}}{{dataType}}{{/isEnumRef}}{{/isContainer}}', $inputFormat);
+            ${{paramName}} = $this->deserialize(${{paramName}}, '{{#isContainer}}{{#items}}array<{{dataType}}>{{/items}}{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}}', $inputFormat);
             {{/isBodyParam}}
             {{^isBodyParam}}
-            ${{paramName}} = $this->deserialize(${{paramName}}, '{{#isContainer}}array<{{collectionFormat}}{{^collectionFormat}}csv{{/collectionFormat}},{{dataType}}>{{/isContainer}}{{^isContainer}}{{#isEnumRef}}\{{modelPackage}}\{{dataType}}{{/isEnumRef}}{{^isEnumRef}}{{dataType}}{{/isEnumRef}}{{/isContainer}}', 'string');
+            ${{paramName}} = $this->deserialize(${{paramName}}, '{{#isContainer}}array<{{collectionFormat}}{{^collectionFormat}}csv{{/collectionFormat}},{{dataType}}>{{/isContainer}}{{^isContainer}}{{dataType}}{{/isContainer}}', 'string');
             {{/isBodyParam}}
             {{/isFile}}
             {{/allParams}}
@@ -175,8 +175,7 @@ class {{controllerName}} extends Controller
             // Make the call to the business logic
             $responseCode = {{#returnType}}200{{/returnType}}{{^returnType}}204{{/returnType}};
             $responseHeaders = [];
-
-            {{#returnType}}$result = {{/returnType}}$handler->{{operationId}}({{#allParams}}${{paramName}}, {{/allParams}}$responseCode, $responseHeaders);
+            $result = $handler->{{operationId}}({{#allParams}}${{paramName}}, {{/allParams}}$responseCode, $responseHeaders);
 
             // Find default response message
             $message = '{{#responses}}{{#isDefault}}{{message}}{{/isDefault}}{{/responses}}';
@@ -203,7 +202,7 @@ class {{controllerName}} extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }

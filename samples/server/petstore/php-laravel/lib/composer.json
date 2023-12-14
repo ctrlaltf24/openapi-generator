@@ -2,19 +2,7 @@
   "name": "openapitools/petstore",
   "description": ".",
   "keywords": ["framework", "laravel"],
-  "keywords": [
-    "openapi",
-    "php",
-    "api"
-  ],
-  "homepage": "https://openapi-generator.tech",
-  "license": "unlicense",
-  "authors": [
-    {
-        "name": "OpenAPI",
-        "homepage": "https://openapi-generator.tech"
-    }
-  ],
+  "license": "MIT",
   "type": "project",
   "require": {
     "php": "^7.2.5",

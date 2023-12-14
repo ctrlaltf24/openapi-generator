@@ -12,11 +12,7 @@ package petstore
 
 import (
 	"encoding/json"
-	"fmt"
 )
-
-// checks if the Zebra type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Zebra{}
 
 // Zebra struct for Zebra
 type Zebra struct {
@@ -47,7 +43,7 @@ func NewZebraWithDefaults() *Zebra {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *Zebra) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil || o.Type == nil {
 		var ret string
 		return ret
 	}
@@ -57,7 +53,7 @@ func (o *Zebra) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Zebra) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil || o.Type == nil {
 		return nil, false
 	}
 	return o.Type, true
@@ -65,7 +61,7 @@ func (o *Zebra) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *Zebra) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
+	if o != nil && o.Type != nil {
 		return true
 	}
 
@@ -102,58 +98,27 @@ func (o *Zebra) SetClassName(v string) {
 }
 
 func (o Zebra) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
-	}
-	return json.Marshal(toSerialize)
-}
-
-func (o Zebra) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
+	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	toSerialize["className"] = o.ClassName
+	if true {
+		toSerialize["className"] = o.ClassName
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return toSerialize, nil
+	return json.Marshal(toSerialize)
 }
 
 func (o *Zebra) UnmarshalJSON(bytes []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"className",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(bytes, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varZebra := _Zebra{}
 
-	err = json.Unmarshal(bytes, &varZebra)
-
-	if err != nil {
-		return err
+	if err = json.Unmarshal(bytes, &varZebra); err == nil {
+		*o = Zebra(varZebra)
 	}
-
-	*o = Zebra(varZebra)
 
 	additionalProperties := make(map[string]interface{})
 

@@ -38,7 +38,6 @@ public class ExampleGenerator {
 
     private static final String EXAMPLE = "example";
     private static final String CONTENT_TYPE = "contentType";
-    private static final String GENERATED_CONTENT_TYPE = "generatedContentType";
     private static final String OUTPUT = "output";
     private static final String NONE = "none";
     private static final String URL = "url";
@@ -81,9 +80,12 @@ public class ExampleGenerator {
 
         if (ModelUtils.isArraySchema(responseSchema)) { // array of schema
             ArraySchema as = (ArraySchema) responseSchema;
-            if (as.getItems() != null) { // array of primitive types
+            if (as.getItems() != null && StringUtils.isEmpty(as.getItems().get$ref())) { // array of primitive types
                 return generate((Map<String, Object>) responseSchema.getExample(),
-                        new ArrayList<>(producesInfo), as);
+                        new ArrayList<String>(producesInfo), as.getItems());
+            } else if (as.getItems() != null && !StringUtils.isEmpty(as.getItems().get$ref())) { // array of model
+                return generate((Map<String, Object>) responseSchema.getExample(),
+                        new ArrayList<String>(producesInfo), ModelUtils.getSimpleRef(as.getItems().get$ref()));
             } else {
                 // TODO log warning message as such case is not handled at the moment
                 return null;
@@ -113,14 +115,12 @@ public class ExampleGenerator {
                     String example = Json.pretty(resolvePropertyToExample("", mediaType, property, processedModels));
                     if (example != null) {
                         kv.put(EXAMPLE, example);
-                        kv.put(GENERATED_CONTENT_TYPE, MIME_TYPE_JSON);
                         output.add(kv);
                     }
                 } else if (property != null && mediaType.startsWith(MIME_TYPE_XML)) {
                     String example = new XmlExampleGenerator(this.examples).toXml(property);
                     if (example != null) {
                         kv.put(EXAMPLE, example);
-                        kv.put(GENERATED_CONTENT_TYPE, MIME_TYPE_XML);
                         output.add(kv);
                     }
                 }
@@ -160,7 +160,6 @@ public class ExampleGenerator {
 
                         if (example != null) {
                             kv.put(EXAMPLE, example);
-                            kv.put(GENERATED_CONTENT_TYPE, MIME_TYPE_JSON);
                             output.add(kv);
                         }
                     }
@@ -169,12 +168,8 @@ public class ExampleGenerator {
                     String example = new XmlExampleGenerator(this.examples).toXml(schema, 0, Collections.emptySet());
                     if (example != null) {
                         kv.put(EXAMPLE, example);
-                        kv.put(GENERATED_CONTENT_TYPE, MIME_TYPE_XML);
                         output.add(kv);
                     }
-                } else {
-                    kv.put(EXAMPLE, "Custom MIME type example not yet supported: " + mediaType);
-                    output.add(kv);
                 }
             }
         } else {
@@ -206,7 +201,6 @@ public class ExampleGenerator {
                 kv.put(CONTENT_TYPE, mediaType);
                 if ((mediaType.startsWith(MIME_TYPE_JSON) || mediaType.contains("*/*"))) {
                     kv.put(EXAMPLE, Json.pretty(example));
-                    kv.put(GENERATED_CONTENT_TYPE, MIME_TYPE_JSON);
                     output.add(kv);
                 } else if (mediaType.startsWith(MIME_TYPE_XML)) {
                     // TODO
@@ -224,10 +218,6 @@ public class ExampleGenerator {
     }
 
     private Object resolvePropertyToExample(String propertyName, String mediaType, Schema property, Set<String> processedModels) {
-        if (property == null) {
-            LOGGER.error("Property schema shouldn't be null. Please report the issue to the openapi-generator team.");
-            return "";
-        }
         LOGGER.debug("Resolving example for property {}...", property);
         if (property.getExample() != null) {
             LOGGER.debug("Example set in openapi spec, returning example: '{}'", property.getExample().toString());
@@ -279,10 +269,10 @@ public class ExampleGenerator {
             Map<String, Object> mp = new HashMap<String, Object>();
             if (property.getName() != null) {
                 mp.put(property.getName(),
-                        resolvePropertyToExample(propertyName, mediaType, ModelUtils.getAdditionalProperties(property), processedModels));
+                        resolvePropertyToExample(propertyName, mediaType, ModelUtils.getAdditionalProperties(openAPI, property), processedModels));
             } else {
                 mp.put("key",
-                        resolvePropertyToExample(propertyName, mediaType, ModelUtils.getAdditionalProperties(property), processedModels));
+                        resolvePropertyToExample(propertyName, mediaType, ModelUtils.getAdditionalProperties(openAPI, property), processedModels));
             }
             return mp;
         } else if (ModelUtils.isUUIDSchema(property)) {
@@ -291,8 +281,10 @@ public class ExampleGenerator {
             return "https://openapi-generator.tech";
         } else if (ModelUtils.isStringSchema(property)) {
             LOGGER.debug("String property");
-            if (property.getDefault() != null) {
-                return String.valueOf(property.getDefault());
+            String defaultValue = (String) property.getDefault();
+            if (defaultValue != null && !defaultValue.isEmpty()) {
+                LOGGER.debug("Default value found: '{}'", defaultValue);
+                return defaultValue;
             }
             List<String> enumValues = property.getEnum();
             if (enumValues != null && !enumValues.isEmpty()) {

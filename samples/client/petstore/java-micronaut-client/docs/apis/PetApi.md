@@ -43,7 +43,7 @@ Note that the class needs to be annotated with one of Micronaut's [scope annotat
 
 More information can be found inside [Inversion of Control guide section](https://docs.micronaut.io/latest/guide/#ioc).
 
-<a id="addPet"></a>
+<a name="addPet"></a>
 # **addPet**
 ```java
 Mono<Void> PetApi.addPet(_body)
@@ -66,7 +66,7 @@ Add a new pet to the store
  - **Content-Type**: `application/json`, `application/xml`
  - **Accept**: Not defined
 
-<a id="deletePet"></a>
+<a name="deletePet"></a>
 # **deletePet**
 ```java
 Mono<Void> PetApi.deletePet(petIdapiKey)
@@ -90,7 +90,7 @@ Deletes a pet
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="findPetsByStatus"></a>
+<a name="findPetsByStatus"></a>
 # **findPetsByStatus**
 ```java
 Mono<List<Pet>> PetApi.findPetsByStatus(status)
@@ -116,7 +116,7 @@ Multiple status values can be provided with comma separated strings
  - **Content-Type**: Not defined
  - **Accept**: `application/xml`, `application/json`
 
-<a id="findPetsByTags"></a>
+<a name="findPetsByTags"></a>
 # **findPetsByTags**
 ```java
 Mono<Set<Pet>> PetApi.findPetsByTags(tags)
@@ -142,7 +142,7 @@ Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
  - **Content-Type**: Not defined
  - **Accept**: `application/xml`, `application/json`
 
-<a id="getPetById"></a>
+<a name="getPetById"></a>
 # **getPetById**
 ```java
 Mono<Pet> PetApi.getPetById(petId)
@@ -168,7 +168,7 @@ Returns a single pet
  - **Content-Type**: Not defined
  - **Accept**: `application/xml`, `application/json`
 
-<a id="updatePet"></a>
+<a name="updatePet"></a>
 # **updatePet**
 ```java
 Mono<Void> PetApi.updatePet(_body)
@@ -191,7 +191,7 @@ Update an existing pet
  - **Content-Type**: `application/json`, `application/xml`
  - **Accept**: Not defined
 
-<a id="updatePetWithForm"></a>
+<a name="updatePetWithForm"></a>
 # **updatePetWithForm**
 ```java
 Mono<Void> PetApi.updatePetWithForm(petIdnamestatus)
@@ -216,7 +216,7 @@ Updates a pet in the store with form data
  - **Content-Type**: `application/x-www-form-urlencoded`
  - **Accept**: Not defined
 
-<a id="uploadFile"></a>
+<a name="uploadFile"></a>
 # **uploadFile**
 ```java
 Mono<ModelApiResponse> PetApi.uploadFile(petIdadditionalMetadata_file)
@@ -242,7 +242,7 @@ uploads an image
  - **Content-Type**: `multipart/form-data`
  - **Accept**: `application/json`
 
-<a id="uploadFileWithRequiredFile"></a>
+<a name="uploadFileWithRequiredFile"></a>
 # **uploadFileWithRequiredFile**
 ```java
 Mono<ModelApiResponse> PetApi.uploadFileWithRequiredFile(petIdrequiredFileadditionalMetadata)

@@ -22,8 +22,6 @@ No description available.
 No description available.
 .PARAMETER Bars
 No description available.
-.PARAMETER SomethingElse
-No description available.
 .OUTPUTS
 
 ObjectWithDeprecatedFields<PSCustomObject>
@@ -43,10 +41,7 @@ function Initialize-PSObjectWithDeprecatedFields {
         ${DeprecatedRef},
         [Parameter(Position = 3, ValueFromPipelineByPropertyName = $true)]
         [String[]]
-        ${Bars},
-        [Parameter(Position = 4, ValueFromPipelineByPropertyName = $true)]
-        [String]
-        ${SomethingElse}
+        ${Bars}
     )
 
     Process {
@@ -59,7 +54,6 @@ function Initialize-PSObjectWithDeprecatedFields {
             "id" = ${Id}
             "deprecatedRef" = ${DeprecatedRef}
             "bars" = ${Bars}
-            "name_mapping" = ${SomethingElse}
         }
 
 
@@ -97,7 +91,7 @@ function ConvertFrom-PSJsonToObjectWithDeprecatedFields {
         $JsonParameters = ConvertFrom-Json -InputObject $Json
 
         # check if Json contains properties not defined in PSObjectWithDeprecatedFields
-        $AllProperties = ("uuid", "id", "deprecatedRef", "bars", "name_mapping")
+        $AllProperties = ("uuid", "id", "deprecatedRef", "bars")
         foreach ($name in $JsonParameters.PsObject.Properties.Name) {
             if (!($AllProperties.Contains($name))) {
                 throw "Error! JSON key '$name' not found in the properties: $($AllProperties)"
@@ -128,18 +122,11 @@ function ConvertFrom-PSJsonToObjectWithDeprecatedFields {
             $Bars = $JsonParameters.PSobject.Properties["bars"].value
         }
 
-        if (!([bool]($JsonParameters.PSobject.Properties.name -match "name_mapping"))) { #optional property not found
-            $SomethingElse = $null
-        } else {
-            $SomethingElse = $JsonParameters.PSobject.Properties["name_mapping"].value
-        }
-
         $PSO = [PSCustomObject]@{
             "uuid" = ${Uuid}
             "id" = ${Id}
             "deprecatedRef" = ${DeprecatedRef}
             "bars" = ${Bars}
-            "name_mapping" = ${SomethingElse}
         }
 
         return $PSO

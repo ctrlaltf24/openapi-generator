@@ -5,9 +5,6 @@
 //
 
 import Foundation
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
 
 protocol JSONEncodable {
     func encodeToJSON() -> Any
@@ -89,40 +86,33 @@ open class Response<T> {
     public let statusCode: Int
     public let header: [String: String]
     public let body: T
-    public let bodyData: Data?
 
-    public init(statusCode: Int, header: [String: String], body: T, bodyData: Data?) {
+    public init(statusCode: Int, header: [String: String], body: T) {
         self.statusCode = statusCode
         self.header = header
         self.body = body
-        self.bodyData = bodyData
     }
 
-    public convenience init(response: HTTPURLResponse, body: T, bodyData: Data?) {
+    public convenience init(response: HTTPURLResponse, body: T) {
         let rawHeader = response.allHeaderFields
-        var responseHeader = [String: String]()
+        var header = [String: String]()
         for (key, value) in rawHeader {
             if let key = key.base as? String, let value = value as? String {
-                responseHeader[key] = value
+                header[key] = value
             }
         }
-        self.init(statusCode: response.statusCode, header: responseHeader, body: body, bodyData: bodyData)
+        self.init(statusCode: response.statusCode, header: header, body: body)
     }
 }
 
-public final class RequestTask: @unchecked Sendable {
-    private var lock = NSRecursiveLock()
+public final class RequestTask {
     private var task: URLSessionTask?
 
     internal func set(task: URLSessionTask) {
-        lock.lock()
-        defer { lock.unlock() }
         self.task = task
     }
 
     public func cancel() {
-        lock.lock()
-        defer { lock.unlock() }
         task?.cancel()
         task = nil
     }

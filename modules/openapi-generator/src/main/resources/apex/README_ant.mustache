@@ -104,14 +104,14 @@ Please follow the [installation](#installation) instruction and execute the foll
 {{classname}} api = new {{classname}}();
 {{#hasAuthMethods}}
 {{classPrefix}}Client client = api.getClient();
-{{#authMethods}}{{#isBasicBasic}}
+{{#authMethods}}{{#isBasic}}
 // Configure HTTP basic authorization: {{{name}}}
 HttpBasicAuth {{{name}}} = (HttpBasicAuth) client.getAuthentication('{{{name}}}');
 {{{name}}}.setUsername('YOUR USERNAME');
 {{{name}}}.setPassword('YOUR PASSWORD');
 
 // You can also set your username and password in one line
-{{{name}}}.setCredentials('YOUR USERNAME', 'YOUR PASSWORD');{{/isBasicBasic}}{{#isApiKey}}
+{{{name}}}.setCredentials('YOUR USERNAME', 'YOUR PASSWORD');{{/isBasic}}{{#isApiKey}}
 // Configure API key authorization: {{{name}}}
 ApiKeyAuth {{{name}}} = (ApiKeyAuth) client.getAuthentication('{{{name}}}');
 {{{name}}}.setApiKey('YOUR API KEY');{{/isApiKey}}{{#isOAuth}}
@@ -156,21 +156,18 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Authorization
 
-{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
-{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
-{{#authMethods}}
-### {{name}}
+{{^authMethods}}All endpoints do not require authorization.
+{{/authMethods}}Authentication schemes defined for the API:
+{{#authMethods}}### {{name}}
 
-{{#isApiKey}}- **Type**: API key
+{{#isApiKey}}
+
+- **Type**: API key
 - **API key parameter name**: {{keyParamName}}
 - **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
 {{/isApiKey}}
-{{#isBasicBasic}}- **Type**: HTTP basic authentication
-{{/isBasicBasic}}
-{{#isBasicBearer}}- **Type**: HTTP Bearer Token authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
-{{/isBasicBearer}}
-{{#isHttpSignature}}- **Type**: HTTP signature authentication
-{{/isHttpSignature}}
+{{#isBasic}}- **Type**: HTTP basic authentication
+{{/isBasic}}
 {{#isOAuth}}- **Type**: OAuth
 - **Flow**: {{flow}}
 - **Authorization URL**: {{authorizationUrl}}

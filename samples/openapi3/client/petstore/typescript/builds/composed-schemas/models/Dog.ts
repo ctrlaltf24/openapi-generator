@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { DogAllOf } from './DogAllOf';
 import { HttpFile } from '../http/http';
 
 export class Dog {
@@ -41,10 +42,5 @@ export class Dog {
 }
 
 
-export enum DogBreedEnum {
-    Dingo = 'Dingo',
-    Husky = 'Husky',
-    Retriever = 'Retriever',
-    Shepherd = 'Shepherd'
-}
+export type DogBreedEnum = "Dingo" | "Husky" | "Retriever" | "Shepherd" ;
 

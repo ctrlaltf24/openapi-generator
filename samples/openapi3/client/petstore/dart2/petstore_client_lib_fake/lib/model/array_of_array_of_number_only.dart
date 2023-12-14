@@ -20,7 +20,7 @@ class ArrayOfArrayOfNumberOnly {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is ArrayOfArrayOfNumberOnly &&
-    _deepEquality.equals(other.arrayArrayNumber, arrayArrayNumber);
+     other.arrayArrayNumber == arrayArrayNumber;
 
   @override
   int get hashCode =>
@@ -31,9 +31,9 @@ class ArrayOfArrayOfNumberOnly {
   String toString() => 'ArrayOfArrayOfNumberOnly[arrayArrayNumber=$arrayArrayNumber]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-      json[r'ArrayArrayNumber'] = this.arrayArrayNumber;
-    return json;
+    final _json = <String, dynamic>{};
+      _json[r'ArrayArrayNumber'] = arrayArrayNumber;
+    return _json;
   }
 
   /// Returns a new [ArrayOfArrayOfNumberOnly] instance and imports its values from
@@ -56,16 +56,16 @@ class ArrayOfArrayOfNumberOnly {
 
       return ArrayOfArrayOfNumberOnly(
         arrayArrayNumber: json[r'ArrayArrayNumber'] is List
-          ? (json[r'ArrayArrayNumber'] as List).map((e) =>
-              e == null ? const  <num>[] : (e as List).cast<num>()
+          ? (json[r'ArrayArrayNumber'] as List).map(
+              (e) => e == null ? null : (e as List).cast<num>()
             ).toList()
-          :  const [],
+          : null,
       );
     }
     return null;
   }
 
-  static List<ArrayOfArrayOfNumberOnly> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<ArrayOfArrayOfNumberOnly>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <ArrayOfArrayOfNumberOnly>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -96,10 +96,12 @@ class ArrayOfArrayOfNumberOnly {
   static Map<String, List<ArrayOfArrayOfNumberOnly>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<ArrayOfArrayOfNumberOnly>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = ArrayOfArrayOfNumberOnly.listFromJson(entry.value, growable: growable,);
+        final value = ArrayOfArrayOfNumberOnly.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

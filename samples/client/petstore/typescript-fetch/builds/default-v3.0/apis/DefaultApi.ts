@@ -14,13 +14,11 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  FooGetDefaultResponse,
-} from '../models/index';
 import {
+    FooGetDefaultResponse,
     FooGetDefaultResponseFromJSON,
     FooGetDefaultResponseToJSON,
-} from '../models/index';
+} from '../models';
 
 /**
  * 

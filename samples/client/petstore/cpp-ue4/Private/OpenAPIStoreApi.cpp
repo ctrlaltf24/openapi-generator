@@ -56,7 +56,7 @@ bool OpenAPIStoreApi::IsValid() const
 
 void OpenAPIStoreApi::SetHttpRetryManager(FHttpRetrySystem::FManager& InRetryManager)
 {
-	if (RetryManager != &InRetryManager)
+	if(RetryManager != &GetHttpRetryManager())
 	{
 		DefaultRetryManager.Reset();
 		RetryManager = &InRetryManager;

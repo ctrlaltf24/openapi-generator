@@ -32,7 +32,6 @@ pub async fn create(addr: &str, https: bool) {
 
     let service = MakeAllowAllAuthenticator::new(service, "cosmo");
 
-    #[allow(unused_mut)]
     let mut service =
         no_example_v3::server::context::MakeAddContext::<_, EmptyContext>::new(
             service
@@ -108,6 +107,7 @@ impl<C> Api<C> for Server<C> where C: Has<XSpanIdString> + Send + Sync
         op_get_request: models::OpGetRequest,
         context: &C) -> Result<OpGetResponse, ApiError>
     {
+        let context = context.clone();
         info!("op_get({:?}) - X-Span-ID: {:?}", op_get_request, context.get().0.clone());
         Err(ApiError("Generic failure".into()))
     }

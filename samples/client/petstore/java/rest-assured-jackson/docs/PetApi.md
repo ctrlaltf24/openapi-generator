@@ -15,7 +15,7 @@ All URIs are relative to *http://petstore.swagger.io:80/v2*
 | [**uploadFileWithRequiredFile**](PetApi.md#uploadFileWithRequiredFile) | **POST** /fake/{petId}/uploadImageWithRequiredFile | uploads an image (required) |
 
 
-<a id="addPet"></a>
+<a name="addPet"></a>
 # **addPet**
 > addPet(body)
 
@@ -55,7 +55,7 @@ null (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: Not defined
 
-<a id="deletePet"></a>
+<a name="deletePet"></a>
 # **deletePet**
 > deletePet(petId, apiKey)
 
@@ -96,7 +96,7 @@ null (empty response body)
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a id="findPetsByStatus"></a>
+<a name="findPetsByStatus"></a>
 # **findPetsByStatus**
 > List&lt;Pet&gt; findPetsByStatus(status)
 
@@ -138,7 +138,7 @@ api.findPetsByStatus()
  - **Content-Type**: Not defined
  - **Accept**: application/xml, application/json
 
-<a id="findPetsByTags"></a>
+<a name="findPetsByTags"></a>
 # **findPetsByTags**
 > Set&lt;Pet&gt; findPetsByTags(tags)
 
@@ -180,7 +180,7 @@ api.findPetsByTags()
  - **Content-Type**: Not defined
  - **Accept**: application/xml, application/json
 
-<a id="getPetById"></a>
+<a name="getPetById"></a>
 # **getPetById**
 > Pet getPetById(petId)
 
@@ -222,7 +222,7 @@ api.getPetById()
  - **Content-Type**: Not defined
  - **Accept**: application/xml, application/json
 
-<a id="updatePet"></a>
+<a name="updatePet"></a>
 # **updatePet**
 > updatePet(body)
 
@@ -262,7 +262,7 @@ null (empty response body)
  - **Content-Type**: application/json, application/xml
  - **Accept**: Not defined
 
-<a id="updatePetWithForm"></a>
+<a name="updatePetWithForm"></a>
 # **updatePetWithForm**
 > updatePetWithForm(petId, name, status)
 
@@ -304,7 +304,7 @@ null (empty response body)
  - **Content-Type**: application/x-www-form-urlencoded
  - **Accept**: Not defined
 
-<a id="uploadFile"></a>
+<a name="uploadFile"></a>
 # **uploadFile**
 > ModelApiResponse uploadFile(petId, additionalMetadata, _file)
 
@@ -346,7 +346,7 @@ api.uploadFile()
  - **Content-Type**: multipart/form-data
  - **Accept**: application/json
 
-<a id="uploadFileWithRequiredFile"></a>
+<a name="uploadFileWithRequiredFile"></a>
 # **uploadFileWithRequiredFile**
 > ModelApiResponse uploadFileWithRequiredFile(petId, requiredFile, additionalMetadata)
 

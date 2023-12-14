@@ -104,8 +104,7 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 204;
             $responseHeaders = [];
-
-            $handler->createUser($user, $responseCode, $responseHeaders);
+            $result = $handler->createUser($user, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'successful operation';
@@ -127,7 +126,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -189,8 +188,7 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 204;
             $responseHeaders = [];
-
-            $handler->createUsersWithArrayInput($user, $responseCode, $responseHeaders);
+            $result = $handler->createUsersWithArrayInput($user, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'successful operation';
@@ -212,7 +210,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -274,8 +272,7 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 204;
             $responseHeaders = [];
-
-            $handler->createUsersWithListInput($user, $responseCode, $responseHeaders);
+            $result = $handler->createUsersWithListInput($user, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'successful operation';
@@ -297,7 +294,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -347,8 +344,7 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 204;
             $responseHeaders = [];
-
-            $handler->deleteUser($username, $responseCode, $responseHeaders);
+            $result = $handler->deleteUser($username, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = '';
@@ -373,7 +369,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -427,7 +423,6 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-
             $result = $handler->getUserByName($username, $responseCode, $responseHeaders);
 
             // Find default response message
@@ -457,7 +452,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -522,7 +517,6 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 200;
             $responseHeaders = [];
-
             $result = $handler->loginUser($username, $password, $responseCode, $responseHeaders);
 
             // Find default response message
@@ -549,7 +543,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -585,8 +579,7 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 204;
             $responseHeaders = [];
-
-            $handler->logoutUser($responseCode, $responseHeaders);
+            $result = $handler->logoutUser($responseCode, $responseHeaders);
 
             // Find default response message
             $message = 'successful operation';
@@ -608,7 +601,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }
@@ -676,8 +669,7 @@ class UserController extends Controller
             // Make the call to the business logic
             $responseCode = 204;
             $responseHeaders = [];
-
-            $handler->updateUser($username, $user, $responseCode, $responseHeaders);
+            $result = $handler->updateUser($username, $user, $responseCode, $responseHeaders);
 
             // Find default response message
             $message = '';
@@ -702,7 +694,7 @@ class UserController extends Controller
                     ]
                 )
             );
-        } catch (\Throwable $fallthrough) {
+        } catch (Exception $fallthrough) {
             return $this->createErrorResponse(new HttpException(500, 'An unsuspected error occurred.', $fallthrough));
         }
     }

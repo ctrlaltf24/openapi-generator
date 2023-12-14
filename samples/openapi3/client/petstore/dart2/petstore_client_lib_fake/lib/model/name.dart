@@ -47,10 +47,10 @@ class Name {
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is Name &&
-    other.name == name &&
-    other.snakeCase == snakeCase &&
-    other.property == property &&
-    other.n123number == n123number;
+     other.name == name &&
+     other.snakeCase == snakeCase &&
+     other.property == property &&
+     other.n123number == n123number;
 
   @override
   int get hashCode =>
@@ -64,24 +64,18 @@ class Name {
   String toString() => 'Name[name=$name, snakeCase=$snakeCase, property=$property, n123number=$n123number]';
 
   Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-      json[r'name'] = this.name;
-    if (this.snakeCase != null) {
-      json[r'snake_case'] = this.snakeCase;
-    } else {
-      json[r'snake_case'] = null;
+    final _json = <String, dynamic>{};
+      _json[r'name'] = name;
+    if (snakeCase != null) {
+      _json[r'snake_case'] = snakeCase;
     }
-    if (this.property != null) {
-      json[r'property'] = this.property;
-    } else {
-      json[r'property'] = null;
+    if (property != null) {
+      _json[r'property'] = property;
     }
-    if (this.n123number != null) {
-      json[r'123Number'] = this.n123number;
-    } else {
-      json[r'123Number'] = null;
+    if (n123number != null) {
+      _json[r'123Number'] = n123number;
     }
-    return json;
+    return _json;
   }
 
   /// Returns a new [Name] instance and imports its values from
@@ -112,7 +106,7 @@ class Name {
     return null;
   }
 
-  static List<Name> listFromJson(dynamic json, {bool growable = false,}) {
+  static List<Name>? listFromJson(dynamic json, {bool growable = false,}) {
     final result = <Name>[];
     if (json is List && json.isNotEmpty) {
       for (final row in json) {
@@ -143,10 +137,12 @@ class Name {
   static Map<String, List<Name>> mapListFromJson(dynamic json, {bool growable = false,}) {
     final map = <String, List<Name>>{};
     if (json is Map && json.isNotEmpty) {
-      // ignore: parameter_assignments
-      json = json.cast<String, dynamic>();
+      json = json.cast<String, dynamic>(); // ignore: parameter_assignments
       for (final entry in json.entries) {
-        map[entry.key] = Name.listFromJson(entry.value, growable: growable,);
+        final value = Name.listFromJson(entry.value, growable: growable,);
+        if (value != null) {
+          map[entry.key] = value;
+        }
       }
     }
     return map;

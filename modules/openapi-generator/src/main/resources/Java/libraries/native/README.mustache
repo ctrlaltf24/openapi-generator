@@ -139,14 +139,11 @@ Class | Method | HTTP request | Description
 {{#models}}{{#model}} - [{{classname}}]({{modelDocPath}}{{classname}}.md)
 {{/model}}{{/models}}
 
-<a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-{{^authMethods}}Endpoints do not require authorization.{{/authMethods}}
-{{#hasAuthMethods}}Authentication schemes defined for the API:{{/hasAuthMethods}}
-{{#authMethods}}
-<a id="{{name}}"></a>
-### {{name}}
+{{^authMethods}}All endpoints do not require authorization.
+{{/authMethods}}Authentication schemes defined for the API:
+{{#authMethods}}### {{name}}
 
 {{#isApiKey}}
 
@@ -154,18 +151,10 @@ Class | Method | HTTP request | Description
 - **API key parameter name**: {{keyParamName}}
 - **Location**: {{#isKeyInQuery}}URL query string{{/isKeyInQuery}}{{#isKeyInHeader}}HTTP header{{/isKeyInHeader}}
 {{/isApiKey}}
-{{#isBasicBasic}}
+{{#isBasic}}
 
 - **Type**: HTTP basic authentication
-{{/isBasicBasic}}
-{{#isBasicBearer}}
-
-- **Type**: HTTP Bearer Token authentication{{#bearerFormat}} ({{{.}}}){{/bearerFormat}}
-{{/isBasicBearer}}
-{{#isHttpSignature}}
-
-- **Type**: HTTP signature authentication
-{{/isHttpSignature}}
+{{/isBasic}}
 {{#isOAuth}}
 
 - **Type**: OAuth
