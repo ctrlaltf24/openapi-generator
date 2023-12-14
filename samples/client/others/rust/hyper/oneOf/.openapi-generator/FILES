@@ -3,6 +3,8 @@
 Cargo.toml
 README.md
 docs/Addressable.md
+docs/Apple.md
+docs/Banana.md
 docs/Bar.md
 docs/BarApi.md
 docs/BarCreate.md
@@ -15,6 +17,8 @@ docs/Foo.md
 docs/FooApi.md
 docs/FooRef.md
 docs/FooRefOrValue.md
+docs/Fruit.md
+docs/FruitType.md
 docs/Pasta.md
 docs/Pizza.md
 docs/PizzaSpeziale.md
@@ -27,6 +31,8 @@ src/apis/mod.rs
 src/apis/request.rs
 src/lib.rs
 src/models/addressable.rs
+src/models/apple.rs
+src/models/banana.rs
 src/models/bar.rs
 src/models/bar_create.rs
 src/models/bar_ref.rs
@@ -37,6 +43,8 @@ src/models/extensible.rs
 src/models/foo.rs
 src/models/foo_ref.rs
 src/models/foo_ref_or_value.rs
+src/models/fruit.rs
+src/models/fruit_type.rs
 src/models/mod.rs
 src/models/pasta.rs
 src/models/pizza.rs
